@@ -1,0 +1,462 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════
+   AZWAH ENTERPRISES® — DESIGN TOKENS
+   Two moods: "noir" (default, dark luxury) and "ivoire" (light editorial)
+   Channels are raw RGB triplets so Tailwind's <alpha-value> works.
+   ════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme='noir'] {
+  --c-base: 8 8 10;
+  --c-surface: 14 14 16;
+  --c-elevated: 26 26 30;
+  --c-veil: 38 38 43;
+  --c-ink: 242 239 233;
+  --c-line: 62 62 68;
+
+  --ink-2: rgba(242, 239, 233, 0.62);
+  --ink-3: rgba(242, 239, 233, 0.4);
+  --ink-4: rgba(242, 239, 233, 0.22);
+
+  --accent: #c9a227;
+  --accent-soft: #d8b860;
+  --accent-glow: rgba(201, 162, 39, 0.22);
+
+  --glass-bg: rgba(20, 20, 24, 0.58);
+  --glass-line: rgba(255, 255, 255, 0.09);
+  --grain-opacity: 0.045;
+  --scrim: rgba(8, 8, 10, 0.72);
+
+  color-scheme: dark;
+}
+
+[data-theme='ivoire'] {
+  --c-base: 244 241 236;
+  --c-surface: 251 250 247;
+  --c-elevated: 255 255 255;
+  --c-veil: 232 227 218;
+  --c-ink: 18 18 16;
+  --c-line: 208 202 190;
+
+  --ink-2: rgba(18, 18, 16, 0.64);
+  --ink-3: rgba(18, 18, 16, 0.42);
+  --ink-4: rgba(18, 18, 16, 0.2);
+
+  --accent: #96731a;
+  --accent-soft: #b4901f;
+  --accent-glow: rgba(150, 115, 26, 0.16);
+
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-line: rgba(18, 18, 16, 0.08);
+  --grain-opacity: 0.03;
+  --scrim: rgba(244, 241, 236, 0.75);
+
+  color-scheme: light;
+}
+
+/* ── Base ── */
+@layer base {
+  * {
+    border-color: rgb(var(--c-line) / 0.55);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis owns scrolling */
+  }
+
+  body {
+    background-color: rgb(var(--c-base));
+    color: rgb(var(--c-ink));
+    overflow-x: clip;
+    transition: background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), serif;
+    font-weight: 300;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background: var(--accent);
+    color: rgb(var(--c-base));
+  }
+
+  /* Native focus is replaced by an intentional, brand-consistent ring */
+  :focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 1px;
+  }
+
+  /* Slim, unobtrusive scrollbar */
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--c-base)); }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-line));
+    border-radius: 99px;
+    border: 3px solid rgb(var(--c-base));
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* Form controls inherit the house type */
+  input, textarea, select, button { font: inherit; color: inherit; }
+
+  input::placeholder, textarea::placeholder { color: var(--ink-4); }
+
+  /* Kill the ugly UA autofill wash */
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgb(var(--c-ink));
+    -webkit-box-shadow: 0 0 0 1000px rgb(var(--c-surface)) inset;
+    caret-color: rgb(var(--c-ink));
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   COMPONENT LAYER
+   ════════════════════════════════════════════════════════════ */
+@layer components {
+  /* ── Eyebrow / kicker label ── */
+  .eyebrow {
+    @apply font-mono text-[10px] uppercase leading-none;
+    letter-spacing: 0.32em;
+    color: var(--accent);
+  }
+  .eyebrow-muted {
+    @apply font-mono text-[10px] uppercase leading-none;
+    letter-spacing: 0.32em;
+    color: var(--ink-3);
+  }
+
+  /* ── Frosted panel ── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-line);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+  }
+
+  /* ── Gold foil text ── */
+  .foil {
+    background: linear-gradient(
+      100deg,
+      #8c6b2f 0%, #c9a227 22%, #e9dcb4 42%, #c9a227 62%, #8c6b2f 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* ── Hairline rules ── */
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent, rgb(var(--c-line)) 12%, rgb(var(--c-line)) 88%, transparent
+    );
+  }
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+  }
+
+  /* ── Text-mask reveal (each line clipped, then lifted) ── */
+  .mask-line { overflow: hidden; display: block; }
+
+  /* ── Link with a drawn-on underline ── */
+  .link-draw {
+    position: relative;
+    display: inline-block;
+  }
+  .link-draw::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-draw:hover::after,
+  .link-draw:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ── Primary action ── */
+  .btn-luxe {
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-mono text-[11px] uppercase;
+    letter-spacing: 0.24em;
+    padding: 1.15rem 2.5rem;
+    border: 1px solid rgb(var(--c-line));
+    color: rgb(var(--c-ink));
+    isolation: isolate;
+    transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-luxe::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-luxe:hover::before,
+  .btn-luxe:focus-visible::before { transform: scaleY(1); }
+  .btn-luxe:hover,
+  .btn-luxe:focus-visible {
+    color: #08080a;
+    border-color: var(--accent);
+  }
+  .btn-luxe:disabled { opacity: 0.32; pointer-events: none; }
+
+  /* ── Filled action ── */
+  .btn-solid {
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-mono text-[11px] uppercase;
+    letter-spacing: 0.24em;
+    padding: 1.15rem 2.5rem;
+    background: rgb(var(--c-ink));
+    color: rgb(var(--c-base));
+    isolation: isolate;
+    transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-solid::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-solid:hover::before,
+  .btn-solid:focus-visible::before { transform: scaleY(1); }
+  .btn-solid:hover, .btn-solid:focus-visible { color: #08080a; }
+  .btn-solid:disabled { opacity: 0.32; pointer-events: none; }
+
+  /* ── Editorial field ── */
+  .field-luxe {
+    @apply w-full bg-transparent pb-3 pt-6 outline-none;
+    border: 0;
+    border-bottom: 1px solid rgb(var(--c-line));
+    transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .field-luxe:focus { border-bottom-color: var(--accent); outline: none; }
+
+  /* ── Section rhythm ── */
+  .shell { @apply mx-auto w-full max-w-editorial px-6 md:px-10; }
+  .shell-wide { @apply mx-auto w-full max-w-[100rem] px-6 md:px-10; }
+  .section { @apply py-24 md:py-40; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════════════════ */
+@layer utilities {
+  .text-ink-2 { color: var(--ink-2); }
+  .text-ink-3 { color: var(--ink-3); }
+  .text-ink-4 { color: var(--ink-4); }
+  .text-accent { color: var(--accent); }
+  .border-accent { border-color: var(--accent); }
+  .bg-accent { background-color: var(--accent); }
+
+  .grain-layer {
+    /* Self-contained SVG fractal noise — no network request, no image asset */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  .perspective-far { perspective: 1600px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+
+  /* Fades content out toward an edge */
+  .fade-edge-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+  .fade-edge-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN SCOPE
+   The panel is a tool, not a storefront: always dark, tighter
+   type, denser spacing, and no dependence on the visitor's theme.
+   ════════════════════════════════════════════════════════════ */
+.admin-root {
+  --c-base: 9 9 11;
+  --c-surface: 15 15 18;
+  --c-elevated: 22 22 26;
+  --c-veil: 32 32 37;
+  --c-ink: 237 237 240;
+  --c-line: 48 48 55;
+
+  --ink-2: rgba(237, 237, 240, 0.66);
+  --ink-3: rgba(237, 237, 240, 0.44);
+  --ink-4: rgba(237, 237, 240, 0.26);
+
+  --accent: #c9a227;
+  --accent-soft: #e0c260;
+  --accent-glow: rgba(201, 162, 39, 0.2);
+
+  --glass-bg: rgba(18, 18, 22, 0.72);
+  --glass-line: rgba(255, 255, 255, 0.07);
+
+  color-scheme: dark;
+  background-color: rgb(var(--c-base));
+  color: rgb(var(--c-ink));
+  font-family: var(--font-body), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.admin-root h1,
+.admin-root h2,
+.admin-root h3 {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+@layer components {
+  .admin-card {
+    @apply border bg-surface;
+    border-color: rgb(var(--c-line) / 0.7);
+    border-radius: 10px;
+  }
+
+  .admin-input {
+    @apply w-full bg-elevated px-3.5 py-2.5 text-sm outline-none;
+    border: 1px solid rgb(var(--c-line) / 0.8);
+    border-radius: 8px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .admin-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    outline: none;
+  }
+
+  .admin-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 text-[13px] font-medium;
+    border-radius: 8px;
+    border: 1px solid rgb(var(--c-line) / 0.8);
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+  }
+  .admin-btn:hover:not(:disabled) {
+    background-color: rgb(var(--c-elevated));
+    border-color: rgb(var(--c-line));
+  }
+  .admin-btn:disabled { opacity: 0.45; pointer-events: none; }
+
+  .admin-btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #09090b;
+  }
+  .admin-btn-primary:hover:not(:disabled) {
+    background-color: var(--accent-soft);
+    border-color: var(--accent-soft);
+  }
+
+  .admin-btn-danger:hover:not(:disabled) {
+    background-color: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #f87171;
+  }
+
+  .admin-label {
+    @apply mb-2 block text-[11px] font-medium uppercase tracking-[0.08em];
+    color: var(--ink-3);
+  }
+
+  /* Dense data table */
+  .admin-table { @apply w-full border-collapse text-[13px]; }
+  .admin-table thead th {
+    @apply px-4 py-3 text-left text-[11px] font-medium uppercase tracking-[0.08em];
+    color: var(--ink-3);
+    border-bottom: 1px solid rgb(var(--c-line) / 0.7);
+    white-space: nowrap;
+  }
+  .admin-table tbody td {
+    @apply px-4 py-3.5 align-middle;
+    border-bottom: 1px solid rgb(var(--c-line) / 0.45);
+  }
+  .admin-table tbody tr { transition: background-color 0.14s ease; }
+  .admin-table tbody tr:hover { background-color: rgb(var(--c-elevated) / 0.7); }
+}
+
+/* ── Lenis ── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ── Custom cursor: only suppress the native one on true pointer devices ── */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * { cursor: none !important; }
+}
+
+/* ── Skip link ── */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 200;
+  translate: -50% -140%;
+  padding: 0.85rem 1.75rem;
+  background: rgb(var(--c-ink));
+  color: rgb(var(--c-base));
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transition: translate 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skip-link:focus { translate: -50% 0; }
+
+/* ════════════════════════════════════════════════════════════
+   REDUCED MOTION — honour the OS setting completely.
+   Animations collapse; nothing is left hidden or mid-transform.
+   ════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .foil { animation: none; background-position: 50% 0; }
+  html.has-custom-cursor,
+  html.has-custom-cursor * { cursor: auto !important; }
+}
