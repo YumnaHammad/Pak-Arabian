@@ -49,19 +49,25 @@ export default function Navbar() {
   const setSearchOpen = useUI((s) => s.setSearchOpen);
   const introComplete = useUI((s) => s.introComplete);
 
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mega, setMega] = useState(false);
   const megaTimer = useRef(null);
 
   const { scrollY } = useScroll();
 
-  /* Hide on the way down, reveal on the way up — never hide near the top. */
+  /*
+   * The header used to hide on scroll-down and reappear on scroll-up. It looked
+   * elegant on a plain article page and was actively broken on the collection
+   * page: the filter bar is pinned directly beneath the header, so every time
+   * the header slid away it left a transparent band the product images then
+   * scrolled through — which read as a rendering fault.
+   *
+   * A shop header also carries the bag and search, and those should not
+   * disappear the moment someone scrolls toward the thing they want to buy.
+   * It now stays put and only gains a solid background once scrolled.
+   */
   useMotionValueEvent(scrollY, 'change', (y) => {
-    const previous = scrollY.getPrevious() ?? 0;
     setScrolled(y > 40);
-    if (menuOpen || mega) return;
-    setHidden(y > previous && y > 220);
   });
 
   /* Close everything on navigation. */
@@ -94,11 +100,16 @@ export default function Navbar() {
     <>
       <motion.header
         initial={{ y: -100 }}
-        animate={{ y: introComplete ? (hidden ? -100 : 0) : -100 }}
+        animate={{ y: introComplete ? 0 : -100 }}
         transition={{ duration: 0.7, ease: EASE.luxe }}
         className={cn(
-          'fixed inset-x-0 top-0 z-[100] transition-colors duration-700',
-          scrolled || mega ? 'glass' : 'bg-transparent'
+          'fixed inset-x-0 top-0 z-[100] transition-colors duration-500',
+          /* Solid, not frosted. Product photography scrolling underneath a
+             translucent header is the same bleed-through problem the filter
+             bar had. */
+          scrolled || mega
+            ? 'border-b border-hairline/60 bg-base'
+            : 'border-b border-transparent bg-transparent'
         )}
         onMouseLeave={closeMega}
       >
