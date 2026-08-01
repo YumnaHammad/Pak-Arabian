@@ -50,7 +50,7 @@ export default function AddressesPanel() {
   return (
     <div>
       <div className="mb-10 flex items-center justify-between gap-6">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4">
+        <p className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4">
           {addresses.length} saved
         </p>
         <MagneticButton onClick={() => setAdding((v) => !v)} cursorLabel="Add">
@@ -81,7 +81,7 @@ export default function AddressesPanel() {
               </div>
 
               {error && (
-                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-red-400">
+                <p className="mt-6 font-mono text-[13px] uppercase tracking-[0.06em] text-red-400">
                   {error}
                 </p>
               )}
@@ -116,21 +116,21 @@ export default function AddressesPanel() {
                 )}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
                     {a.label}
                   </p>
                   {a.isDefault && (
-                    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-ink-4">
+                    <span className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
                       Default
                     </span>
                   )}
                 </div>
 
-                <address className="mt-5 space-y-1 text-[15px] not-italic leading-relaxed text-ink-2">
+                <address className="mt-5 space-y-1 text-[17px] not-italic leading-relaxed text-ink-2">
                   <p>{a.name}</p>
                   <p className="text-ink-3">{a.address}</p>
                   <p className="text-ink-3">{a.city}</p>
-                  <p className="pt-2 font-mono text-[12px] text-ink-4">{a.phone}</p>
+                  <p className="pt-2 font-mono text-[14px] text-ink-4">{a.phone}</p>
                 </address>
 
                 <div className="mt-7 flex items-center gap-5 border-t border-hairline/40 pt-5">
@@ -138,7 +138,7 @@ export default function AddressesPanel() {
                     <button
                       onClick={() => call('PUT', { id: a._id })}
                       disabled={busy}
-                      className="link-draw font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4 hover:text-accent"
+                      className="link-draw font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4 hover:text-accent"
                     >
                       Make default
                     </button>
@@ -146,7 +146,7 @@ export default function AddressesPanel() {
                   <button
                     onClick={() => call('DELETE', null, `?id=${a._id}`)}
                     disabled={busy}
-                    className="link-draw ml-auto font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4 hover:text-red-400"
+                    className="link-draw ml-auto font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4 hover:text-red-400"
                   >
                     Remove
                   </button>
@@ -163,7 +163,7 @@ export default function AddressesPanel() {
 function Field({ label, value, onChange, type = 'text', required, placeholder }) {
   return (
     <div>
-      <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+      <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
         {label}
       </label>
       <input
@@ -172,7 +172,7 @@ function Field({ label, value, onChange, type = 'text', required, placeholder })
         onChange={(e) => onChange(e.target.value)}
         required={required}
         placeholder={placeholder}
-        className="field-luxe text-[15px]"
+        className="field-luxe text-[17px]"
       />
     </div>
   );

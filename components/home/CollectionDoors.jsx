@@ -33,10 +33,10 @@ export default function CollectionDoors({ covers = {} }) {
               as="h2"
               id="doors-heading"
               lines={['Four doors into', 'the same house.']}
-              className="mt-8 font-display text-display-sm font-light"
+              className="mt-8 font-display text-display-sm font-normal"
             />
           </div>
-          <p className="max-w-[32ch] text-[15px] leading-relaxed text-ink-2 md:text-right">
+          <p className="max-w-[32ch] text-[17px] leading-relaxed text-ink-2 md:text-right">
             The divisions are a convenience, not a rule. Wear whichever one
             smells like you.
           </p>
@@ -104,11 +104,11 @@ export default function CollectionDoors({ covers = {} }) {
 
                   {/* Content */}
                   <div className="relative flex h-full flex-col justify-end p-7 md:p-8">
-                    <span className="font-mono text-[10px] tracking-[0.3em] text-cream/45">
+                    <span className="font-mono text-[13px] tracking-[0.1em] text-cream/45">
                       {door.numeral}
                     </span>
 
-                    <h3 className="mt-4 font-display text-3xl font-light text-cream md:text-4xl">
+                    <h3 className="mt-4 font-display text-3xl font-normal text-cream md:text-4xl">
                       {door.label}
                     </h3>
 
@@ -119,14 +119,14 @@ export default function CollectionDoors({ covers = {} }) {
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.5, ease: EASE.luxe }}
-                          className="overflow-hidden text-[14px] leading-relaxed text-cream/70"
+                          className="overflow-hidden text-[16px] leading-relaxed text-cream/70"
                         >
                           <span className="mt-3 block">{door.line}</span>
                         </motion.p>
                       )}
                     </AnimatePresence>
 
-                    <span className="mt-6 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.24em] text-cream/60">
+                    <span className="mt-6 flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.08em] text-cream/60">
                       <span className="h-px w-8 bg-cream/40 transition-all duration-700 group-hover:w-14 group-hover:bg-[var(--accent)]" />
                       Enter
                     </span>

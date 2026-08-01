@@ -33,7 +33,7 @@ export default function NotePyramid({ notes = {}, className = '' }) {
 
   if (!hasAny) {
     return (
-      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-4">
+      <p className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4">
         Composition not yet published
       </p>
     );
@@ -50,10 +50,10 @@ export default function NotePyramid({ notes = {}, className = '' }) {
           transition={{ duration: 0.8, ease: EASE.luxe, delay: tierIndex * 0.12 }}
         >
           <div className="flex items-baseline justify-between gap-4">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.26em] text-ink">
+            <h4 className="font-mono text-[13px] uppercase tracking-[0.09em] text-ink">
               {tier.label}
             </h4>
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4">
+            <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4">
               {tier.window}
             </span>
           </div>
@@ -95,12 +95,12 @@ export default function NotePyramid({ notes = {}, className = '' }) {
                       className="h-1.5 w-1.5 rounded-full transition-transform duration-500 group-hover/note:scale-150"
                       style={{ backgroundColor: hue || 'var(--accent)' }}
                     />
-                    <span className="text-[13px] text-ink-2">{note}</span>
+                    <span className="text-[15px] text-ink-2">{note}</span>
                   </motion.li>
                 );
               })
             ) : (
-              <li className="text-[13px] italic text-ink-4">Not disclosed</li>
+              <li className="text-[15px] italic text-ink-4">Not disclosed</li>
             )}
           </ul>
         </motion.div>

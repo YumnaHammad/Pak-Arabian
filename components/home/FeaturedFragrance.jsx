@@ -139,16 +139,16 @@ export default function FeaturedFragrance({ product }) {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.6, ease: EASE.luxe }}
                 >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+                  <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-accent">
                     {current.eyebrow}
                   </p>
                   <h2
                     id="feature-heading"
-                    className="mt-5 font-display text-4xl font-light leading-[1.06] md:text-6xl"
+                    className="mt-5 font-display text-4xl font-normal leading-[1.06] md:text-6xl"
                   >
                     {current.title}
                   </h2>
-                  <p className="mt-7 max-w-prose text-[15px] leading-relaxed text-ink-2">
+                  <p className="mt-7 max-w-prose text-[17px] leading-relaxed text-ink-2">
                     {current.body}
                   </p>
 
@@ -166,10 +166,10 @@ export default function FeaturedFragrance({ product }) {
                           transition={{ duration: 0.6, ease: EASE.luxe, delay: 0.1 * i }}
                           className="flex items-baseline gap-6 border-b border-hairline/40 pb-4"
                         >
-                          <dt className="w-14 shrink-0 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+                          <dt className="w-14 shrink-0 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                             {row.label}
                           </dt>
-                          <dd className="font-display text-lg font-light text-ink-2">
+                          <dd className="font-display text-lg font-normal text-ink-2">
                             {row.items?.length ? row.items.join(' · ') : '—'}
                           </dd>
                         </motion.div>
@@ -197,10 +197,10 @@ export default function FeaturedFragrance({ product }) {
             {/* Purchase */}
             <div className="mt-12 flex flex-wrap items-center gap-8">
               <div>
-                <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+                <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                   {product.concentration} · {product.volumeMl}ml
                 </p>
-                <p className="mt-2 font-display text-3xl font-light tabular-nums">
+                <p className="mt-2 font-display text-3xl font-normal tabular-nums">
                   {formatPKR(product.price)}
                 </p>
               </div>
@@ -218,7 +218,7 @@ export default function FeaturedFragrance({ product }) {
                 <div className="relative h-20 w-16 overflow-hidden bg-elevated">
                   <Image src={product.images[0]} alt="" fill sizes="64px" className="object-cover" />
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4">
+                <span className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4">
                   View photography →
                 </span>
               </Link>
@@ -226,7 +226,7 @@ export default function FeaturedFragrance({ product }) {
             {!product.images?.[0] && (
               <div className="mt-10 hidden items-center gap-4 lg:flex">
                 <BottleGlyph className="h-14 w-auto text-ink-4" />
-                <span className="max-w-[22ch] font-mono text-[9px] uppercase leading-relaxed tracking-[0.2em] text-ink-4">
+                <span className="max-w-[22ch] font-mono text-[12px] uppercase leading-relaxed tracking-[0.07em] text-ink-4">
                   Photography in production
                 </span>
               </div>
@@ -248,10 +248,10 @@ function Callout({ top, left, label, detail }) {
           <span className="absolute inset-0 animate-pulse-ring rounded-full bg-[var(--accent)]" />
         </span>
       </span>
-      <span className="mt-2 block pl-[52px] font-mono text-[9px] uppercase tracking-[0.2em] text-cream/80">
+      <span className="mt-2 block pl-[52px] font-mono text-[12px] uppercase tracking-[0.07em] text-cream/80">
         {label}
       </span>
-      <span className="block pl-[52px] font-mono text-[8px] uppercase tracking-[0.18em] text-cream/40">
+      <span className="block pl-[52px] font-mono text-[12px] uppercase tracking-[0.06em] text-cream/40">
         {detail}
       </span>
     </div>

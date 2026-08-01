@@ -9,6 +9,7 @@ import { formatPKR, shortId } from '@/lib/utils';
 import StatCard from '@/components/admin/StatCard';
 import RevenueChart from '@/components/admin/RevenueChart';
 import StatusBadge from '@/components/admin/StatusBadge';
+import AutoRefresh from '@/components/admin/AutoRefresh';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,6 +42,7 @@ async function getDashboard() {
     openEnquiries,
     dailyAgg,
     statusAgg,
+    actionableAgg,
     recentOrders,
     lowStockItems,
     topProducts,
@@ -64,6 +66,10 @@ async function getDashboard() {
       { $sort: { _id: 1 } },
     ]),
     Order.aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }]),
+    Order.aggregate([
+      { $match: { status: { $in: ['pending', 'processing'] } } },
+      { $group: { _id: null, count: { $sum: 1 }, value: { $sum: '$total' } } },
+    ]),
     Order.find().sort({ createdAt: -1 }).limit(6).lean(),
     Product.find({ stock: { $lte: 5 }, active: true }).sort({ stock: 1 }).limit(6).lean(),
     Order.aggregate([
@@ -110,6 +116,8 @@ async function getDashboard() {
     periodRevenue,
     periodOrders,
     statuses: statusAgg.reduce((acc, r) => ({ ...acc, [r._id]: r.count }), {}),
+    newOrders: actionableAgg[0]?.count || 0,
+    newOrderValue: actionableAgg[0]?.value || 0,
     recentOrders: JSON.parse(JSON.stringify(recentOrders)),
     lowStockItems: JSON.parse(JSON.stringify(lowStockItems)),
     topProducts,
@@ -132,8 +140,13 @@ export default async function AdminDashboard() {
     );
   }
 
+  const { newOrders, newOrderValue } = data;
+  const actionable = newOrders;
+
   return (
     <div className="space-y-6">
+      <AutoRefresh seconds={45} />
+
       {/* ── Heading ── */}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -146,6 +159,35 @@ export default async function AdminDashboard() {
           Add product
         </Link>
       </div>
+
+      {/*
+        ── New orders ──
+        The loudest thing on the page when there is money waiting. A quiet chip
+        in a row of chips is not enough: an unfulfilled order is the only item
+        here that costs the business if it is missed.
+      */}
+      {newOrders > 0 && (
+        <Link
+          href="/admin/orders"
+          className="flex items-center gap-4 rounded-xl border-2 border-[var(--accent)] bg-[var(--accent)]/12 p-5 transition-colors hover:bg-[var(--accent)]/20"
+        >
+          <span className="relative flex h-3 w-3 shrink-0">
+            <span className="absolute inline-flex h-3 w-3 animate-ping rounded-full bg-[var(--accent)] opacity-70" />
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-[var(--accent)]" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[15px] font-semibold text-[var(--accent)]">
+              {newOrders} new {newOrders === 1 ? 'order needs' : 'orders need'} action
+            </p>
+            <p className="mt-1 text-[13px] text-ink-2">
+              {formatPKR(newOrderValue)} waiting to be prepared and despatched.
+            </p>
+          </div>
+          <span className="shrink-0 text-[13px] font-medium text-[var(--accent)]">
+            Open orders →
+          </span>
+        </Link>
+      )}
 
       {/* ── Attention strip ── */}
       {(data.lowStock > 0 || data.pendingReviews > 0 || data.openEnquiries > 0) && (
@@ -171,7 +213,7 @@ export default async function AdminDashboard() {
       {/* ── KPIs ── */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Revenue" value={formatPKR(data.revenue)} hint="All time, all orders" accent />
-        <StatCard label="Orders" value={data.orderCount} hint={`${data.statuses.pending || 0} awaiting action`} />
+        <StatCard label="Orders" value={data.orderCount} hint={`${actionable} awaiting action`} />
         <StatCard label="Products" value={data.productCount} hint={`${data.lowStock} low on stock`} />
         <StatCard label="Customers" value={data.customerCount} hint="Registered accounts" />
       </div>

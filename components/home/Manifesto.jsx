@@ -37,7 +37,7 @@ export default function Manifesto() {
       >
         {WORDS.map((w) => (
           <span key={w} className="flex items-center">
-            <span className="px-8 font-display text-5xl font-light text-ink-4 md:text-7xl">
+            <span className="px-8 font-display text-5xl font-normal text-ink-4 md:text-7xl">
               {w}
             </span>
             <span className="h-1 w-1 rounded-full bg-[var(--accent)]" />
@@ -58,7 +58,7 @@ export default function Manifesto() {
         </motion.p>
 
         <p
-          className="max-w-5xl font-display text-3xl font-light leading-[1.28] md:text-5xl md:leading-[1.22]"
+          className="max-w-5xl font-display text-3xl font-normal leading-[1.28] md:text-5xl md:leading-[1.22]"
           aria-label={statement}
         >
           {words.map((word, i) => (
@@ -78,7 +78,7 @@ export default function Manifesto() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 0.9, ease: EASE.luxe, delay: 0.2 }}
-          className="mt-10 font-mono text-[10px] uppercase tracking-[0.28em] text-ink-4"
+          className="mt-10 font-mono text-[13px] uppercase tracking-[0.1em] text-ink-4"
         >
           — Abdul Rafey, Founder
         </motion.p>

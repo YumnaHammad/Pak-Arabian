@@ -41,14 +41,14 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
           as="h1"
           animate="mount"
           lines={[`Thank you, ${firstName}.`]}
-          className="mt-8 font-display text-display-sm font-light"
+          className="mt-8 font-display text-display-sm font-normal"
         />
 
         <motion.p
           initial={reduced ? false : { opacity: 0, y: 14 }}
           animate={reduced ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE.luxe, delay: 0.4 }}
-          className="mt-7 max-w-prose text-[15px] leading-relaxed text-ink-2"
+          className="mt-7 max-w-prose text-[17px] leading-relaxed text-ink-2"
         >
           {cancelled
             ? 'This order has been cancelled. Nothing has been charged.'
@@ -59,7 +59,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
           initial={reduced ? false : { opacity: 0 }}
           animate={reduced ? undefined : { opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10 flex flex-wrap items-baseline gap-x-10 gap-y-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4"
+          className="mt-10 flex flex-wrap items-baseline gap-x-10 gap-y-4 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4"
         >
           <span>
             Reference <span className="ml-2 text-accent">{shortId(order._id)}</span>
@@ -124,13 +124,13 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
                       <div className={cn('pb-10', i === STAGES.length - 1 && 'pb-0')}>
                         <p
                           className={cn(
-                            'font-display text-xl font-light',
+                            'font-display text-xl font-normal',
                             current ? 'text-accent' : done ? 'text-ink' : 'text-ink-4'
                           )}
                         >
                           {stage.label}
                         </p>
-                        <p className="mt-1.5 text-[13px] leading-relaxed text-ink-4">
+                        <p className="mt-1.5 text-[15px] leading-relaxed text-ink-4">
                           {stage.note}
                         </p>
                       </div>
@@ -148,8 +148,8 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
               {order.items.map((item, i) => (
                 <li key={i} className="flex items-baseline justify-between gap-6 py-5">
                   <div>
-                    <p className="font-display text-xl font-light">{item.name}</p>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-4">
+                    <p className="font-display text-xl font-normal">{item.name}</p>
+                    <p className="mt-1 font-mono text-[13px] uppercase tracking-[0.06em] text-ink-4">
                       {formatPKR(item.price)} × {item.qty}
                     </p>
                   </div>
@@ -160,7 +160,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
               ))}
             </ul>
 
-            <dl className="mt-8 space-y-3 font-mono text-[11px] uppercase tracking-[0.16em]">
+            <dl className="mt-8 space-y-3 font-mono text-[13px] uppercase tracking-[0.06em]">
               <div className="flex justify-between">
                 <dt className="text-ink-4">Subtotal</dt>
                 <dd className="tabular-nums text-ink-2">{formatPKR(subtotal)}</dd>
@@ -175,7 +175,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
               )}
               <div className="flex items-baseline justify-between border-t border-hairline/40 pt-4">
                 <dt className="text-ink-2">Payable on delivery</dt>
-                <dd className="font-display text-2xl font-light tabular-nums tracking-normal">
+                <dd className="font-display text-2xl font-normal tabular-nums tracking-normal">
                   {formatPKR(order.total)}
                 </dd>
               </div>
@@ -188,20 +188,20 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
           <Reveal delay={0.15}>
             <div className="border border-hairline/60 bg-surface p-8">
               <h2 className="eyebrow-muted">Delivering to</h2>
-              <address className="mt-6 space-y-1 text-[15px] not-italic leading-relaxed text-ink-2">
+              <address className="mt-6 space-y-1 text-[17px] not-italic leading-relaxed text-ink-2">
                 <p>{order.customer?.name}</p>
                 {order.customer?.address && <p className="text-ink-3">{order.customer.address}</p>}
                 {order.customer?.city && <p className="text-ink-3">{order.customer.city}</p>}
                 {order.customer?.phone && (
-                  <p className="pt-2 font-mono text-[12px] text-ink-4">{order.customer.phone}</p>
+                  <p className="pt-2 font-mono text-[14px] text-ink-4">{order.customer.phone}</p>
                 )}
                 {order.customer?.email && (
-                  <p className="font-mono text-[12px] text-ink-4">{order.customer.email}</p>
+                  <p className="font-mono text-[14px] text-ink-4">{order.customer.email}</p>
                 )}
               </address>
 
               {order._masked && (
-                <p className="mt-6 border-t border-hairline/40 pt-5 text-[12px] leading-relaxed text-ink-4">
+                <p className="mt-6 border-t border-hairline/40 pt-5 text-[14px] leading-relaxed text-ink-4">
                   Details are partially hidden.{' '}
                   <Link href="/account" className="text-accent underline underline-offset-4">
                     Sign in
@@ -213,13 +213,13 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
               {order.note && (
                 <div className="mt-7 border-t border-hairline/40 pt-6">
                   <p className="eyebrow-muted">Your note</p>
-                  <p className="mt-3 text-[14px] leading-relaxed text-ink-3">“{order.note}”</p>
+                  <p className="mt-3 text-[16px] leading-relaxed text-ink-3">“{order.note}”</p>
                 </div>
               )}
 
               <div className="mt-7 border-t border-hairline/40 pt-6">
                 <p className="eyebrow-muted">Payment</p>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-3">
+                <p className="mt-3 text-[16px] leading-relaxed text-ink-3">
                   Cash on delivery. {formatPKR(order.total)} is collected when the parcel
                   reaches you.
                 </p>
@@ -229,7 +229,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
                 {assurances.map((a) => (
                   <li
                     key={a.title}
-                    className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4"
+                    className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4"
                   >
                     <span className="mr-2 text-accent">—</span>
                     {a.title}
@@ -256,7 +256,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
                 href={contact.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-ink-4 transition-colors hover:text-accent"
+                className="mt-2 text-center font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4 transition-colors hover:text-accent"
               >
                 Questions? WhatsApp {contact.phone}
               </a>

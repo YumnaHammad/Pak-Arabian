@@ -20,7 +20,7 @@ export default function FlaconPoster({ category = 'signature', className = '' })
         viewBox="0 0 260 420"
         className="h-full max-h-[68vh] w-auto"
         role="img"
-        aria-label="Azwah eau de parfum flacon"
+        aria-label="Pak Arabian eau de parfum flacon"
       >
         <defs>
           {/* Glass body: bright edges, darker centre — reads as curvature */}
@@ -106,22 +106,33 @@ export default function FlaconPoster({ category = 'signature', className = '' })
           x="96" y="222" width="68" height="80"
           fill="none" stroke="#E9DCB4" strokeOpacity="0.5" strokeWidth="0.9"
         />
+        {/* Set over two lines — the wordmark is too wide for the label at a
+            size that would still read as engraved. */}
         <text
-          x="130" y="256"
+          x="130" y="249"
           textAnchor="middle"
           fill="#F0E8D0"
           fillOpacity="0.92"
-          style={{ fontFamily: 'Georgia, serif', fontSize: 19, letterSpacing: 1.5 }}
+          style={{ fontFamily: 'Georgia, serif', fontSize: 16, letterSpacing: 1.4 }}
         >
-          AZWAH
+          PAK
         </text>
-        <line x1="112" y1="266" x2="148" y2="266" stroke="#E9DCB4" strokeOpacity="0.45" strokeWidth="0.8" />
         <text
-          x="130" y="282"
+          x="130" y="267"
+          textAnchor="middle"
+          fill="#F0E8D0"
+          fillOpacity="0.92"
+          style={{ fontFamily: 'Georgia, serif', fontSize: 13, letterSpacing: 1.1 }}
+        >
+          ARABIAN
+        </text>
+        <line x1="112" y1="278" x2="148" y2="278" stroke="#E9DCB4" strokeOpacity="0.45" strokeWidth="0.8" />
+        <text
+          x="130" y="291"
           textAnchor="middle"
           fill="#E9DCB4"
           fillOpacity="0.7"
-          style={{ fontFamily: 'Georgia, serif', fontSize: 7, letterSpacing: 2.4 }}
+          style={{ fontFamily: 'Georgia, serif', fontSize: 6.5, letterSpacing: 2 }}
         >
           EAU DE PARFUM
         </text>

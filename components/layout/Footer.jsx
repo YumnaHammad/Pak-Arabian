@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="shell-wide grid grid-cols-2 gap-x-8 gap-y-14 py-20 md:grid-cols-12 md:py-24">
         {/* ── Brand block ── */}
         <div className="col-span-2 md:col-span-4">
-          <p className="font-display text-3xl font-light">
+          <p className="font-display text-3xl font-normal">
             {BRAND.name}
             <span className="text-accent align-super text-sm">{BRAND.mark}</span>
           </p>
@@ -66,7 +66,7 @@ export default function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex h-10 items-center border border-hairline px-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3 transition-colors hover:border-accent hover:text-accent"
+                    className="group inline-flex h-10 items-center border border-hairline px-4 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:border-accent hover:text-accent"
                   >
                     {s.label}
                     <span className="ml-2 opacity-0 transition-opacity group-hover:opacity-100">↗</span>
@@ -112,7 +112,7 @@ export default function Footer() {
               </p>
             </div>
             <div>
-              <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+              <p className="mb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                 Telephone
               </p>
               <a href={CONTACT.phoneHref} className="link-draw hover:text-accent">
@@ -120,7 +120,7 @@ export default function Footer() {
               </a>
             </div>
             <div>
-              <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+              <p className="mb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                 Email
               </p>
               <a href={`mailto:${CONTACT.email}`} className="link-draw break-all hover:text-accent">
@@ -139,15 +139,20 @@ export default function Footer() {
           viewport={VIEWPORT}
           transition={{ duration: 1.4, ease: EASE.luxe }}
           aria-hidden
-          className="select-none whitespace-nowrap text-center font-display text-[19vw] font-light leading-[0.78] tracking-tighter text-ink opacity-[0.055]"
+          /* Sized off the wordmark's length rather than a fixed vw, so a
+             two-word house name fills the measure instead of overflowing it. */
+          className="select-none whitespace-nowrap text-center font-display font-normal leading-[0.78] tracking-tighter text-ink opacity-[0.055]"
+          style={{ fontSize: `min(19vw, ${Math.floor(170 / Math.max(BRAND.name.length, 4))}vw)` }}
         >
-          {BRAND.name.toUpperCase()}
+          {/* Hyphenated here only — as one locked-up mark it holds together
+              better at this size than two words separated by a wide gap. */}
+          {BRAND.name.toUpperCase().replace(/\s+/g, '-')}
         </motion.p>
       </div>
 
       {/* ── Legal bar ── */}
       <div className="border-t border-hairline/50">
-        <div className="shell-wide flex flex-col gap-4 py-7 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4 md:flex-row md:items-center md:justify-between">
+        <div className="shell-wide flex flex-col gap-4 py-7 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 md:flex-row md:items-center md:justify-between">
           <p>
             © {new Date().getFullYear()} {BRAND.legal}
           </p>

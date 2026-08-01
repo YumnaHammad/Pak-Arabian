@@ -22,10 +22,10 @@ export default function LegalPage({ title, updated, intro, sections }) {
             as="h1"
             animate="mount"
             lines={[title]}
-            className="font-display text-display-sm font-light"
+            className="font-display text-display-sm font-normal"
           />
-          <p className="mt-8 max-w-prose text-[15px] leading-relaxed text-ink-2">{intro}</p>
-          <p className="mt-8 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+          <p className="mt-8 max-w-prose text-[17px] leading-relaxed text-ink-2">{intro}</p>
+          <p className="mt-8 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
             Last updated: {updated} · {BRAND.legal}
           </p>
         </div>
@@ -40,9 +40,9 @@ export default function LegalPage({ title, updated, intro, sections }) {
               <li key={s.title}>
                 <a
                   href={`#s-${i + 1}`}
-                  className="link-draw flex gap-3 text-[13px] text-ink-3 transition-colors hover:text-accent"
+                  className="link-draw flex gap-3 text-[15px] text-ink-3 transition-colors hover:text-accent"
                 >
-                  <span className="font-mono text-[10px] tabular-nums text-ink-4">
+                  <span className="font-mono text-[13px] tabular-nums text-ink-4">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   {s.title}
@@ -58,12 +58,12 @@ export default function LegalPage({ title, updated, intro, sections }) {
             <Reveal key={section.title} as="section" delay={Math.min(i, 5) * 0.04}>
               <div id={`s-${i + 1}`} className="scroll-mt-32 border-b border-hairline/40 py-10 first:pt-0">
                 <div className="flex items-baseline gap-5">
-                  <span className="font-mono text-[10px] tabular-nums text-accent">
+                  <span className="font-mono text-[13px] tabular-nums text-accent">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h2 className="font-display text-2xl font-light md:text-3xl">{section.title}</h2>
+                  <h2 className="font-display text-2xl font-normal md:text-3xl">{section.title}</h2>
                 </div>
-                <p className="mt-5 max-w-prose pl-10 text-[15px] leading-[1.85] text-ink-2">
+                <p className="mt-5 max-w-prose pl-10 text-[17px] leading-[1.85] text-ink-2">
                   {section.content}
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function LegalPage({ title, updated, intro, sections }) {
           {/* Contact */}
           <div className="mt-14 border border-hairline/60 bg-surface p-8">
             <p className="eyebrow-muted">Questions about this document</p>
-            <p className="mt-5 text-[15px] leading-relaxed text-ink-2">
+            <p className="mt-5 text-[17px] leading-relaxed text-ink-2">
               Write to{' '}
               <a
                 href={`mailto:${CONTACT.email}`}
@@ -87,12 +87,12 @@ export default function LegalPage({ title, updated, intro, sections }) {
               </a>
               .
             </p>
-            <p className="mt-5 text-[13px] leading-relaxed text-ink-4">
+            <p className="mt-5 text-[15px] leading-relaxed text-ink-4">
               {CONTACT.address.line1}, {CONTACT.address.line2}, {CONTACT.address.country}.
             </p>
             <Link
               href="/contact"
-              className="link-draw mt-7 inline-block font-mono text-[10px] uppercase tracking-[0.22em] text-accent"
+              className="link-draw mt-7 inline-block font-mono text-[13px] uppercase tracking-[0.08em] text-accent"
             >
               Contact the house →
             </Link>

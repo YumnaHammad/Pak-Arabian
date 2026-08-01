@@ -80,7 +80,7 @@ export default function OrdersTable({ orders = [] }) {
       { key: 'status', label: 'Status' },
     ]);
 
-    downloadCSV(csv, `azwah-orders-${new Date().toISOString().slice(0, 10)}.csv`);
+    downloadCSV(csv, `pakarabian-orders-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   return (

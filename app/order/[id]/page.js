@@ -76,8 +76,8 @@ function NotFound() {
   return (
     <div className="shell flex min-h-[70vh] flex-col items-center justify-center pt-32 text-center">
       <p className="eyebrow">Not found</p>
-      <h1 className="mt-8 font-display text-4xl font-light">We cannot find that order.</h1>
-      <p className="mt-4 max-w-[40ch] text-[15px] leading-relaxed text-ink-3">
+      <h1 className="mt-8 font-display text-4xl font-normal">We cannot find that order.</h1>
+      <p className="mt-4 max-w-[40ch] text-[17px] leading-relaxed text-ink-3">
         The reference may be mistyped. If you have just ordered and cannot see it,
         message the house on {CONTACT.phone} and we will locate it.
       </p>

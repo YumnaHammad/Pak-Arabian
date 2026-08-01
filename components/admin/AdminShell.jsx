@@ -81,8 +81,8 @@ export default function AdminShell({ children }) {
       >
         {/* Brand */}
         <div className="flex h-14 shrink-0 items-center gap-2.5 border-b px-5" style={{ borderColor: 'rgb(var(--c-line) / 0.7)' }}>
-          <span className="flex h-6 w-6 items-center justify-center rounded bg-[var(--accent)] text-[11px] font-bold text-obsidian">
-            A
+          <span className="flex h-6 items-center justify-center rounded bg-[var(--accent)] px-1.5 text-[11px] font-bold tracking-tight text-obsidian">
+            PA
           </span>
           <span className="text-[13px] font-medium">{BRAND.name} Admin</span>
         </div>

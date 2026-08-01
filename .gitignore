@@ -1,4 +1,11 @@
 node_modules
 .next
+
+# Secrets — never commit these
 .env
 .env.local
+.env.*.local
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

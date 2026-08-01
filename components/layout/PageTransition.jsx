@@ -38,7 +38,7 @@ export default function PageTransition({ children }) {
         {sweeping && (
           <motion.div
             key={`veil-${pathname}`}
-            className="pointer-events-none fixed inset-0 z-[130] origin-bottom bg-obsidian"
+            className="pointer-events-none fixed inset-0 z-[130] origin-bottom bg-brand"
             initial={{ scaleY: 0, originY: 1 }}
             animate={{ scaleY: 1, originY: 1 }}
             exit={{ scaleY: 0, originY: 0 }}

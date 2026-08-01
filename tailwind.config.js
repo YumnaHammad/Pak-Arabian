@@ -13,23 +13,32 @@ module.exports = {
         ink: 'rgb(var(--c-ink) / <alpha-value>)',
         hairline: 'rgb(var(--c-line) / <alpha-value>)',
 
-        /* ── Fixed brand pigments ── */
-        obsidian: '#08080A',
+        /* ── Fixed brand pigments ──
+           Straight off the wordmark. `brand` is the ground the logo sits on and
+           stays constant in both moods — it is the identity, not the theme. */
+        brand: {
+          DEFAULT: '#1D4A45',
+          deep: '#143331',
+          light: '#245751',
+        },
+        obsidian: '#0E2321',
         char: '#0E0E10',
         graphite: '#1A1A1E',
         smoke: '#26262B',
-        cream: '#F2EFE9',
+        cream: '#F5F1E3',
         bone: '#E7E2D8',
         gold: {
-          DEFAULT: '#C9A227',
+          DEFAULT: '#D4AF37',
           soft: '#D8B860',
-          champagne: '#E9DCB4',
+          champagne: '#F0E3B6',
           deep: '#8C6B2F',
         },
         bronze: '#8C6B3F',
         emerald: {
           DEFAULT: '#1F5F4B',
-          light: '#3E8F72',
+          /* Brightened so the in-stock dot still separates from the teal
+             ground — the old #3E8F72 sat too close to it to register. */
+          light: '#5FD1A4',
         },
         olive: '#3B402C',
       },
@@ -92,13 +101,13 @@ module.exports = {
       },
       backgroundImage: {
         'gold-leaf':
-          'linear-gradient(100deg, #8C6B2F 0%, #C9A227 22%, #E9DCB4 42%, #C9A227 62%, #8C6B2F 100%)',
+          'linear-gradient(100deg, #8C6B2F 0%, #D4AF37 22%, #F0E3B6 42%, #D4AF37 62%, #8C6B2F 100%)',
         'veil-b': 'linear-gradient(to bottom, transparent, rgb(var(--c-base)))',
         'veil-t': 'linear-gradient(to top, transparent, rgb(var(--c-base)))',
       },
       boxShadow: {
         lift: '0 32px 90px -30px rgba(0,0,0,0.75)',
-        halo: '0 0 0 1px rgba(201,162,39,0.28), 0 22px 70px -24px rgba(201,162,39,0.28)',
+        halo: '0 0 0 1px rgba(212,175,55,0.28), 0 22px 70px -24px rgba(212,175,55,0.28)',
       },
     },
   },

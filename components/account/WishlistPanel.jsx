@@ -45,7 +45,7 @@ export default function WishlistPanel() {
 
   if (loading) {
     return (
-      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-4">
+      <p className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4">
         Loading wishlist…
       </p>
     );
@@ -85,10 +85,10 @@ export default function WishlistPanel() {
                 </div>
 
                 <div className="min-w-0">
-                  <p className="font-display text-2xl font-light transition-colors group-hover:text-accent">
+                  <p className="font-display text-2xl font-normal transition-colors group-hover:text-accent">
                     {p.name}
                   </p>
-                  <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4">
+                  <p className="mt-1.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4">
                     {p.concentration} · {p.volumeMl}ml
                   </p>
                   <p className="mt-3 font-mono text-sm tabular-nums text-ink-2">
@@ -102,7 +102,7 @@ export default function WishlistPanel() {
                   <button
                     onClick={() => addItem(p, 1)}
                     disabled={p.stock === 0}
-                    className="border border-hairline px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 transition-colors hover:border-accent hover:text-accent disabled:opacity-30"
+                    className="border border-hairline px-5 py-3 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-2 transition-colors hover:border-accent hover:text-accent disabled:opacity-30"
                   >
                     {p.stock === 0 ? 'Sold out' : 'Add to bag'}
                   </button>
@@ -110,7 +110,7 @@ export default function WishlistPanel() {
                 <button
                   onClick={() => onRemove(p._id)}
                   aria-label={`Remove ${p.name} from wishlist`}
-                  className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4 transition-colors hover:text-accent"
+                  className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 transition-colors hover:text-accent"
                 >
                   Remove
                 </button>

@@ -54,7 +54,7 @@ export default function ProductGallery({ product }) {
         </div>
 
         {mode === 'object' && (
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+          <p className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
             Move to rotate
           </p>
         )}
@@ -122,12 +122,12 @@ export default function ProductGallery({ product }) {
         </AnimatePresence>
 
         {/* Frame furniture */}
-        <span className="pointer-events-none absolute left-5 top-5 font-mono text-[9px] uppercase tracking-[0.22em] text-ink-4">
+        <span className="pointer-events-none absolute left-5 top-5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           {product.sku}
         </span>
 
         {mode === 'photo' && images.length > 1 && (
-          <span className="pointer-events-none absolute bottom-5 right-5 font-mono text-[9px] tabular-nums tracking-[0.2em] text-ink-4">
+          <span className="pointer-events-none absolute bottom-5 right-5 font-mono text-[12px] tabular-nums tracking-[0.07em] text-ink-4">
             {String(index + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
           </span>
         )}
@@ -177,7 +177,7 @@ function ModeTab({ children, active, onClick }) {
         aria-selected={active}
         onClick={onClick}
         className={cn(
-          'border px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.22em] transition-colors duration-500',
+          'border px-4 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors duration-500',
           active
             ? 'border-[var(--accent)] text-accent'
             : 'border-hairline/50 text-ink-4 hover:text-ink-2'

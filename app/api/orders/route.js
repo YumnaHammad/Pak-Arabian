@@ -4,6 +4,7 @@ import Order from '@/models/Order';
 import Product from '@/models/Product';
 import Coupon from '@/models/Coupon';
 import { getCustomerFromRequest } from '@/lib/auth';
+import { sendOrderNotification } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
@@ -126,6 +127,13 @@ export async function POST(req) {
       /* the order is placed; a missed counter increment must not fail it */
     });
   }
+
+  /*
+   * Notify the shop. Deliberately not awaited and it never throws — the order
+   * is already committed, and the customer must not wait on an SMTP handshake
+   * or see a failure because a mail server was slow.
+   */
+  sendOrderNotification(order).catch(() => {});
 
   return NextResponse.json(order, { status: 201 });
 }

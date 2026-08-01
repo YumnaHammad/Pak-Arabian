@@ -162,8 +162,8 @@ export default function CheckoutFlow() {
     return (
       <div className="shell flex min-h-[70vh] flex-col items-center justify-center pt-32 text-center">
         <BottleGlyph className="h-20 w-20 text-ink-4" />
-        <h1 className="mt-10 font-display text-4xl font-light">Your bag is empty.</h1>
-        <p className="mt-4 max-w-[36ch] text-[15px] leading-relaxed text-ink-3">
+        <h1 className="mt-10 font-display text-4xl font-normal">Your bag is empty.</h1>
+        <p className="mt-4 max-w-[36ch] text-[17px] leading-relaxed text-ink-3">
           Nothing to check out yet. The library is a short walk away.
         </p>
         <Link href="/collection" className="btn-luxe mt-10">
@@ -179,7 +179,7 @@ export default function CheckoutFlow() {
       <SplitText
         as="h1"
         lines={['Almost yours.']}
-        className="mt-8 font-display text-display-sm font-light"
+        className="mt-8 font-display text-display-sm font-normal"
       />
 
       <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-20">
@@ -211,7 +211,7 @@ export default function CheckoutFlow() {
                     </span>
                     <span
                       className={cn(
-                        'font-mono text-[9px] uppercase tracking-[0.2em]',
+                        'font-mono text-[12px] uppercase tracking-[0.07em]',
                         current ? 'text-accent' : done ? 'text-ink-2' : 'text-ink-4'
                       )}
                     >
@@ -229,7 +229,7 @@ export default function CheckoutFlow() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mt-10 border border-hairline/60 bg-surface px-6 py-4 text-[13px] leading-relaxed text-ink-3"
+              className="mt-10 border border-hairline/60 bg-surface px-6 py-4 text-[15px] leading-relaxed text-ink-3"
             >
               Checking out as a guest.{' '}
               <Link href="/account" className="text-accent underline underline-offset-4">
@@ -285,10 +285,10 @@ export default function CheckoutFlow() {
                                   : 'border-hairline/60 hover:border-hairline'
                               )}
                             >
-                              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent">
+                              <p className="font-mono text-[12px] uppercase tracking-[0.07em] text-accent">
                                 {a.label}
                               </p>
-                              <p className="mt-2 text-[13px] leading-relaxed text-ink-2">
+                              <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
                                 {a.address}, {a.city}
                               </p>
                             </button>
@@ -301,7 +301,7 @@ export default function CheckoutFlow() {
                     <Field label="City" value={form.city} onChange={(v) => set('city', v)} error={errors.city} autoComplete="address-level2" />
 
                     <div>
-                      <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+                      <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                         Delivery note (optional)
                       </label>
                       <textarea
@@ -309,7 +309,7 @@ export default function CheckoutFlow() {
                         value={form.note}
                         onChange={(e) => set('note', e.target.value)}
                         placeholder="Landmarks, gate codes, preferred delivery window…"
-                        className="field-luxe resize-none text-[15px]"
+                        className="field-luxe resize-none text-[17px]"
                       />
                     </div>
                   </div>
@@ -337,7 +337,7 @@ export default function CheckoutFlow() {
                     </Summary>
 
                     {failure && (
-                      <p className="border border-red-500/40 bg-red-500/5 px-5 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-red-400">
+                      <p className="border border-red-500/40 bg-red-500/5 px-5 py-4 font-mono text-[13px] uppercase tracking-[0.06em] text-red-400">
                         {failure}
                       </p>
                     )}
@@ -352,7 +352,7 @@ export default function CheckoutFlow() {
             {step > 0 && (
               <button
                 onClick={() => setStep((s) => s - 1)}
-                className="link-draw font-mono text-[10px] uppercase tracking-[0.24em] text-ink-4 hover:text-accent"
+                className="link-draw font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4 hover:text-accent"
               >
                 ← Back
               </button>
@@ -390,13 +390,13 @@ export default function CheckoutFlow() {
                     ) : (
                       <BottleGlyph className="h-full w-full p-3 text-ink-4" />
                     )}
-                    <span className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center bg-obsidian/80 px-1 font-mono text-[9px] tabular-nums text-cream">
+                    <span className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center bg-obsidian/80 px-1 font-mono text-[12px] tabular-nums text-cream">
                       {item.qty}
                     </span>
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col justify-center">
-                    <p className="truncate font-display text-lg font-light">{item.name}</p>
-                    <p className="mt-1 font-mono text-[10px] tabular-nums text-ink-4">
+                    <p className="truncate font-display text-lg font-normal">{item.name}</p>
+                    <p className="mt-1 font-mono text-[13px] tabular-nums text-ink-4">
                       {formatPKR(item.price)} each
                     </p>
                   </div>
@@ -412,16 +412,16 @@ export default function CheckoutFlow() {
               {coupon ? (
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+                    <p className="font-mono text-[13px] uppercase tracking-[0.07em] text-accent">
                       {coupon.code} applied
                     </p>
                     {coupon.description && (
-                      <p className="mt-1 text-[12px] text-ink-4">{coupon.description}</p>
+                      <p className="mt-1 text-[14px] text-ink-4">{coupon.description}</p>
                     )}
                   </div>
                   <button
                     onClick={() => setCoupon(null)}
-                    className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4 hover:text-accent"
+                    className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 hover:text-accent"
                   >
                     Remove
                   </button>
@@ -429,7 +429,7 @@ export default function CheckoutFlow() {
               ) : (
                 <form onSubmit={applyCode} className="flex items-end gap-3">
                   <div className="flex-1">
-                    <label htmlFor="coupon" className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+                    <label htmlFor="coupon" className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
                       Discount code
                     </label>
                     <input
@@ -437,27 +437,27 @@ export default function CheckoutFlow() {
                       value={codeInput}
                       onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
                       placeholder="—"
-                      className="field-luxe pt-3 font-mono text-sm uppercase tracking-[0.14em]"
+                      className="field-luxe pt-3 font-mono text-sm uppercase tracking-[0.05em]"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={checkingCode || !codeInput.trim()}
-                    className="shrink-0 border border-hairline px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 transition-colors hover:border-accent hover:text-accent disabled:opacity-30"
+                    className="shrink-0 border border-hairline px-5 py-3 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-2 transition-colors hover:border-accent hover:text-accent disabled:opacity-30"
                   >
                     {checkingCode ? '…' : 'Apply'}
                   </button>
                 </form>
               )}
               {couponError && (
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-red-400">
+                <p className="mt-3 font-mono text-[13px] uppercase tracking-[0.06em] text-red-400">
                   {couponError}
                 </p>
               )}
             </div>
 
             {/* Totals */}
-            <dl className="mt-6 space-y-3 border-t border-hairline/40 pt-6 font-mono text-[11px] uppercase tracking-[0.16em]">
+            <dl className="mt-6 space-y-3 border-t border-hairline/40 pt-6 font-mono text-[13px] uppercase tracking-[0.06em]">
               <Row label="Subtotal" value={formatPKR(total)} />
               {discount > 0 && (
                 <Row label="Discount" value={`− ${formatPKR(discount)}`} accent />
@@ -465,7 +465,7 @@ export default function CheckoutFlow() {
               <Row label="Delivery" value="Calculated on despatch" muted />
               <div className="flex items-baseline justify-between border-t border-hairline/40 pt-4">
                 <dt className="text-ink-2">Total</dt>
-                <dd className="font-display text-2xl font-light tabular-nums tracking-normal">
+                <dd className="font-display text-2xl font-normal tabular-nums tracking-normal">
                   {formatPKR(payable)}
                 </dd>
               </div>
@@ -474,14 +474,14 @@ export default function CheckoutFlow() {
             {/* Assurances */}
             <ul className="mt-8 space-y-2.5 border-t border-hairline/40 pt-6">
               {ASSURANCES.map((a) => (
-                <li key={a.title} className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4">
+                <li key={a.title} className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4">
                   <span className="mr-2 text-accent">—</span>
                   {a.title}
                 </li>
               ))}
             </ul>
 
-            <p className="mt-6 text-[12px] leading-relaxed text-ink-4">
+            <p className="mt-6 text-[14px] leading-relaxed text-ink-4">
               Questions before you order? WhatsApp the house on{' '}
               <a href={CONTACT.whatsapp} className="text-accent underline underline-offset-4">
                 {CONTACT.phone}
@@ -510,11 +510,11 @@ function Field({ label, value, onChange, error, type = 'text', autoComplete }) {
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+        <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           {label}
         </label>
         {error && (
-          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-red-400">
+          <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-red-400">
             {error}
           </span>
         )}
@@ -525,7 +525,7 @@ function Field({ label, value, onChange, error, type = 'text', autoComplete }) {
         onChange={(e) => onChange(e.target.value)}
         autoComplete={autoComplete}
         aria-invalid={!!error}
-        className={cn('field-luxe text-[16px]', error && 'border-b-red-400/60')}
+        className={cn('field-luxe text-[17px]', error && 'border-b-red-400/60')}
       />
     </div>
   );
@@ -535,17 +535,17 @@ function Summary({ title, children, onEdit }) {
   return (
     <div className="border-b border-hairline/40 pb-8">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">{title}</h2>
+        <h2 className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">{title}</h2>
         {onEdit && (
           <button
             onClick={onEdit}
-            className="link-draw font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4 hover:text-accent"
+            className="link-draw font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4 hover:text-accent"
           >
             Edit
           </button>
         )}
       </div>
-      <div className="mt-4 space-y-1 text-[15px] leading-relaxed text-ink-2">{children}</div>
+      <div className="mt-4 space-y-1 text-[17px] leading-relaxed text-ink-2">{children}</div>
     </div>
   );
 }

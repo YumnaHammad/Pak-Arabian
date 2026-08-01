@@ -1,12 +1,21 @@
-import { Cormorant_Garamond, Inter, JetBrains_Mono } from 'next/font/google';
+import { Lora, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { BRAND, CONTACT } from '@/lib/content/site';
 import Providers from '@/components/layout/Providers';
 
-const display = Cormorant_Garamond({
+/**
+ * Lora for headings, Inter for everything else.
+ *
+ * Lora is a text serif, not a display face — it keeps its stroke weight at
+ * small sizes and on dark grounds, so headings read as sentences a customer can
+ * scan rather than as decoration. Cormorant at weight 300 looked elegant in a
+ * mockup and disappeared on a real screen.
+ */
+const display = Lora({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   display: 'swap',
 });
 
@@ -23,7 +32,7 @@ const mono = JetBrains_Mono({
   display: 'swap',
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://azwah.example.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://pakarabian.example.com';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,7 +43,7 @@ export const metadata = {
   description: BRAND.description,
   keywords: [
     'perfume', 'fragrance', 'eau de parfum', 'oud', 'attar',
-    'luxury fragrance Pakistan', 'Azwah', 'Sadiqabad perfume',
+    'luxury fragrance Pakistan', 'Pak Arabian', 'Sadiqabad perfume',
   ],
   authors: [{ name: BRAND.owner }],
   creator: BRAND.legal,
@@ -61,8 +70,8 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#08080A' },
-    { media: '(prefers-color-scheme: light)', color: '#F4F1EC' },
+    { media: '(prefers-color-scheme: dark)', color: '#1D4A45' },
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
   ],
   colorScheme: 'dark light',
 };
@@ -71,7 +80,7 @@ export const viewport = {
  * Replays the stored theme before first paint. Without this the page renders
  * in Noir for a frame before switching to Ivoire, which reads as a flash.
  */
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('azwah_theme');document.documentElement.setAttribute('data-theme',t==='ivoire'?'ivoire':'noir');}catch(e){document.documentElement.setAttribute('data-theme','noir');}})();`;
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('pakarabian_theme');document.documentElement.setAttribute('data-theme',t==='ivoire'?'ivoire':'noir');}catch(e){document.documentElement.setAttribute('data-theme','noir');}})();`;
 
 /* Organisation + storefront structured data */
 const ORG_SCHEMA = {

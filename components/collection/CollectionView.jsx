@@ -7,8 +7,6 @@ import { EASE } from '@/lib/motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { cn, formatPKR } from '@/lib/utils';
 import ProductCard from '@/components/product/ProductCard';
-import SplitText from '@/components/ui/SplitText';
-import { Eyebrow } from '@/components/ui/Primitives';
 import Cursorable from '@/components/ui/Cursorable';
 
 const SORTS = [
@@ -97,24 +95,32 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
   return (
     <>
       {/* ── Masthead ── */}
-      <header className="shell-wide pt-32 md:pt-44">
-        <Eyebrow>The Library</Eyebrow>
+      <header className="shell-wide pt-28 md:pt-36">
+        <p className="eyebrow">Shop</p>
 
-        <div className="mt-8 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SplitText
-            key={activeCategory}
-            as="h1"
-            lines={activeCategory ? [activeMeta.label] : ['Every composition', 'in the house.']}
-            className="font-display text-display-md font-light"
-          />
-          <p className="max-w-[30ch] text-[15px] leading-relaxed text-ink-2 md:text-right">
-            {activeMeta.blurb}
+        <div className="mt-4 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <h1 className="font-display text-[clamp(2.2rem,5vw,3.4rem)] font-semibold leading-tight">
+              {activeCategory ? activeMeta.label : 'All fragrances'}
+            </h1>
+            <p className="mt-3 max-w-[52ch] text-[17px] leading-relaxed text-ink-2">
+              {activeMeta.blurb} Cash on delivery, anywhere in Pakistan in 2–4 days.
+            </p>
+          </div>
+
+          <p className="shrink-0 text-[16px] font-semibold text-ink-2 md:text-right">
+            {products.length} {products.length === 1 ? 'fragrance' : 'fragrances'}
           </p>
         </div>
       </header>
 
       {/* ── Filter bar ── */}
-      <div className="sticky top-[72px] z-[60] mt-14 border-y border-hairline/50 bg-base/85 backdrop-blur-xl md:top-[86px]">
+      {/*
+        Solid, not translucent. At bg-base/85 the product photography scrolling
+        underneath showed straight through the bar — the filters became
+        unreadable and the whole strip looked like a rendering fault.
+      */}
+      <div className="sticky top-[72px] z-[60] mt-14 border-y border-hairline/60 bg-base shadow-[0_10px_24px_-18px_rgba(0,0,0,0.9)] md:top-[86px]">
         <div className="shell-wide flex items-center justify-between gap-6 py-4">
           {/* Categories */}
           <LayoutGroup id="cat">
@@ -129,7 +135,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                         onClick={() => setParam('category', cat.value)}
                         aria-current={isActive ? 'page' : undefined}
                         className={cn(
-                          'relative whitespace-nowrap px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-500',
+                          'relative min-h-[2.75rem] whitespace-nowrap px-5 text-[15px] font-semibold transition-colors duration-300',
                           isActive ? 'text-obsidian' : 'text-ink-3 hover:text-ink'
                         )}
                       >
@@ -163,7 +169,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                 onClick={() => setFiltersOpen((v) => !v)}
                 aria-expanded={filtersOpen}
                 className={cn(
-                  'flex items-center gap-2 border px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-500',
+                  'flex min-h-[2.75rem] items-center gap-2 border px-5 text-[15px] font-semibold transition-colors duration-300',
                   refined || filtersOpen
                     ? 'border-[var(--accent)] text-accent'
                     : 'border-hairline text-ink-3 hover:text-ink'
@@ -182,7 +188,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                 id="sort"
                 value={activeSort}
                 onChange={(e) => setParam('sort', e.target.value)}
-                className="cursor-pointer appearance-none border border-hairline bg-transparent py-2.5 pl-4 pr-9 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3 outline-none transition-colors hover:text-ink"
+                className="min-h-[2.75rem] cursor-pointer appearance-none border border-hairline bg-transparent pl-4 pr-9 text-[15px] font-semibold text-ink-2 outline-none transition-colors hover:text-ink"
               >
                 {SORTS.map((s) => (
                   <option key={s.value} value={s.value} className="bg-base text-ink">
@@ -190,7 +196,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                   </option>
                 ))}
               </select>
-              <span aria-hidden className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[9px] text-ink-4">
+              <span aria-hidden className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[12px] text-ink-4">
                 ▾
               </span>
             </div>
@@ -232,7 +238,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                         transition={{ duration: 0.4, ease: EASE.luxe }}
                       />
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2">
+                    <span className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-2">
                       In stock only
                     </span>
                   </button>
@@ -243,7 +249,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                   <div className="flex-1">
                     <div className="flex items-baseline justify-between">
                       <p className="eyebrow-muted">Up to</p>
-                      <p className="font-mono text-[10px] tabular-nums text-accent">
+                      <p className="font-mono text-[13px] tabular-nums text-accent">
                         {formatPKR(maxPrice ?? priceCeiling)}
                       </p>
                     </div>
@@ -266,7 +272,7 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
                       setInStockOnly(false);
                       setMaxPrice(null);
                     }}
-                    className="link-draw shrink-0 self-start font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4 hover:text-accent sm:self-end"
+                    className="link-draw shrink-0 self-start font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 hover:text-accent sm:self-end"
                   >
                     Clear refinements
                   </button>
@@ -279,15 +285,16 @@ export default function CollectionView({ products = [], counts = {}, activeCateg
 
       {/* ── Grid ── */}
       <section className="shell-wide py-16 md:py-24" aria-label="Fragrances">
-        <p className="mb-12 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-4">
-          {filtered.length} {filtered.length === 1 ? 'composition' : 'compositions'}
-          {refined && ' after refinement'}
+        <p className="mb-10 text-[16px] text-ink-2">
+          Showing <strong className="text-ink">{filtered.length}</strong>{' '}
+          {filtered.length === 1 ? 'fragrance' : 'fragrances'}
+          {refined && ' matching your filters'}
         </p>
 
         {filtered.length === 0 ? (
           <div className="border-y border-hairline/50 py-28 text-center">
-            <p className="font-display text-3xl font-light">Nothing here yet.</p>
-            <p className="mx-auto mt-4 max-w-[38ch] text-[15px] leading-relaxed text-ink-3">
+            <p className="font-display text-3xl font-normal">Nothing here yet.</p>
+            <p className="mx-auto mt-4 max-w-[38ch] text-[17px] leading-relaxed text-ink-3">
               {refined
                 ? 'No composition matches these refinements. Try widening the price band.'
                 : 'This shelf is between batches. The next maceration completes in a few weeks.'}

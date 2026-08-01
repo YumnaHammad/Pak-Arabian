@@ -96,7 +96,7 @@ export function buildStopperGeometry(segments = 64) {
  * be re-rendered per product name. Transparent ground; the texture is applied to
  * a curved cylinder segment that hugs the glass.
  */
-export function buildLabelTexture(title = 'AZWAH', subtitle = 'EAU DE PARFUM') {
+export function buildLabelTexture(title = 'PAK ARABIAN', subtitle = 'EAU DE PARFUM') {
   if (typeof document === 'undefined') return null;
 
   const W = 1024;
@@ -125,7 +125,7 @@ export function buildLabelTexture(title = 'AZWAH', subtitle = 'EAU DE PARFUM') {
   ctx.stroke();
 
   // Wordmark
-  const name = String(title || 'AZWAH').toUpperCase().slice(0, 16);
+  const name = String(title || 'PAK ARABIAN').toUpperCase().slice(0, 16);
   const size = name.length > 10 ? 92 : name.length > 7 ? 116 : 140;
   ctx.fillStyle = 'rgba(240, 232, 208, 0.95)';
   ctx.font = `300 ${size}px Georgia, "Times New Roman", serif`;

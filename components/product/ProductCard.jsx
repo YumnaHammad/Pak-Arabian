@@ -1,90 +1,51 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useCart } from '@/lib/cart-context';
 import { usePrefersReducedMotion } from '@/lib/hooks';
-import { EASE, SPRING } from '@/lib/motion';
+import { EASE } from '@/lib/motion';
 import { formatPKR, cn } from '@/lib/utils';
-import Cursorable from '@/components/ui/Cursorable';
 import BottleGlyph from '@/components/ui/BottleGlyph';
 import WishlistButton from '@/components/product/WishlistButton';
 
 /**
- * The library card.
+ * The product card.
  *
- * Hover does four things from one pointer position: the frame tilts in 3D, a
- * specular sheet sweeps the glass, the image drifts counter to the tilt, and
- * the quick-add rises. Under reduced-motion none of it runs.
- *
- * Structure note: the product link is a *stretched* link — an anchor on the
- * title whose ::after covers the whole card. Wrapping the card in an anchor
- * would nest the wishlist and quick-add buttons inside it, which is invalid
- * HTML and makes the card unusable with a keyboard or screen reader. This way
- * there is exactly one link and two real buttons, each independently focusable.
+ * Rewritten for clarity over theatre. Previously the price sat in small mono
+ * type and "Quick add" only appeared on hover — which meant a touch device
+ * never saw it at all, and a first-time visitor had no idea the grid was
+ * shoppable. Now the three things a shopper needs are always on screen:
+ * what it costs, whether it is in stock, and a button that buys it.
  */
 export default function ProductCard({ product, index = 0, priority = false, compact = false }) {
   const reduced = usePrefersReducedMotion();
   const { addItem } = useCart();
-  const frame = useRef(null);
   const [added, setAdded] = useState(false);
-
-  const mx = useMotionValue(0.5);
-  const my = useMotionValue(0.5);
-
-  const rotateX = useSpring(useTransform(my, [0, 1], [7, -7]), SPRING.soft);
-  const rotateY = useSpring(useTransform(mx, [0, 1], [-8, 8]), SPRING.soft);
-  const imageX = useSpring(useTransform(mx, [0, 1], ['3%', '-3%']), SPRING.soft);
-  const imageY = useSpring(useTransform(my, [0, 1], ['3%', '-3%']), SPRING.soft);
-  const sheenX = useTransform(mx, [0, 1], ['-30%', '130%']);
 
   const soldOut = product.stock === 0;
   const lowStock = product.stock > 0 && product.stock <= 5;
 
-  function onPointerMove(e) {
-    if (reduced) return;
-    const rect = frame.current?.getBoundingClientRect();
-    if (!rect) return;
-    mx.set((e.clientX - rect.left) / rect.width);
-    my.set((e.clientY - rect.top) / rect.height);
-  }
-
-  function onPointerLeave() {
-    mx.set(0.5);
-    my.set(0.5);
-  }
-
-  function quickAdd() {
+  function addToBag() {
     if (soldOut) return;
     addItem(product, 1);
     setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
+    setTimeout(() => setAdded(false), 1800);
   }
 
   return (
     <motion.article
-      initial={reduced ? false : { opacity: 0, y: 40 }}
+      initial={reduced ? false : { opacity: 0, y: 24 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-8%' }}
-      transition={{ duration: 0.95, ease: EASE.luxe, delay: (index % 4) * 0.09 }}
-      className="group/card relative"
-      onPointerMove={onPointerMove}
-      onPointerLeave={onPointerLeave}
+      transition={{ duration: 0.7, ease: EASE.luxe, delay: (index % 4) * 0.06 }}
+      /* `relative` anchors the stretched link below. */
+      className="group/card relative flex flex-col"
     >
-      {/* ── Frame ── */}
-      <motion.div
-        ref={frame}
-        style={reduced ? undefined : { rotateX, rotateY, transformPerspective: 1200 }}
-        className={cn(
-          'relative overflow-hidden bg-elevated',
-          compact ? 'aspect-[4/5]' : 'aspect-[3/4]'
-        )}
-      >
-        <motion.div
-          className="absolute -inset-[4%]"
-          style={reduced ? undefined : { x: imageX, y: imageY }}
-        >
+      {/* ── Image ── */}
+      <div className="relative overflow-hidden bg-elevated">
+        <div className={cn('block', compact ? 'aspect-[4/5]' : 'aspect-[3/4]')}>
           {product.images?.[0] ? (
             <Image
               src={product.images[0]}
@@ -92,104 +53,95 @@ export default function ProductCard({ product, index = 0, priority = false, comp
               fill
               priority={priority}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-cover transition-transform duration-[1.4s] ease-luxe group-hover/card:scale-[1.06]"
+              className="object-cover transition-transform duration-700 ease-luxe group-hover/card:scale-[1.04]"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-b from-elevated to-veil">
-              <BottleGlyph className="h-[52%] w-auto text-ink-4" />
+              <BottleGlyph className="h-[50%] w-auto text-ink-4" />
             </div>
           )}
-        </motion.div>
-
-        {/* Specular sweep */}
-        {!reduced && (
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 w-1/3 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
-            style={{
-              left: sheenX,
-              background:
-                'linear-gradient(100deg, transparent, rgba(255,255,255,0.14), transparent)',
-            }}
-          />
-        )}
-
-        {/* Scrim + hairline */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-obsidian/75 to-transparent opacity-0 transition-opacity duration-700 group-hover/card:opacity-100" />
-        <span className="pointer-events-none absolute inset-0 border border-[var(--accent)] opacity-0 transition-opacity duration-700 group-hover/card:opacity-40" />
-
-        {/* Status */}
-        <div className="pointer-events-none absolute left-4 top-4 flex flex-col gap-2">
-          {soldOut && <Chip tone="solid">Sold out</Chip>}
-          {lowStock && <Chip tone="gold">Only {product.stock} left</Chip>}
-          {product.featured && !soldOut && !lowStock && <Chip tone="outline">Signature</Chip>}
         </div>
 
-        {/* Wishlist — above the stretched link */}
+        {/* Stock badge — always visible, plain words */}
+        {(soldOut || lowStock) && (
+          <span
+            className={cn(
+              'pointer-events-none absolute left-3 top-3 z-20 px-3 py-1.5 text-[13px] font-semibold',
+              soldOut ? 'bg-ink text-base' : 'bg-[var(--accent)] text-obsidian'
+            )}
+          >
+            {soldOut ? 'Sold out' : `Only ${product.stock} left`}
+          </span>
+        )}
+
+        {/* Above the stretched link so it stays independently clickable */}
         <div className="absolute right-3 top-3 z-20">
           <WishlistButton productId={product._id} />
         </div>
+      </div>
 
-        {/* Quick add — above the stretched link */}
-        {!soldOut && (
-          <div className="absolute inset-x-3 bottom-3 z-20 translate-y-3 opacity-0 transition-all duration-500 ease-luxe focus-within:translate-y-0 focus-within:opacity-100 group-hover/card:translate-y-0 group-hover/card:opacity-100">
-            <Cursorable variant="link" label="Add">
-              <button
-                type="button"
-                onClick={quickAdd}
-                className="glass flex w-full items-center justify-center gap-2 py-3.5 font-mono text-[10px] uppercase tracking-[0.24em] text-cream transition-colors hover:bg-[var(--accent)] hover:text-obsidian"
-                aria-label={`Add ${product.name} to bag`}
-              >
-                {added ? 'Added to bag' : 'Quick add'}
-              </button>
-            </Cursorable>
-          </div>
-        )}
-      </motion.div>
+      {/* ── Details ── */}
+      <div className="flex flex-1 flex-col pt-4">
+        {/*
+          Stretched link: the ::after covers the whole article, so clicking
+          anywhere on the card — image, price, stock line, empty space — opens
+          the product. Keeping it as one anchor on the title means there is
+          still exactly one correctly-labelled link for screen readers, and the
+          wishlist and Add-to-bag buttons sit above it on z-20.
+        */}
+        <h3 className="font-display text-[19px] font-medium leading-snug">
+          <Link
+            href={`/product/${product.slug}`}
+            className="transition-colors after:absolute after:inset-0 after:z-10 after:content-[''] hover:text-accent"
+          >
+            {product.name}
+          </Link>
+        </h3>
 
-      {/* ── Caption ── */}
-      <div className="mt-5 flex items-baseline justify-between gap-4">
-        <div className="min-w-0">
-          <h3 className="truncate font-display text-xl font-light leading-tight">
-            <Cursorable variant="view" label="Discover">
-              {/*
-                The ::after here is what makes the whole card clickable while
-                keeping this the single, correctly-labelled link.
-              */}
-              <Link
-                href={`/product/${product.slug}`}
-                className="transition-colors duration-500 after:absolute after:inset-0 after:z-10 after:content-[''] group-hover/card:text-accent"
-              >
-                {product.name}
-              </Link>
-            </Cursorable>
-          </h3>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-4">
-            {product.concentration} · {product.volumeMl}ml
-          </p>
-        </div>
-        <p className="shrink-0 font-mono text-sm tabular-nums text-ink-2">
+        <p className="mt-1 text-[14px] text-ink-3">
+          {product.concentration} · {product.volumeMl}ml
+        </p>
+
+        {/* Price — the single most important number on the card */}
+        <p className="mt-3 text-[22px] font-semibold tabular-nums text-ink">
           {formatPKR(product.price)}
         </p>
+
+        {/* Stock in words, not just a coloured dot */}
+        <p
+          className={cn(
+            'mt-1.5 flex items-center gap-2 text-[14px]',
+            soldOut ? 'text-ink-4' : lowStock ? 'text-accent' : 'text-emerald-light'
+          )}
+        >
+          <span
+            aria-hidden
+            className={cn(
+              'h-2 w-2 rounded-full',
+              soldOut ? 'bg-ink-4' : lowStock ? 'bg-[var(--accent)]' : 'bg-emerald-light'
+            )}
+          />
+          {soldOut ? 'Out of stock' : lowStock ? `Only ${product.stock} left` : 'In stock'}
+        </p>
+
+        {/* Buy — always visible, full width, real tap target */}
+        <button
+          type="button"
+          onClick={addToBag}
+          disabled={soldOut}
+          aria-label={soldOut ? `${product.name} is out of stock` : `Add ${product.name} to bag`}
+          className={cn(
+            'relative z-20 mt-4 flex min-h-[3rem] w-full items-center justify-center px-4 text-[14px] font-semibold uppercase tracking-[0.05em] transition-colors duration-300',
+            soldOut
+              ? 'cursor-not-allowed border border-hairline text-ink-4'
+              : added
+              ? 'bg-emerald-light text-obsidian'
+              : 'bg-ink text-base hover:bg-[var(--accent)] hover:text-obsidian'
+          )}
+        >
+          {soldOut ? 'Out of stock' : added ? '✓ Added to bag' : 'Add to bag'}
+        </button>
       </div>
     </motion.article>
-  );
-}
-
-function Chip({ children, tone = 'outline' }) {
-  const tones = {
-    solid: 'bg-ink text-base',
-    gold: 'bg-[var(--accent)] text-obsidian',
-    outline: 'border border-[var(--accent)] text-[var(--accent)] bg-obsidian/40 backdrop-blur-sm',
-  };
-  return (
-    <span
-      className={cn(
-        'px-2.5 py-1.5 font-mono text-[9px] uppercase leading-none tracking-[0.18em]',
-        tones[tone]
-      )}
-    >
-      {children}
-    </span>
   );
 }

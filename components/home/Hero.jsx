@@ -1,157 +1,134 @@
 'use client';
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { useUI } from '@/lib/store/ui';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
-import { BRAND } from '@/lib/content/site';
+import { BRAND, PITCH } from '@/lib/content/site';
+import { formatPKR } from '@/lib/utils';
 import FlaconStage from '@/components/three/FlaconStage';
-import SplitText from '@/components/ui/SplitText';
-import MagneticButton from '@/components/ui/MagneticButton';
-import { ScrollCue } from '@/components/ui/Primitives';
 
 /**
  * The opening frame.
  *
- * Type and object occupy the same optical centre rather than sitting in
- * columns — the headline crosses in front of the flacon, which is what makes it
- * read as a composed image instead of a hero with a picture next to it.
+ * Rebuilt to answer "what is this shop?" before anything else. The previous
+ * hero led with an abstract line of poetry over a rotating bottle — beautiful,
+ * but a first-time visitor could not tell what was being sold, for how much, or
+ * how to buy it.
  *
- * Everything waits on the loader: `introComplete` gates the entrance so the
- * headline lifts as the curtains clear, not behind them.
+ * Now: a plain headline, the concrete facts (price from, longevity, delivery),
+ * and obvious buttons. The flacon moves to its own column so the type never
+ * competes with it for legibility.
  */
-export default function Hero({ featuredCategory = 'signature' }) {
+export default function Hero({ featuredCategory = 'signature', productCount = 0 }) {
   const section = useRef(null);
   const reduced = usePrefersReducedMotion();
   const introComplete = useUI((s) => s.introComplete);
-
-  const { scrollYProgress } = useScroll({
-    target: section,
-    offset: ['start start', 'end start'],
-  });
-
-  const typeY = useTransform(scrollYProgress, [0, 1], ['0%', '-42%']);
-  const typeOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const stageScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
-  const veilOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.85]);
-
   const gate = introComplete || reduced;
+
+  const rise = (delay) => ({
+    initial: { opacity: 0, y: 18 },
+    animate: gate ? { opacity: 1, y: 0 } : {},
+    transition: { duration: 0.8, ease: EASE.luxe, delay },
+  });
 
   return (
     <section
       ref={section}
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24"
-      aria-label="Introduction"
+      className="relative overflow-hidden pt-28 md:pt-36"
+      aria-label={`${BRAND.legal} — premium perfumes`}
     >
-      {/* ── WebGL stage ── */}
-      <motion.div
-        className="absolute inset-0"
-        style={reduced ? undefined : { scale: stageScale }}
-      >
-        <FlaconStage
-          category={featuredCategory}
-          label={BRAND.name.toUpperCase()}
-          subtitle="EAU DE PARFUM"
-          className="absolute inset-0"
-          trackScrollOf={section}
-          cameraZ={6.4}
-          scrollRotations={0.85}
-          posterClassName="pt-10"
-        />
-      </motion.div>
+      <div className="shell-wide grid items-center gap-12 pb-16 lg:grid-cols-2 lg:gap-16 lg:pb-24">
+        {/* ══════════ Words ══════════ */}
+        <div className="order-2 lg:order-1">
+          <motion.p {...rise(0.1)} className="eyebrow">
+            {BRAND.legal} · Est. {BRAND.founded}
+          </motion.p>
 
-      {/* Radial scrim keeps the headline legible over the brightest part of the render */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(90% 70% at 50% 55%, transparent 30%, rgb(var(--c-base) / 0.55) 78%, rgb(var(--c-base)) 100%)',
-        }}
-      />
+          <motion.h1
+            {...rise(0.18)}
+            className="mt-6 font-display text-[clamp(2.6rem,6.5vw,4.6rem)] font-semibold leading-[1.08]"
+          >
+            {PITCH.headline}
+            <br />
+            <span className="text-accent">{PITCH.headlineAccent}</span>
+          </motion.h1>
 
-      {/* Darkening veil as the section leaves */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-base"
-        style={reduced ? undefined : { opacity: veilOpacity }}
-      />
+          <motion.p
+            {...rise(0.28)}
+            className="mt-7 max-w-[46ch] text-[18px] leading-relaxed text-ink-2"
+          >
+            {PITCH.sub}
+          </motion.p>
 
-      {/* ── Type ── */}
-      <motion.div
-        className="shell-wide relative z-10 flex flex-col items-center text-center"
-        style={reduced ? undefined : { y: typeY, opacity: typeOpacity }}
-      >
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={gate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: EASE.luxe, delay: 0.2 }}
-          className="eyebrow"
-        >
-          {BRAND.legal} — Est. {BRAND.founded}, {BRAND.city}
-        </motion.p>
+          {/* Hard facts, not atmosphere */}
+          <motion.ul {...rise(0.36)} className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
+            {[
+              `From ${formatPKR(PITCH.priceFrom)}`,
+              '8–12 hours on skin',
+              'Delivered in 2–4 days',
+            ].map((fact) => (
+              <li key={fact} className="flex items-center gap-2.5 text-[15px] text-ink-2">
+                <span aria-hidden className="text-accent">
+                  ✓
+                </span>
+                {fact}
+              </li>
+            ))}
+          </motion.ul>
 
-        {gate && (
-          <SplitText
-            as="h1"
-            animate="mount"
-            lines={['Where tradition', 'meets fine scent.']}
-            delay={0.32}
-            stagger={0.12}
-            duration={1.25}
-            className="mt-8 font-display text-display-md font-light"
-            lineClassName="italic-accent"
+          {/* Actions */}
+          <motion.div {...rise(0.46)} className="mt-10 flex flex-wrap gap-4">
+            <Link
+              href="/collection"
+              className="flex min-h-[3.5rem] items-center justify-center bg-[var(--accent)] px-9 text-[15px] font-semibold uppercase tracking-[0.05em] text-obsidian transition-opacity hover:opacity-90"
+            >
+              Shop all fragrances
+            </Link>
+            <Link
+              href="/collection?category=men"
+              className="flex min-h-[3.5rem] items-center justify-center border border-hairline px-7 text-[15px] font-semibold uppercase tracking-[0.05em] transition-colors hover:border-accent hover:text-accent"
+            >
+              For Him
+            </Link>
+            <Link
+              href="/collection?category=women"
+              className="flex min-h-[3.5rem] items-center justify-center border border-hairline px-7 text-[15px] font-semibold uppercase tracking-[0.05em] transition-colors hover:border-accent hover:text-accent"
+            >
+              For Her
+            </Link>
+          </motion.div>
+
+          <motion.p {...rise(0.56)} className="mt-6 text-[15px] text-ink-3">
+            {productCount > 0 ? `${productCount} fragrances available` : 'Browse the collection'} ·
+            No account needed · Pay on delivery
+          </motion.p>
+        </div>
+
+        {/* ══════════ Object ══════════ */}
+        <div className="relative order-1 h-[42vh] min-h-[300px] lg:order-2 lg:h-[68vh]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(58% 58% at 50% 48%, rgba(212,175,55,0.14), transparent 72%)',
+            }}
           />
-        )}
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={gate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: EASE.luxe, delay: 0.85 }}
-          className="mt-9 max-w-[46ch] text-[15px] leading-relaxed text-ink-2"
-        >
-          Premium eaux de parfum composed in small batches, from materials bought
-          directly from the growers who raise them.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={gate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: EASE.luxe, delay: 1 }}
-          className="mt-12 flex flex-wrap items-center justify-center gap-5"
-        >
-          <MagneticButton href="/collection" cursorLabel="Enter">
-            Discover the collection
-          </MagneticButton>
-          <MagneticButton href="/about" variant="bare" cursorLabel="Story">
-            <span className="link-draw font-mono text-[11px] uppercase tracking-[0.24em] text-ink-2">
-              Watch the story
-            </span>
-          </MagneticButton>
-        </motion.div>
-      </motion.div>
-
-      {/* ── Baseline furniture ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={gate ? { opacity: 1 } : {}}
-        transition={{ duration: 1.2, delay: 1.3 }}
-        className="shell-wide relative z-10 mt-16 flex items-end justify-between pb-10"
-      >
-        <p className="hidden max-w-[20ch] font-mono text-[9px] uppercase leading-relaxed tracking-[0.24em] text-ink-4 md:block">
-          Composed, macerated
-          <br />
-          and bottled by hand
-        </p>
-
-        <ScrollCue />
-
-        <p className="hidden text-right font-mono text-[9px] uppercase leading-relaxed tracking-[0.24em] text-ink-4 md:block">
-          Nationwide delivery
-          <br />
-          from {BRAND.city}
-        </p>
-      </motion.div>
+          <FlaconStage
+            category={featuredCategory}
+            label={BRAND.name.toUpperCase()}
+            subtitle="EAU DE PARFUM"
+            className="absolute inset-0"
+            trackScrollOf={section}
+            cameraZ={6}
+            scrollRotations={0.5}
+            showMotes
+            showVapour={false}
+          />
+        </div>
+      </div>
     </section>
   );
 }

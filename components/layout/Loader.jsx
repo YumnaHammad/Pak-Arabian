@@ -7,7 +7,7 @@ import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
 import { BRAND } from '@/lib/content/site';
 
-const SESSION_KEY = 'azwah_intro_seen';
+const SESSION_KEY = 'pakarabian_intro_seen';
 
 /**
  * The house overture.
@@ -49,7 +49,9 @@ export default function Loader() {
     if (!visible || !decided) return;
     let raf;
     const start = performance.now();
-    const DURATION = 2100;
+    // Was 2100ms + a 420ms hold — nearly three seconds of blocked paint on
+    // the first visit, which is most of why the site 'felt' slow.
+    const DURATION = 1100;
 
     function tick(now) {
       const t = Math.min((now - start) / DURATION, 1);
@@ -62,7 +64,7 @@ export default function Loader() {
         setTimeout(() => {
           setVisible(false);
           completeIntro();
-        }, 420);
+        }, 180);
       }
     }
     raf = requestAnimationFrame(tick);
@@ -95,18 +97,18 @@ export default function Loader() {
           exit={{ transition: { staggerChildren: 0.07 } }}
           role="status"
           aria-live="polite"
-          aria-label="Loading Azwah Enterprises"
+          aria-label="Loading Pak Arabian Enterprises"
         >
           {/* Four curtain panels — they lift in sequence on exit */}
           <div className="absolute inset-0 flex">
             {[0, 1, 2, 3].map((i) => (
               <motion.div
                 key={i}
-                className="h-full flex-1 bg-obsidian"
+                className="h-full flex-1 bg-brand"
                 initial={{ y: 0 }}
                 exit={{
                   y: '-100%',
-                  transition: { duration: 1.05, ease: EASE.luxe, delay: i * 0.075 },
+                  transition: { duration: 0.7, ease: EASE.luxe, delay: i * 0.05 },
                 }}
               />
             ))}
@@ -122,7 +124,7 @@ export default function Loader() {
                 initial={{ y: '110%' }}
                 animate={{ y: '0%' }}
                 transition={{ duration: 1.1, ease: EASE.luxe, delay: 0.15 }}
-                className="font-display text-6xl font-light tracking-tight text-cream md:text-7xl"
+                className="whitespace-nowrap font-display text-[clamp(2.5rem,11vw,4.5rem)] font-normal tracking-tight text-cream"
               >
                 {BRAND.name}
                 <span className="foil align-super text-2xl">{BRAND.mark}</span>
@@ -133,7 +135,7 @@ export default function Loader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.6 }}
-              className="mt-4 font-mono text-[9px] uppercase tracking-[0.42em] text-cream/40"
+              className="mt-4 font-mono text-[12px] uppercase tracking-[0.14em] text-cream/40"
             >
               Est. {BRAND.founded} — {BRAND.city}
             </motion.p>
@@ -147,7 +149,7 @@ export default function Loader() {
               />
             </div>
 
-            <div className="mt-4 flex w-full items-baseline justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-cream/35">
+            <div className="mt-4 flex w-full items-baseline justify-between font-mono text-[13px] uppercase tracking-[0.1em] text-cream/35">
               <span>Composing</span>
               <span className="tabular-nums text-gold">
                 {String(progress).padStart(3, '0')}

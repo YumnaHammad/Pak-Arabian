@@ -12,14 +12,37 @@ import ThemeToggle from './ThemeToggle';
 import Cursorable from '@/components/ui/Cursorable';
 import { cn } from '@/lib/utils';
 
+/**
+ * Primary navigation.
+ *
+ * Named for what a customer is looking for, not for how the house thinks about
+ * itself. "Collections / The House" gave a first-time visitor no route to the
+ * two things they actually want — men's and women's fragrances — so those are
+ * now top-level, and the shop link says "Shop".
+ */
 const PRIMARY = [
-  { label: 'Collections', href: '/collection', mega: true },
-  { label: 'The House', href: '/about' },
+  { label: 'Shop', href: '/collection', mega: true },
+  { label: 'For Him', href: '/collection?category=men' },
+  { label: 'For Her', href: '/collection?category=women' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
+  { label: 'FAQ', href: '/faq' },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+
+  /*
+   * "For Him"/"For Her" differ from "Shop" only by query string. `useSearchParams`
+   * would read it directly, but calling it here — in the root layout — opts every
+   * static page in the app into dynamic rendering. Reading `location.search` after
+   * mount costs one render and keeps the pages static.
+   */
+  const [searchKey, setSearchKey] = useState('');
+  useEffect(() => {
+    const cat = new URLSearchParams(window.location.search).get('category');
+    setSearchKey(cat ? `?category=${cat}` : '');
+  }, [pathname]);
   const { count, setOpen: setCartOpen } = useCart();
   const menuOpen = useUI((s) => s.menuOpen);
   const setMenuOpen = useUI((s) => s.setMenuOpen);
@@ -86,7 +109,7 @@ export default function Navbar() {
           {/* ── Wordmark ── */}
           <Cursorable variant="link">
             <Link href="/" className="group relative shrink-0" aria-label={`${BRAND.legal} home`}>
-              <span className="font-display text-2xl font-light tracking-tight md:text-[27px]">
+              <span className="font-display text-2xl font-normal tracking-tight md:text-[27px]">
                 {BRAND.name}
                 <span className="text-accent align-super text-xs">{BRAND.mark}</span>
               </span>
@@ -95,23 +118,28 @@ export default function Navbar() {
           </Cursorable>
 
           {/* ── Desktop links ── */}
-          <ul className="hidden items-center gap-10 lg:flex">
-            {PRIMARY.map((item) => (
-              <li key={item.href} onMouseEnter={item.mega ? openMega : closeMega}>
-                <Cursorable variant="link">
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'link-draw font-mono text-[10px] uppercase tracking-[0.26em] transition-colors',
-                      pathname === item.href ? 'text-accent' : 'text-ink-2 hover:text-ink'
-                    )}
-                    aria-expanded={item.mega ? mega : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                </Cursorable>
-              </li>
-            ))}
+          <ul className="hidden items-center gap-7 lg:flex xl:gap-9">
+            {PRIMARY.map((item) => {
+              const active =
+                item.href === pathname ||
+                (item.href.startsWith('/collection?') && `${pathname}${searchKey}` === item.href);
+              return (
+                <li key={item.href} onMouseEnter={item.mega ? openMega : closeMega}>
+                  <Cursorable variant="link">
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'link-draw whitespace-nowrap text-[15px] font-semibold transition-colors',
+                        active ? 'text-accent' : 'text-ink-2 hover:text-ink'
+                      )}
+                      aria-expanded={item.mega ? mega : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </Cursorable>
+                </li>
+              );
+            })}
           </ul>
 
           {/* ── Actions ── */}
@@ -137,10 +165,10 @@ export default function Navbar() {
                 aria-label={`Open bag, ${count} item${count === 1 ? '' : 's'}`}
                 className="group relative flex h-9 items-center gap-2.5 pl-3 pr-1"
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-ink-2 transition-colors group-hover:text-accent">
+                <span className="font-mono text-[13px] uppercase tracking-[0.09em] text-ink-2 transition-colors group-hover:text-accent">
                   Bag
                 </span>
-                <span className="relative flex h-6 min-w-6 items-center justify-center rounded-full border border-hairline px-1.5 font-mono text-[10px] tabular-nums transition-colors group-hover:border-accent group-hover:text-accent">
+                <span className="relative flex h-6 min-w-6 items-center justify-center rounded-full border border-hairline px-1.5 font-mono text-[13px] tabular-nums transition-colors group-hover:border-accent group-hover:text-accent">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
                       key={count}
@@ -193,7 +221,7 @@ export default function Navbar() {
               <div className="shell-wide grid grid-cols-12 gap-10 py-14">
                 <div className="col-span-3">
                   <p className="eyebrow-muted">The Library</p>
-                  <p className="mt-6 max-w-[24ch] font-display text-2xl font-light leading-snug">
+                  <p className="mt-6 max-w-[24ch] font-display text-2xl font-normal leading-snug">
                     Four doors into the same house.
                   </p>
                 </div>
@@ -211,12 +239,12 @@ export default function Navbar() {
                           href={`/collection?category=${door.value}`}
                           className="group flex items-baseline gap-4 border-b border-hairline/40 py-5"
                         >
-                          <span className="font-mono text-[10px] text-ink-4">{door.numeral}</span>
+                          <span className="font-mono text-[13px] text-ink-4">{door.numeral}</span>
                           <span className="flex-1">
-                            <span className="block font-display text-xl font-light transition-colors group-hover:text-accent">
+                            <span className="block font-display text-xl font-normal transition-colors group-hover:text-accent">
                               {door.label}
                             </span>
-                            <span className="mt-1 block text-[12px] text-ink-3">{door.line}</span>
+                            <span className="mt-1 block text-[14px] text-ink-3">{door.line}</span>
                           </span>
                           <span className="translate-x-0 text-accent opacity-0 transition-all duration-500 group-hover:translate-x-1 group-hover:opacity-100">
                             →
@@ -335,14 +363,14 @@ function MobileMenu({ onClose, pathname }) {
                 >
                   <span
                     className={cn(
-                      'font-display font-light',
+                      'font-display font-normal',
                       link.sub ? 'text-xl text-ink-2' : 'text-3xl',
                       pathname === link.href && 'text-accent'
                     )}
                   >
                     {link.label}
                   </span>
-                  <span className="font-mono text-[10px] text-ink-4">
+                  <span className="font-mono text-[13px] text-ink-4">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </Link>

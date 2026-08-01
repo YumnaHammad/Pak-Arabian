@@ -1,7 +1,7 @@
 import AdminShell from '@/components/admin/AdminShell';
 
 export const metadata = {
-  title: { default: 'Admin', template: '%s — Azwah Admin' },
+  title: { default: 'Admin', template: '%s — Pak Arabian Admin' },
   robots: { index: false, follow: false },
 };
 

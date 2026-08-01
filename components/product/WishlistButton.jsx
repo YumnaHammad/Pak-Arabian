@@ -73,7 +73,7 @@ export default function WishlistButton({ productId, className = '', showLabel = 
             <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21.2l7.7-7.8 1.1-1a5.5 5.5 0 0 0 0-7.8z" />
           </motion.svg>
           {showLabel && (
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
+            <span className="font-mono text-[13px] uppercase tracking-[0.07em]">
               {saved ? 'Saved' : 'Save'}
             </span>
           )}
@@ -90,7 +90,7 @@ export default function WishlistButton({ productId, className = '', showLabel = 
             transition={{ duration: 0.35, ease: EASE.luxe }}
             className="glass absolute right-0 top-11 z-20 w-52 p-3.5 text-left"
           >
-            <p className="text-[11px] leading-relaxed text-ink-2">
+            <p className="text-[13px] leading-relaxed text-ink-2">
               Saved on this device.{' '}
               <button
                 onClick={(e) => {

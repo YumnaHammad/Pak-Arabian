@@ -115,13 +115,13 @@ export default function SearchOverlay() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Oud, rose, vetiver…"
-                  className="w-full bg-transparent font-display text-3xl font-light outline-none placeholder:text-ink-4 md:text-5xl"
+                  className="w-full bg-transparent font-display text-3xl font-normal outline-none placeholder:text-ink-4 md:text-5xl"
                   autoComplete="off"
                 />
                 <button
                   onClick={() => setOpen(false)}
                   aria-label="Close search"
-                  className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3 transition-colors hover:text-accent"
+                  className="shrink-0 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:text-accent"
                 >
                   Esc
                 </button>
@@ -143,7 +143,7 @@ export default function SearchOverlay() {
                         <Link
                           href={`/collection?category=${c.value}`}
                           onClick={() => setOpen(false)}
-                          className="inline-block border border-hairline px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-2 transition-colors hover:border-accent hover:text-accent"
+                          className="inline-block border border-hairline px-5 py-3 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-2 transition-colors hover:border-accent hover:text-accent"
                         >
                           {c.label}
                         </Link>
@@ -152,12 +152,12 @@ export default function SearchOverlay() {
                   </ul>
                 </motion.div>
               ) : loading ? (
-                <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-ink-3">
+                <p className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink-3">
                   Searching…
                 </p>
               ) : results.length === 0 ? (
                 <div>
-                  <p className="font-display text-2xl font-light">
+                  <p className="font-display text-2xl font-normal">
                     Nothing in the library matches “{term}”.
                   </p>
                   <Link
@@ -190,10 +190,10 @@ export default function SearchOverlay() {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="font-display text-xl font-light transition-colors group-hover:text-accent md:text-2xl">
+                          <p className="font-display text-xl font-normal transition-colors group-hover:text-accent md:text-2xl">
                             {p.name}
                           </p>
-                          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-4">
+                          <p className="mt-1 font-mono text-[13px] uppercase tracking-[0.06em] text-ink-4">
                             {p.category} · {p.concentration} · {p.volumeMl}ml
                           </p>
                         </div>

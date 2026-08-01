@@ -56,15 +56,15 @@ export default function ContactForm() {
         className="border border-[var(--accent)]/40 bg-surface p-10"
       >
         <p className="eyebrow">Received</p>
-        <p className="mt-6 font-display text-3xl font-light">Thank you, {form.name.split(' ')[0]}.</p>
-        <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-ink-2">{note}</p>
+        <p className="mt-6 font-display text-3xl font-normal">Thank you, {form.name.split(' ')[0]}.</p>
+        <p className="mt-4 max-w-prose text-[17px] leading-relaxed text-ink-2">{note}</p>
         <button
           onClick={() => {
             setForm({ name: '', email: '', phone: '', subject: SUBJECTS[0], message: '' });
             setState('idle');
             setNote('');
           }}
-          className="link-draw mt-8 font-mono text-[10px] uppercase tracking-[0.22em] text-accent"
+          className="link-draw mt-8 font-mono text-[13px] uppercase tracking-[0.08em] text-accent"
         >
           Send another
         </button>
@@ -80,14 +80,14 @@ export default function ContactForm() {
         <Field label="Phone (optional)" type="tel" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} autoComplete="tel" />
 
         <div>
-          <label htmlFor="subject" className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+          <label htmlFor="subject" className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
             Regarding
           </label>
           <select
             id="subject"
             value={form.subject}
             onChange={(e) => setForm({ ...form, subject: e.target.value })}
-            className="field-luxe cursor-pointer text-[16px]"
+            className="field-luxe cursor-pointer text-[17px]"
           >
             {SUBJECTS.map((s) => (
               <option key={s} value={s} className="bg-base text-ink">
@@ -99,7 +99,7 @@ export default function ContactForm() {
       </div>
 
       <div className="mt-8">
-        <label htmlFor="message" className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+        <label htmlFor="message" className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           Message
         </label>
         <textarea
@@ -110,7 +110,7 @@ export default function ContactForm() {
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           placeholder="Tell us what you need."
-          className="field-luxe resize-none text-[16px]"
+          className="field-luxe resize-none text-[17px]"
         />
       </div>
 
@@ -121,7 +121,7 @@ export default function ContactForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             role="alert"
-            className="mt-7 border border-red-500/40 bg-red-500/5 px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-red-400"
+            className="mt-7 border border-red-500/40 bg-red-500/5 px-5 py-3.5 font-mono text-[13px] uppercase tracking-[0.06em] text-red-400"
           >
             {note}
           </motion.p>
@@ -132,7 +132,7 @@ export default function ContactForm() {
         <MagneticButton type="submit" variant="solid" disabled={state === 'sending'}>
           {state === 'sending' ? 'Sending…' : 'Send message'}
         </MagneticButton>
-        <p className="max-w-[30ch] text-[12px] leading-relaxed text-ink-4">
+        <p className="max-w-[30ch] text-[14px] leading-relaxed text-ink-4">
           Prefer to talk? WhatsApp{' '}
           <a href={CONTACT.whatsapp} className="text-accent underline underline-offset-4">
             {CONTACT.phone}
@@ -146,14 +146,14 @@ export default function ContactForm() {
 function Field({ label, value, onChange, type = 'text', required, autoComplete }) {
   return (
     <div>
-      <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">{label}</label>
+      <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
         autoComplete={autoComplete}
-        className={cn('field-luxe text-[16px]')}
+        className={cn('field-luxe text-[17px]')}
       />
     </div>
   );

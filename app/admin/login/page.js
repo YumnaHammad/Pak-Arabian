@@ -40,8 +40,8 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-[360px]">
         {/* Mark */}
         <div className="mb-10 flex items-center gap-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--accent)] text-[12px] font-bold text-obsidian">
-            A
+          <span className="flex h-7 items-center justify-center rounded bg-[var(--accent)] px-2 text-[12px] font-bold tracking-tight text-obsidian">
+            PA
           </span>
           <span className="text-[14px] font-medium">{BRAND.name} Admin</span>
         </div>

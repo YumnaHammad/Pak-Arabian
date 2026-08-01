@@ -132,7 +132,7 @@ export default function ProductsTable({ products = [] }) {
       { key: 'featured', label: 'Featured' },
       { key: 'active', label: 'Active' },
     ]);
-    downloadCSV(csv, `azwah-inventory-${new Date().toISOString().slice(0, 10)}.csv`);
+    downloadCSV(csv, `pakarabian-inventory-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   return (

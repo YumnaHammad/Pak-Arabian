@@ -75,12 +75,12 @@ export default function Newsletter() {
 
           <h2
             id="newsletter-heading"
-            className="mt-7 max-w-[18ch] font-display text-4xl font-light leading-[1.05] md:text-6xl"
+            className="mt-7 max-w-[18ch] font-display text-4xl font-normal leading-[1.05] md:text-6xl"
           >
             First access to every new composition.
           </h2>
 
-          <p className="mt-6 max-w-prose text-[15px] leading-relaxed text-ink-2">
+          <p className="mt-6 max-w-prose text-[17px] leading-relaxed text-ink-2">
             Four to six releases a year, each in a numbered batch. Subscribers are
             written to before anything reaches the collection page — and no more
             often than that.
@@ -91,7 +91,7 @@ export default function Newsletter() {
               <div className="flex-1">
                 <label
                   htmlFor="newsletter-email"
-                  className="font-mono text-[9px] uppercase tracking-[0.28em] text-ink-4"
+                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-ink-4"
                 >
                   Email address
                 </label>
@@ -127,7 +127,7 @@ export default function Newsletter() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4, ease: EASE.luxe }}
-                    className={`mt-5 font-mono text-[11px] uppercase tracking-[0.2em] ${
+                    className={`mt-5 font-mono text-[13px] uppercase tracking-[0.07em] ${
                       state === 'error' ? 'text-red-400' : 'text-accent'
                     }`}
                   >

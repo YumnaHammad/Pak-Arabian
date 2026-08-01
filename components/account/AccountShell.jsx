@@ -34,7 +34,7 @@ export default function AccountShell() {
   if (status === 'loading') {
     return (
       <div className="shell flex min-h-[70vh] items-center justify-center pt-32">
-        <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-ink-4">
+        <p className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4">
           Opening your account…
         </p>
       </div>
@@ -56,9 +56,9 @@ export default function AccountShell() {
             as="h1"
             animate="mount"
             lines={[`Good to see you, ${firstName}.`]}
-            className="mt-8 font-display text-display-sm font-light"
+            className="mt-8 font-display text-display-sm font-normal"
           />
-          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4">
+          <p className="mt-5 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4">
             {customer?.email}
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function AccountShell() {
         <Cursorable variant="link">
           <button
             onClick={logout}
-            className="link-draw shrink-0 self-start font-mono text-[10px] uppercase tracking-[0.24em] text-ink-4 transition-colors hover:text-accent md:self-end"
+            className="link-draw shrink-0 self-start font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4 transition-colors hover:text-accent md:self-end"
           >
             Sign out
           </button>
@@ -87,7 +87,7 @@ export default function AccountShell() {
                         onClick={() => setTab(t.id)}
                         aria-current={active ? 'page' : undefined}
                         className={cn(
-                          'relative w-full whitespace-nowrap px-4 py-3.5 text-left font-mono text-[10px] uppercase tracking-[0.22em] transition-colors duration-500 lg:border-b lg:border-hairline/40',
+                          'relative w-full whitespace-nowrap px-4 py-3.5 text-left font-mono text-[13px] uppercase tracking-[0.08em] transition-colors duration-500 lg:border-b lg:border-hairline/40',
                           active ? 'text-accent' : 'text-ink-3 hover:text-ink'
                         )}
                       >

@@ -93,7 +93,7 @@ export default function Cursor() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.22 }}
-              className="select-none whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.2em] text-obsidian"
+              className="select-none whitespace-nowrap font-mono text-[12px] uppercase tracking-[0.07em] text-obsidian"
             >
               {label}
             </motion.span>

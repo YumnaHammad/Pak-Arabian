@@ -49,7 +49,7 @@ export default function Gallery({ images = [] }) {
               as="h2"
               id="feed-heading"
               lines={['From the bench,', 'and from you.']}
-              className="mt-8 font-display text-display-sm font-light"
+              className="mt-8 font-display text-display-sm font-normal"
             />
           </div>
 
@@ -58,9 +58,9 @@ export default function Gallery({ images = [] }) {
               href={CONTACT.socials[0].href}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-draw shrink-0 font-mono text-[11px] uppercase tracking-[0.24em] text-ink-2 hover:text-accent"
+              className="link-draw shrink-0 font-mono text-[13px] uppercase tracking-[0.08em] text-ink-2 hover:text-accent"
             >
-              @azwah.enterprises ↗
+              @pakarabian.enterprises ↗
             </a>
           </Cursorable>
         </div>
@@ -93,8 +93,8 @@ export default function Gallery({ images = [] }) {
                       className="object-cover transition-transform duration-[1.5s] ease-luxe group-hover:scale-[1.08]"
                     />
                     <div className="absolute inset-0 bg-obsidian/0 transition-colors duration-700 group-hover:bg-obsidian/35" />
-                    <span className="absolute bottom-4 left-4 translate-y-3 font-mono text-[9px] uppercase tracking-[0.22em] text-cream opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                      Azwah — {String(i + 1).padStart(2, '0')}
+                    <span className="absolute bottom-4 left-4 translate-y-3 font-mono text-[12px] uppercase tracking-[0.08em] text-cream opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      Pak Arabian — {String(i + 1).padStart(2, '0')}
                     </span>
                   </>
                 )}
@@ -111,8 +111,8 @@ export default function Gallery({ images = [] }) {
           })}
         </div>
 
-        <p className="mt-10 text-center font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
-          Tag <span className="text-accent">#AzwahEnterprises</span> to appear here
+        <p className="mt-10 text-center font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
+          Tag <span className="text-accent">#PakArabian</span> to appear here
         </p>
       </div>
     </section>
@@ -123,7 +123,7 @@ function EditorialTile({ tile }) {
   if (tile.kind === 'quote') {
     return (
       <div className="flex h-full w-full items-center justify-center bg-surface p-6 text-center">
-        <p className="font-display text-lg font-light italic leading-snug text-ink-2 md:text-xl">
+        <p className="font-display text-lg font-normal italic leading-snug text-ink-2 md:text-xl">
           “{tile.text}”
         </p>
       </div>
@@ -133,8 +133,8 @@ function EditorialTile({ tile }) {
   if (tile.kind === 'stat') {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center bg-surface p-6 text-center">
-        <p className="font-display text-6xl font-light text-accent">{tile.value}</p>
-        <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.22em] text-ink-4">
+        <p className="font-display text-6xl font-normal text-accent">{tile.value}</p>
+        <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           {tile.label}
         </p>
       </div>
@@ -153,8 +153,8 @@ function EditorialTile({ tile }) {
       />
       <div className="grain-layer absolute inset-0 opacity-[0.06]" />
       <div className="absolute inset-0 flex flex-col justify-end p-5">
-        <p className="font-display text-2xl font-light text-cream">{ing.name}</p>
-        <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-cream/50">
+        <p className="font-display text-2xl font-normal text-cream">{ing.name}</p>
+        <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.07em] text-cream/50">
           {ing.origin}
         </p>
       </div>

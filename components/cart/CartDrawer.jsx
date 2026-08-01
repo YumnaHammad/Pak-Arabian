@@ -85,7 +85,7 @@ export default function CartDrawer() {
             <header className="flex shrink-0 items-center justify-between border-b border-hairline/60 px-7 py-6">
               <div>
                 <p className="eyebrow-muted">Your selection</p>
-                <h2 className="mt-2 font-display text-2xl font-light">
+                <h2 className="mt-2 font-display text-2xl font-normal">
                   The Bag
                   <span className="ml-3 font-mono text-xs tabular-nums text-accent">
                     {String(count).padStart(2, '0')}
@@ -109,7 +109,7 @@ export default function CartDrawer() {
             {/* ── Shipping meter ── */}
             {items.length > 0 && (
               <div className="shrink-0 border-b border-hairline/40 px-7 py-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3">
+                <p className="font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3">
                   {remaining > 0 ? (
                     <>
                       <span className="text-accent">{formatPKR(remaining)}</span> from complimentary
@@ -165,12 +165,12 @@ export default function CartDrawer() {
 
                           <div className="flex min-w-0 flex-1 flex-col">
                             <div className="flex items-start justify-between gap-3">
-                              <p className="truncate font-display text-lg font-light">{item.name}</p>
+                              <p className="truncate font-display text-lg font-normal">{item.name}</p>
                               <p className="shrink-0 font-mono text-xs tabular-nums">
                                 {formatPKR(item.price * item.qty)}
                               </p>
                             </div>
-                            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-4">
+                            <p className="mt-1 font-mono text-[13px] uppercase tracking-[0.06em] text-ink-4">
                               {formatPKR(item.price)} each
                             </p>
 
@@ -195,7 +195,7 @@ export default function CartDrawer() {
 
                               <button
                                 onClick={() => removeItem(item.productId)}
-                                className="link-draw ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-ink-4 transition-colors hover:text-accent"
+                                className="link-draw ml-auto font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 transition-colors hover:text-accent"
                               >
                                 Remove
                               </button>
@@ -231,7 +231,7 @@ export default function CartDrawer() {
                             <p className="truncate font-display text-base transition-colors group-hover:text-accent">
                               {p.name}
                             </p>
-                            <p className="font-mono text-[10px] tabular-nums text-ink-3">
+                            <p className="font-mono text-[13px] tabular-nums text-ink-3">
                               {formatPKR(p.price)}
                             </p>
                           </div>
@@ -250,7 +250,7 @@ export default function CartDrawer() {
             {items.length > 0 && (
               <footer className="shrink-0 border-t border-hairline/60 px-7 py-6">
                 <div className="flex items-baseline justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-3">
+                  <span className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink-3">
                     Subtotal
                   </span>
                   <motion.span
@@ -258,12 +258,12 @@ export default function CartDrawer() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35, ease: EASE.luxe }}
-                    className="font-display text-2xl font-light tabular-nums"
+                    className="font-display text-2xl font-normal tabular-nums"
                   >
                     {formatPKR(total)}
                   </motion.span>
                 </div>
-                <p className="mt-2 text-[11px] text-ink-4">
+                <p className="mt-2 text-[13px] text-ink-4">
                   Delivery calculated at checkout · Payment on delivery
                 </p>
 
@@ -279,7 +279,7 @@ export default function CartDrawer() {
 
                 <button
                   onClick={() => setOpen(false)}
-                  className="mt-4 w-full text-center font-mono text-[10px] uppercase tracking-[0.24em] text-ink-4 transition-colors hover:text-accent"
+                  className="mt-4 w-full text-center font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4 transition-colors hover:text-accent"
                 >
                   Continue browsing
                 </button>
@@ -288,7 +288,7 @@ export default function CartDrawer() {
                   {ASSURANCES.slice(0, 4).map((a) => (
                     <li
                       key={a.title}
-                      className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink-4"
+                      className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4"
                     >
                       <span className="mr-1.5 text-accent">—</span>
                       {a.title}
@@ -320,7 +320,7 @@ function EmptyBag({ onClose }) {
   return (
     <div className="flex h-full flex-col items-center justify-center py-24 text-center">
       <BottleGlyph className="h-16 w-16 text-ink-4" />
-      <p className="mt-8 font-display text-2xl font-light">Nothing selected yet.</p>
+      <p className="mt-8 font-display text-2xl font-normal">Nothing selected yet.</p>
       <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-ink-3">
         The library holds a small number of compositions. Take your time with them.
       </p>

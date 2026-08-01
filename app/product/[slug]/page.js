@@ -161,7 +161,7 @@ export default async function ProductPage({ params }) {
       {/* ── Masthead ── */}
       <header className="shell-wide pt-32 md:pt-44">
         <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2.5 font-mono text-[9px] uppercase tracking-[0.22em] text-ink-4">
+          <ol className="flex flex-wrap items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
             <li>
               <Link href="/collection" className="transition-colors hover:text-accent">
                 Collection
@@ -185,9 +185,9 @@ export default async function ProductPage({ params }) {
           <SplitText
             as="h1"
             lines={[product.name]}
-            className="font-display text-display-sm font-light"
+            className="font-display text-display-sm font-normal"
           />
-          <p className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-4 md:text-right">
+          <p className="shrink-0 font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4 md:text-right">
             {product.concentration}
             <br />
             {product.volumeMl}ml · {product.sku}
@@ -202,13 +202,13 @@ export default async function ProductPage({ params }) {
         <div className="flex flex-col">
           <Reveal>
             <Eyebrow>The composition</Eyebrow>
-            <p className="mt-8 max-w-prose font-display text-2xl font-light leading-relaxed text-ink-2">
+            <p className="mt-8 max-w-prose font-display text-2xl font-normal leading-relaxed text-ink-2">
               {product.description || 'Composed in small batches at the house bench.'}
             </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-14">
-            <h2 className="font-mono text-[10px] uppercase tracking-[0.26em] text-ink-4">
+            <h2 className="font-mono text-[13px] uppercase tracking-[0.09em] text-ink-4">
               How it unfolds
             </h2>
             <div className="mt-8">
@@ -229,7 +229,7 @@ export default async function ProductPage({ params }) {
             <Eyebrow>Inside the formula</Eyebrow>
             <h2
               id="materials-heading"
-              className="mt-7 max-w-2xl font-display text-display-sm font-light"
+              className="mt-7 max-w-2xl font-display text-display-sm font-normal"
             >
               Where these materials come from.
             </h2>
@@ -247,15 +247,15 @@ export default async function ProductPage({ params }) {
                       }}
                     />
                     <div className="relative">
-                      <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-accent">
+                      <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
                         {ing.note} · {ing.family}
                       </p>
-                      <h3 className="mt-5 font-display text-3xl font-light">{ing.name}</h3>
+                      <h3 className="mt-5 font-display text-3xl font-normal">{ing.name}</h3>
                       <p className="mt-1.5 font-display text-base italic text-ink-4">
                         {ing.latin}
                       </p>
-                      <p className="mt-6 text-[14px] leading-relaxed text-ink-3">{ing.blurb}</p>
-                      <p className="mt-7 font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+                      <p className="mt-6 text-[16px] leading-relaxed text-ink-3">{ing.blurb}</p>
+                      <p className="mt-7 font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
                         — {ing.origin}
                       </p>
                     </div>
@@ -277,13 +277,13 @@ export default async function ProductPage({ params }) {
             <div className="flex items-end justify-between gap-6">
               <div>
                 <Eyebrow>Composed alongside</Eyebrow>
-                <h2 id="related-heading" className="mt-7 font-display text-display-sm font-light">
+                <h2 id="related-heading" className="mt-7 font-display text-display-sm font-normal">
                   From the same shelf.
                 </h2>
               </div>
               <Link
                 href={`/collection?category=${product.category}`}
-                className="link-draw shrink-0 font-mono text-[11px] uppercase tracking-[0.24em] text-ink-2 hover:text-accent"
+                className="link-draw shrink-0 font-mono text-[13px] uppercase tracking-[0.08em] text-ink-2 hover:text-accent"
               >
                 All {product.category} →
               </Link>

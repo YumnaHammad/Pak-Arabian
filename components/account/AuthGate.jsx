@@ -59,10 +59,10 @@ export default function AuthGate() {
           as="h1"
           animate="mount"
           lines={isRegister ? ['Join the house.'] : ['Sign in.']}
-          className="mt-8 font-display text-display-sm font-light"
+          className="mt-8 font-display text-display-sm font-normal"
         />
 
-        <p className="mt-7 max-w-prose text-[15px] leading-relaxed text-ink-2">
+        <p className="mt-7 max-w-prose text-[17px] leading-relaxed text-ink-2">
           {isRegister
             ? 'An account keeps your wishlist, your addresses and every order you have placed with the house in one place.'
             : 'Your orders, wishlist and saved addresses are waiting.'}
@@ -128,7 +128,7 @@ export default function AuthGate() {
                   transition={{ duration: 0.3, ease: EASE.luxe }}
                 />
               </span>
-              <span className="text-[13px] leading-relaxed text-ink-3">
+              <span className="text-[15px] leading-relaxed text-ink-3">
                 Write to me when a new composition is released. Four to six times a year,
                 never more.
               </span>
@@ -138,7 +138,7 @@ export default function AuthGate() {
           {error && (
             <p
               role="alert"
-              className="mt-7 border border-red-500/40 bg-red-500/5 px-5 py-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-red-400"
+              className="mt-7 border border-red-500/40 bg-red-500/5 px-5 py-3.5 font-mono text-[13px] uppercase tracking-[0.06em] text-red-400"
             >
               {error}
             </p>
@@ -148,7 +148,7 @@ export default function AuthGate() {
             {busy ? 'One moment…' : isRegister ? 'Create account' : 'Sign in'}
           </MagneticButton>
 
-          <p className="mt-8 text-[13px] text-ink-3">
+          <p className="mt-8 text-[15px] text-ink-3">
             {isRegister ? 'Already have an account?' : 'No account yet?'}{' '}
             <button
               type="button"
@@ -176,7 +176,7 @@ export default function AuthGate() {
             }}
           />
           <FlaconPoster category="signature" className="relative p-12" />
-          <p className="absolute bottom-7 left-7 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+          <p className="absolute bottom-7 left-7 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
             {BRAND.legal} — {BRAND.city}
           </p>
         </div>
@@ -189,10 +189,10 @@ function Field({ label, value, onChange, type = 'text', autoComplete, required, 
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+        <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           {label}
         </label>
-        {hint && <span className="font-mono text-[9px] text-ink-4">{hint}</span>}
+        {hint && <span className="font-mono text-[12px] text-ink-4">{hint}</span>}
       </div>
       <input
         type={type}
@@ -201,7 +201,7 @@ function Field({ label, value, onChange, type = 'text', autoComplete, required, 
         autoComplete={autoComplete}
         required={required}
         minLength={type === 'password' ? 8 : undefined}
-        className={cn('field-luxe text-[16px]')}
+        className={cn('field-luxe text-[17px]')}
       />
     </div>
   );

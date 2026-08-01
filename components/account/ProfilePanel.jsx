@@ -66,13 +66,13 @@ export default function ProfilePanel() {
           <Field label="Phone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} type="tel" />
 
           <div>
-            <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+            <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
               Email
             </label>
-            <p className="field-luxe cursor-not-allowed text-[16px] text-ink-4">
+            <p className="field-luxe cursor-not-allowed text-[17px] text-ink-4">
               {customer?.email}
             </p>
-            <p className="mt-2 text-[12px] text-ink-4">
+            <p className="mt-2 text-[14px] text-ink-4">
               The email on an account cannot be changed here — message the house if you need it moved.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function ProfilePanel() {
                 transition={{ duration: 0.3, ease: EASE.luxe }}
               />
             </span>
-            <span className="text-[13px] leading-relaxed text-ink-3">
+            <span className="text-[15px] leading-relaxed text-ink-3">
               Write to me when a new composition is released.
             </span>
           </label>
@@ -140,7 +140,7 @@ export default function ProfilePanel() {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
+              className={`font-mono text-[13px] uppercase tracking-[0.07em] ${
                 state === 'error' ? 'text-red-400' : 'text-accent'
               }`}
             >
@@ -157,10 +157,10 @@ function Field({ label, value, onChange, type = 'text', required, hint, autoComp
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className="font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+        <label className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
           {label}
         </label>
-        {hint && <span className="font-mono text-[9px] text-ink-4">{hint}</span>}
+        {hint && <span className="font-mono text-[12px] text-ink-4">{hint}</span>}
       </div>
       <input
         type={type}
@@ -169,7 +169,7 @@ function Field({ label, value, onChange, type = 'text', required, hint, autoComp
         required={required}
         autoComplete={autoComplete}
         minLength={type === 'password' ? 8 : undefined}
-        className="field-luxe text-[16px]"
+        className="field-luxe text-[17px]"
       />
     </div>
   );

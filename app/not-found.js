@@ -14,13 +14,13 @@ export default function NotFound() {
         <div>
           <p className="eyebrow">Error 404</p>
 
-          <h1 className="mt-8 font-display text-display-md font-light leading-[0.9]">
+          <h1 className="mt-8 font-display text-display-md font-normal leading-[0.9]">
             This shelf
             <br />
             <span className="italic text-ink-3">is empty.</span>
           </h1>
 
-          <p className="mt-9 max-w-prose text-[15px] leading-relaxed text-ink-2">
+          <p className="mt-9 max-w-prose text-[17px] leading-relaxed text-ink-2">
             The page you were looking for is not here. It may have been a piece
             that sold through, or a link that has gone stale.
           </p>
@@ -34,7 +34,7 @@ export default function NotFound() {
             </Link>
           </div>
 
-          <p className="mt-14 font-mono text-[9px] uppercase tracking-[0.24em] text-ink-4">
+          <p className="mt-14 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
             {BRAND.legal} — {BRAND.city}
           </p>
         </div>

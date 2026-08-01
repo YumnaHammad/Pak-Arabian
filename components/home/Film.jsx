@@ -72,7 +72,7 @@ export default function Film({ videoSrc = null, poster = null }) {
             muted
             loop
             playsInline
-            aria-label="Azwah house film"
+            aria-label="Pak Arabian house film"
           />
         ) : (
           <FlaconStage
@@ -115,7 +115,7 @@ export default function Film({ videoSrc = null, poster = null }) {
       <div className="absolute inset-0 flex flex-col justify-between px-6 py-[9vh] md:px-12">
         <div className="flex items-start justify-between">
           <Eyebrow numeral="VI">The House Film</Eyebrow>
-          <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-cream/40">
+          <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-cream/40">
             {BRAND.city} · {BRAND.founded}
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function Film({ videoSrc = null, poster = null }) {
         >
           <h2
             id="film-heading"
-            className="font-display text-4xl font-light leading-[1.04] text-cream md:text-7xl"
+            className="font-display text-4xl font-normal leading-[1.04] text-cream md:text-7xl"
           >
             Eight weeks in the dark,
             <br />
@@ -135,7 +135,7 @@ export default function Film({ videoSrc = null, poster = null }) {
         </motion.div>
 
         <div className="flex items-end justify-between">
-          <p className="max-w-[26ch] font-mono text-[9px] uppercase leading-relaxed tracking-[0.22em] text-cream/40">
+          <p className="max-w-[26ch] font-mono text-[12px] uppercase leading-relaxed tracking-[0.08em] text-cream/40">
             Filmed at the bench —
             <br />
             no stand-ins, no stock footage
@@ -145,7 +145,7 @@ export default function Film({ videoSrc = null, poster = null }) {
             <Cursorable variant="link">
               <button
                 onClick={toggle}
-                className="flex items-center gap-3 border border-cream/20 px-5 py-3 font-mono text-[9px] uppercase tracking-[0.22em] text-cream/70 backdrop-blur-sm transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                className="flex items-center gap-3 border border-cream/20 px-5 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-cream/70 backdrop-blur-sm transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
                 aria-label={playing ? 'Pause film' : 'Play film'}
               >
                 <span className="relative flex h-2 w-2">
@@ -159,7 +159,7 @@ export default function Film({ videoSrc = null, poster = null }) {
               </button>
             </Cursorable>
           ) : (
-            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-cream/30">
+            <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-cream/30">
               Real-time render
             </p>
           )}

@@ -41,9 +41,9 @@ export default function FaqPage() {
             as="h1"
             animate="mount"
             lines={['Everything', 'worth asking.']}
-            className="font-display text-display-md font-light"
+            className="font-display text-display-md font-normal"
           />
-          <p className="max-w-[32ch] text-[15px] leading-relaxed text-ink-2 md:text-right">
+          <p className="max-w-[32ch] text-[17px] leading-relaxed text-ink-2 md:text-right">
             If the answer is not here, the house replies to WhatsApp within the hour.
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function FaqPage() {
               <li key={group.group}>
                 <a
                   href={`#${ANCHORS[group.group]}`}
-                  className="link-draw font-mono text-[10px] uppercase tracking-[0.2em] text-ink-3 transition-colors hover:text-accent"
+                  className="link-draw font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:text-accent"
                 >
                   {group.group}
                 </a>
@@ -73,13 +73,13 @@ export default function FaqPage() {
               href={CONTACT.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 block font-display text-xl font-light transition-colors hover:text-accent"
+              className="mt-4 block font-display text-xl font-normal transition-colors hover:text-accent"
             >
               {CONTACT.phone}
             </a>
             <Link
               href="/contact"
-              className="link-draw mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.2em] text-accent"
+              className="link-draw mt-4 inline-block font-mono text-[13px] uppercase tracking-[0.07em] text-accent"
             >
               Write to us →
             </Link>
@@ -91,7 +91,7 @@ export default function FaqPage() {
           {FAQ_GROUPS.map((group, i) => (
             <Reveal key={group.group} className={i > 0 ? 'mt-20' : ''}>
               <section id={ANCHORS[group.group]} className="scroll-mt-32">
-                <h2 className="font-display text-3xl font-light md:text-4xl">{group.group}</h2>
+                <h2 className="font-display text-3xl font-normal md:text-4xl">{group.group}</h2>
                 <div className="mt-8">
                   <Accordion items={group.items} defaultOpen={i === 0 ? 0 : -1} />
                 </div>
@@ -104,7 +104,7 @@ export default function FaqPage() {
       {/* ══════════ Close ══════════ */}
       <section className="section border-t border-hairline/40" aria-label="Next">
         <div className="shell-wide flex flex-col items-center text-center">
-          <h2 className="max-w-[18ch] font-display text-display-sm font-light">
+          <h2 className="max-w-[18ch] font-display text-display-sm font-normal">
             The best answer is an hour on skin.
           </h2>
           <div className="mt-10 flex flex-wrap justify-center gap-4">

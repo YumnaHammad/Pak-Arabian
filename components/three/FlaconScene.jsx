@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, Lightformer, ContactShadows, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import Flacon from './Flacon';
 import { Motes, Vapour, Rig } from './Atmosphere';
+import { useThemeBaseColor } from '@/lib/hooks';
 
 /**
  * The WebGL stage.
@@ -15,7 +16,7 @@ import { Motes, Vapour, Rig } from './Atmosphere';
  */
 export default function FlaconScene({
   category = 'signature',
-  label = 'AZWAH',
+  label = 'PAK ARABIAN',
   subtitle = 'EAU DE PARFUM',
   pointer,
   progress,
@@ -29,6 +30,9 @@ export default function FlaconScene({
 }) {
   const wrapper = useRef(null);
   const [visible, setVisible] = useState(true);
+  // Fog has to match the page behind the canvas, or the flacon's far edges
+  // pick up a haze the surrounding background does not have.
+  const fogColor = useThemeBaseColor();
 
   useEffect(() => {
     const el = wrapper.current;
@@ -47,7 +51,7 @@ export default function FlaconScene({
     <div ref={wrapper} className={className}>
       <Canvas
         frameloop={visible ? 'always' : 'never'}
-        dpr={high ? [1, 1.75] : [1, 1.25]}
+        dpr={high ? [1, 1.5] : [1, 1]}
         shadows={high}
         gl={{
           antialias: high,
@@ -63,7 +67,7 @@ export default function FlaconScene({
       >
         <Suspense fallback={null}>
           {/* Depth falloff — replaces an expensive DOF pass */}
-          <fog attach="fog" args={['#08080A', 8, 19]} />
+          <fog attach="fog" args={[fogColor, 8, 19]} />
 
           <Rig intensity={high ? 1 : 0.9} />
 
@@ -130,14 +134,15 @@ export default function FlaconScene({
                 scale={7}
                 blur={2.6}
                 far={3.2}
-                resolution={512}
+                resolution={256}
+                frames={40}
                 color="#000000"
               />
             )}
           </group>
 
-          {showVapour && <Vapour count={high ? 7 : 4} opacity={high ? 0.5 : 0.34} />}
-          {showMotes && <Motes count={high ? 260 : 110} />}
+          {showVapour && <Vapour count={high ? 4 : 2} opacity={high ? 0.5 : 0.34} />}
+          {showMotes && <Motes count={high ? 120 : 60} />}
 
           <AdaptiveDpr pixelated={false} />
           <AdaptiveEvents />

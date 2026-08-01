@@ -53,7 +53,7 @@ export default function CustomersTable({ customers = [], subscriberCount = 0, gu
       { key: 'wishlist', label: 'Wishlist items' },
       { key: 'marketingOptIn', label: 'Newsletter' },
     ]);
-    downloadCSV(csv, `azwah-customers-${new Date().toISOString().slice(0, 10)}.csv`);
+    downloadCSV(csv, `pakarabian-customers-${new Date().toISOString().slice(0, 10)}.csv`);
   }
 
   return (

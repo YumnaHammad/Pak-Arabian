@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { EASE } from '@/lib/motion';
 import Cursorable from '@/components/ui/Cursorable';
 
-const KEY = 'azwah_theme';
+const KEY = 'pakarabian_theme';
 
 /**
  * Noir (dark) is the house default. Ivoire is the light editorial mood.

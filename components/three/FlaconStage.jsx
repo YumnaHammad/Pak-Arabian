@@ -20,7 +20,7 @@ const FlaconScene = dynamic(() => import('./FlaconScene'), {
  */
 export default function FlaconStage({
   category = 'signature',
-  label = 'AZWAH',
+  label = 'PAK ARABIAN',
   subtitle = 'EAU DE PARFUM',
   className = '',
   sceneClassName = 'absolute inset-0',
@@ -39,6 +39,7 @@ export default function FlaconStage({
   const pointer = useRef({ x: 0, y: 0 });
   const progress = useRef(0);
   const host = useRef(null);
+  const [near, setNear] = useState(false);
 
   /* ── Capability check ── */
   useEffect(() => {
@@ -77,38 +78,76 @@ export default function FlaconStage({
     setMode('webgl');
   }, [reduced]);
 
+  /**
+   * Mount gate.
+   *
+   * A canvas with a paused frameloop still owns a live WebGL context, its
+   * render targets and its whole GPU footprint. Mounting the scene only within
+   * a viewport of the fold — and tearing it down past that — is what stops the
+   * 3D from costing anything once the visitor has scrolled by.
+   */
+  useEffect(() => {
+    const el = host.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setNear(true);
+      return;
+    }
+    const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting), {
+      rootMargin: '80% 0px 80% 0px',
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   /* ── Pointer ── */
   useEffect(() => {
-    if (mode !== 'webgl' || !hasPointer) return;
+    if (mode !== 'webgl' || !hasPointer || !near) return;
     function onMove(e) {
       pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
     }
     window.addEventListener('pointermove', onMove, { passive: true });
     return () => window.removeEventListener('pointermove', onMove);
-  }, [mode, hasPointer]);
+  }, [mode, hasPointer, near]);
 
-  /* ── Scroll progress across the driving section ── */
+  /**
+   * Scroll progress across the driving section.
+   *
+   * Was an unconditional rAF loop calling getBoundingClientRect every single
+   * frame, forever, whether or not anything was on screen. Now driven by the
+   * scroll event, coalesced to one frame, and only while the stage is live.
+   */
   useEffect(() => {
-    if (mode !== 'webgl') return;
+    if (mode !== 'webgl' || !near) return;
     const el = trackScrollOf?.current || host.current;
     if (!el) return;
 
-    let frame;
+    let ticking = false;
     function measure() {
+      ticking = false;
       const rect = el.getBoundingClientRect();
       const total = rect.height + window.innerHeight;
       const travelled = window.innerHeight - rect.top;
       progress.current = Math.min(Math.max(travelled / total, 0), 1);
-      frame = requestAnimationFrame(measure);
     }
-    frame = requestAnimationFrame(measure);
-    return () => cancelAnimationFrame(frame);
-  }, [mode, trackScrollOf]);
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(measure);
+    }
+
+    measure();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [mode, trackScrollOf, near]);
 
   return (
     <div ref={host} className={className}>
-      {mode === 'webgl' ? (
+      {mode === 'webgl' && near ? (
         <FlaconScene
           category={category}
           label={label}
@@ -122,9 +161,10 @@ export default function FlaconStage({
           showMotes={showMotes}
           className={sceneClassName}
         />
-      ) : mode === 'poster' ? (
+      ) : mode === 'pending' ? null : (
+        /* Also stands in whenever the scene is torn down for being off-screen. */
         <FlaconPoster category={category} className={posterClassName} />
-      ) : null}
+      )}
     </div>
   );
 }

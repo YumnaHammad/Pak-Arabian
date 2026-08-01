@@ -22,7 +22,7 @@ import {
  */
 export default function Flacon({
   category = 'signature',
-  label = 'AZWAH',
+  label = 'PAK ARABIAN',
   subtitle = 'EAU DE PARFUM',
   quality = 'high',
   pointer,          // ref: { current: { x, y } } in -1..1
@@ -80,9 +80,12 @@ export default function Flacon({
       {/* ── Glass ── */}
       <mesh geometry={glassGeo} castShadow receiveShadow>
         {highGlass ? (
+          /* samples=4 at 256² meant four extra full scene renders per frame.
+             Two at 128² is a quarter of the cost and, behind the distortion and
+             chromatic aberration, visually near-identical. */
           <MeshTransmissionMaterial
-            samples={4}
-            resolution={256}
+            samples={2}
+            resolution={128}
             transmission={1}
             thickness={0.62}
             roughness={0.045}

@@ -71,21 +71,21 @@ export default function BoutiquePlate() {
           )}
           <span className="relative h-2 w-2 rounded-full bg-[var(--accent)]" />
         </span>
-        <span className="absolute left-4 top-0 whitespace-nowrap font-mono text-[8px] uppercase tracking-[0.2em] text-accent">
+        <span className="absolute left-4 top-0 whitespace-nowrap font-mono text-[12px] uppercase tracking-[0.07em] text-accent">
           {BRAND.name}
         </span>
       </div>
 
       {/* Footer bar */}
       <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 border-t border-hairline/50 bg-base/80 px-5 py-3.5 backdrop-blur-sm">
-        <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+        <p className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
           {BRAND.city}, {BRAND.country}
         </p>
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${query}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 font-mono text-[9px] uppercase tracking-[0.2em] text-accent transition-opacity hover:opacity-70"
+          className="shrink-0 font-mono text-[12px] uppercase tracking-[0.07em] text-accent transition-opacity hover:opacity-70"
         >
           Directions ↗
         </a>

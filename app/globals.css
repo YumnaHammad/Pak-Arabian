@@ -3,56 +3,71 @@
 @tailwind utilities;
 
 /* ════════════════════════════════════════════════════════════
-   AZWAH ENTERPRISES® — DESIGN TOKENS
+   PAK ARABIAN ENTERPRISES® — DESIGN TOKENS
    Two moods: "noir" (default, dark luxury) and "ivoire" (light editorial)
    Channels are raw RGB triplets so Tailwind's <alpha-value> works.
    ════════════════════════════════════════════════════════════ */
 
+/* ── Brand constants, identical in both moods ──
+   Taken from the wordmark: deep pine-teal ground, warm cream mark. */
+:root {
+  --brand-green: #1d4a45;
+  --brand-green-deep: #143331;
+  --brand-green-light: #245751;
+  --brand-cream: #f5f1e3;
+}
+
 :root,
 [data-theme='noir'] {
-  --c-base: 8 8 10;
-  --c-surface: 14 14 16;
-  --c-elevated: 26 26 30;
-  --c-veil: 38 38 43;
-  --c-ink: 242 239 233;
-  --c-line: 62 62 68;
+  /* The wordmark's ground, carried across the whole site. */
+  --c-base: 29 74 69;
+  --c-surface: 25 64 60;
+  --c-elevated: 36 87 81;
+  --c-veil: 46 104 97;
+  --c-ink: 245 241 227;
+  /* Hairlines sit between the ground and the cream so they read on both. */
+  --c-line: 66 122 115;
 
-  --ink-2: rgba(242, 239, 233, 0.62);
-  --ink-3: rgba(242, 239, 233, 0.4);
-  --ink-4: rgba(242, 239, 233, 0.22);
+  --ink-2: rgba(245, 241, 227, 0.82);
+  --ink-3: rgba(245, 241, 227, 0.64);
+  --ink-4: rgba(245, 241, 227, 0.46);
 
-  --accent: #c9a227;
-  --accent-soft: #d8b860;
-  --accent-glow: rgba(201, 162, 39, 0.22);
+  /* Brightened from #c9a227 — against the teal ground the old gold fell
+     just under 4.5:1, and the eyebrow labels are small. */
+  --accent: #d4af37;
+  --accent-soft: #e3c766;
+  --accent-glow: rgba(212, 175, 55, 0.22);
 
-  --glass-bg: rgba(20, 20, 24, 0.58);
-  --glass-line: rgba(255, 255, 255, 0.09);
+  --glass-bg: rgba(18, 52, 48, 0.88);
+  --glass-line: rgba(245, 241, 227, 0.12);
   --grain-opacity: 0.045;
-  --scrim: rgba(8, 8, 10, 0.72);
+  --scrim: rgba(20, 51, 49, 0.74);
 
   color-scheme: dark;
 }
 
 [data-theme='ivoire'] {
-  --c-base: 244 241 236;
-  --c-surface: 251 250 247;
-  --c-elevated: 255 255 255;
-  --c-veil: 232 227 218;
-  --c-ink: 18 18 16;
-  --c-line: 208 202 190;
+  /* Plain white ground; the brand teal becomes the ink. */
+  --c-base: 255 255 255;
+  --c-surface: 250 250 249;
+  --c-elevated: 243 244 242;
+  --c-veil: 231 233 230;
+  --c-ink: 16 42 39;
+  --c-line: 209 214 211;
 
-  --ink-2: rgba(18, 18, 16, 0.64);
-  --ink-3: rgba(18, 18, 16, 0.42);
-  --ink-4: rgba(18, 18, 16, 0.2);
+  --ink-2: rgba(16, 42, 39, 0.8);
+  --ink-3: rgba(16, 42, 39, 0.62);
+  --ink-4: rgba(16, 42, 39, 0.45);
 
-  --accent: #96731a;
-  --accent-soft: #b4901f;
-  --accent-glow: rgba(150, 115, 26, 0.16);
+  /* Darkened for white: #96731a sat at ~4.4:1, just short of AA. */
+  --accent: #8a6a16;
+  --accent-soft: #a8831c;
+  --accent-glow: rgba(138, 106, 22, 0.16);
 
-  --glass-bg: rgba(255, 255, 255, 0.62);
-  --glass-line: rgba(18, 18, 16, 0.08);
-  --grain-opacity: 0.03;
-  --scrim: rgba(244, 241, 236, 0.75);
+  --glass-bg: rgba(255, 255, 255, 0.93);
+  --glass-line: rgba(16, 42, 39, 0.1);
+  --grain-opacity: 0.022;
+  --scrim: rgba(16, 42, 39, 0.62);
 
   color-scheme: light;
 }
@@ -74,14 +89,21 @@
     background-color: rgb(var(--c-base));
     color: rgb(var(--c-ink));
     overflow-x: clip;
+    /* 17px / 1.7 — sized for someone reading on a phone in daylight, not for
+       a design mockup viewed at 150% zoom. */
+    font-size: 17px;
+    line-height: 1.7;
     transition: background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
       color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display), serif;
-    font-weight: 300;
+    /* 500 — Lora is a text serif; 300 does not exist for it and 400 reads thin
+       against the teal. */
+    font-weight: 500;
     text-wrap: balance;
+    letter-spacing: -0.012em;
   }
 
   p { text-wrap: pretty; }
@@ -128,13 +150,13 @@
 @layer components {
   /* ── Eyebrow / kicker label ── */
   .eyebrow {
-    @apply font-mono text-[10px] uppercase leading-none;
-    letter-spacing: 0.32em;
+    @apply font-body text-[13px] font-semibold uppercase leading-none;
+    letter-spacing: 0.1em;
     color: var(--accent);
   }
   .eyebrow-muted {
-    @apply font-mono text-[10px] uppercase leading-none;
-    letter-spacing: 0.32em;
+    @apply font-body text-[13px] font-semibold uppercase leading-none;
+    letter-spacing: 0.1em;
     color: var(--ink-3);
   }
 
@@ -150,7 +172,7 @@
   .foil {
     background: linear-gradient(
       100deg,
-      #8c6b2f 0%, #c9a227 22%, #e9dcb4 42%, #c9a227 62%, #8c6b2f 100%
+      #8c6b2f 0%, #d4af37 22%, #f0e3b6 42%, #d4af37 62%, #8c6b2f 100%
     );
     background-size: 220% auto;
     -webkit-background-clip: text;
@@ -200,9 +222,10 @@
 
   /* ── Primary action ── */
   .btn-luxe {
-    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-mono text-[11px] uppercase;
-    letter-spacing: 0.24em;
-    padding: 1.15rem 2.5rem;
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-body text-[14px] font-semibold uppercase;
+    letter-spacing: 0.06em;
+    padding: 1.1rem 2.25rem;
+    min-height: 3.25rem;
     border: 1px solid rgb(var(--c-line));
     color: rgb(var(--c-ink));
     isolation: isolate;
@@ -223,16 +246,17 @@
   .btn-luxe:focus-visible::before { transform: scaleY(1); }
   .btn-luxe:hover,
   .btn-luxe:focus-visible {
-    color: #08080a;
+    color: var(--brand-green-deep);
     border-color: var(--accent);
   }
   .btn-luxe:disabled { opacity: 0.32; pointer-events: none; }
 
   /* ── Filled action ── */
   .btn-solid {
-    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-mono text-[11px] uppercase;
-    letter-spacing: 0.24em;
-    padding: 1.15rem 2.5rem;
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden font-body text-[14px] font-semibold uppercase;
+    letter-spacing: 0.06em;
+    padding: 1.1rem 2.25rem;
+    min-height: 3.25rem;
     background: rgb(var(--c-ink));
     color: rgb(var(--c-base));
     isolation: isolate;
@@ -250,7 +274,7 @@
   }
   .btn-solid:hover::before,
   .btn-solid:focus-visible::before { transform: scaleY(1); }
-  .btn-solid:hover, .btn-solid:focus-visible { color: #08080a; }
+  .btn-solid:hover, .btn-solid:focus-visible { color: var(--brand-green-deep); }
   .btn-solid:disabled { opacity: 0.32; pointer-events: none; }
 
   /* ── Editorial field ── */

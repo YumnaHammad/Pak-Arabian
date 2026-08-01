@@ -54,10 +54,10 @@ export default function Craft() {
                 as="h2"
                 id="craft-heading"
                 lines={['From harvest', 'to hand-filled.']}
-                className="mt-8 font-display text-display-sm font-light"
+                className="mt-8 font-display text-display-sm font-normal"
               />
             </div>
-            <p className="max-w-[34ch] text-[15px] leading-relaxed text-ink-2 md:text-right">
+            <p className="max-w-[34ch] text-[17px] leading-relaxed text-ink-2 md:text-right">
               Six stages. The slowest of them — maceration — is the one nobody
               can see, and the one that decides everything.
             </p>
@@ -97,17 +97,17 @@ export default function Craft() {
                 className="border-t border-hairline/40 py-9"
               >
                 <div className="flex items-baseline gap-6">
-                  <span className="w-8 shrink-0 font-mono text-[11px] text-accent">
+                  <span className="w-8 shrink-0 font-mono text-[13px] text-accent">
                     {chapter.numeral}
                   </span>
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-                      <h3 className="font-display text-2xl font-light">{chapter.title}</h3>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+                      <h3 className="font-display text-2xl font-normal">{chapter.title}</h3>
+                      <span className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
                         {chapter.duration}
                       </span>
                     </div>
-                    <p className="mt-3 max-w-prose text-[14px] leading-relaxed text-ink-3">
+                    <p className="mt-3 max-w-prose text-[16px] leading-relaxed text-ink-3">
                       {chapter.body}
                     </p>
                   </div>
@@ -128,23 +128,23 @@ function ChapterPanel({ chapter, index }) {
         {/* Oversized numeral behind the copy */}
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[11rem] font-light leading-none text-ink opacity-[0.045]"
+          className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[11rem] font-normal leading-none text-ink opacity-[0.045]"
         >
           {chapter.numeral}
         </span>
 
         <div className="relative flex h-full flex-col">
-          <span className="font-mono text-[10px] tracking-[0.24em] text-accent">
+          <span className="font-mono text-[13px] tracking-[0.08em] text-accent">
             {chapter.numeral}
           </span>
 
-          <h3 className="mt-7 font-display text-3xl font-light">{chapter.title}</h3>
+          <h3 className="mt-7 font-display text-3xl font-normal">{chapter.title}</h3>
 
-          <span className="mt-3 inline-block w-fit border border-hairline px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+          <span className="mt-3 inline-block w-fit border border-hairline px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
             {chapter.duration}
           </span>
 
-          <p className="mt-7 text-[14px] leading-relaxed text-ink-3">{chapter.body}</p>
+          <p className="mt-7 text-[16px] leading-relaxed text-ink-3">{chapter.body}</p>
 
           <span className="mt-auto h-px w-full origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-700 ease-luxe group-hover:scale-x-100" />
         </div>

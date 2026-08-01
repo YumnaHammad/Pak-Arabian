@@ -2,7 +2,7 @@ import { dbConnect } from '@/lib/mongodb';
 import Product from '@/models/Product';
 import { CATEGORIES } from '@/lib/content/site';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://azwah.example.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://pakarabian.example.com';
 
 /**
  * Generated per request, never prerendered.

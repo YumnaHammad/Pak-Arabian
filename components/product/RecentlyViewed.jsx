@@ -10,7 +10,7 @@ import { Eyebrow } from '@/components/ui/Primitives';
 import BottleGlyph from '@/components/ui/BottleGlyph';
 import Cursorable from '@/components/ui/Cursorable';
 
-const KEY = 'azwah_recent';
+const KEY = 'pakarabian_recent';
 const LIMIT = 6;
 
 /**
@@ -79,10 +79,10 @@ export default function RecentlyViewed({ current }) {
                       </div>
                     )}
                   </div>
-                  <p className="mt-3 truncate font-display text-base font-light transition-colors group-hover:text-accent">
+                  <p className="mt-3 truncate font-display text-base font-normal transition-colors group-hover:text-accent">
                     {p.name}
                   </p>
-                  <p className="font-mono text-[10px] tabular-nums text-ink-4">
+                  <p className="font-mono text-[13px] tabular-nums text-ink-4">
                     {formatPKR(p.price)}
                   </p>
                 </Link>

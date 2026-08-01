@@ -45,7 +45,7 @@ export default function OrdersPanel() {
 
   if (loading) {
     return (
-      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-4">
+      <p className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink-4">
         Loading orders…
       </p>
     );
@@ -93,13 +93,13 @@ export default function OrdersPanel() {
                 className="flex w-full items-center justify-between gap-6 py-7 text-left"
               >
                 <div className="min-w-0">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+                  <p className="font-mono text-[13px] uppercase tracking-[0.07em] text-accent">
                     {shortId(order._id)}
                   </p>
-                  <p className="mt-2.5 font-display text-xl font-light">
+                  <p className="mt-2.5 font-display text-xl font-normal">
                     {order.items.length} {order.items.length === 1 ? 'composition' : 'compositions'}
                   </p>
-                  <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4">
+                  <p className="mt-1.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4">
                     {new Date(order.createdAt).toLocaleDateString('en-PK', {
                       day: 'numeric',
                       month: 'long',
@@ -111,7 +111,7 @@ export default function OrdersPanel() {
                 <div className="flex shrink-0 items-center gap-6">
                   <span
                     className={cn(
-                      'hidden border px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] sm:block',
+                      'hidden border px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.06em] sm:block',
                       STATUS_TONE[order.status] || STATUS_TONE.pending
                     )}
                   >
@@ -142,7 +142,7 @@ export default function OrdersPanel() {
                     <div className="pb-8">
                       <ul className="space-y-3 border-l border-hairline/50 pl-6">
                         {order.items.map((item, idx) => (
-                          <li key={idx} className="flex justify-between gap-6 text-[14px]">
+                          <li key={idx} className="flex justify-between gap-6 text-[16px]">
                             <span className="text-ink-2">
                               {item.name}{' '}
                               <span className="text-ink-4">× {item.qty}</span>
@@ -155,7 +155,7 @@ export default function OrdersPanel() {
                       </ul>
 
                       {order.discount > 0 && (
-                        <p className="mt-5 pl-6 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+                        <p className="mt-5 pl-6 font-mono text-[13px] uppercase tracking-[0.06em] text-accent">
                           {order.couponCode} — {formatPKR(order.discount)} off
                         </p>
                       )}
@@ -163,11 +163,11 @@ export default function OrdersPanel() {
                       <div className="mt-6 flex flex-wrap items-center gap-6 pl-6">
                         <Link
                           href={`/order/${order._id}`}
-                          className="link-draw font-mono text-[10px] uppercase tracking-[0.22em] text-accent"
+                          className="link-draw font-mono text-[13px] uppercase tracking-[0.08em] text-accent"
                         >
                           View confirmation →
                         </Link>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-4 sm:hidden">
+                        <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-4 sm:hidden">
                           {order.status}
                         </span>
                       </div>
@@ -186,8 +186,8 @@ export default function OrdersPanel() {
 function Stat({ label, value }) {
   return (
     <div>
-      <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">{label}</dt>
-      <dd className="mt-3 font-display text-3xl font-light tabular-nums">{value}</dd>
+      <dt className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">{label}</dt>
+      <dd className="mt-3 font-display text-3xl font-normal tabular-nums">{value}</dd>
     </div>
   );
 }

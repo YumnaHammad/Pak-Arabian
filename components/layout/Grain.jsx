@@ -1,5 +1,5 @@
 'use client';
-import { usePrefersReducedMotion } from '@/lib/hooks';
+import { usePrefersReducedMotion, useHasPointer } from '@/lib/hooks';
 
 /**
  * Film grain + a soft vignette over the entire site.
@@ -10,12 +10,17 @@ import { usePrefersReducedMotion } from '@/lib/hooks';
  */
 export default function Grain() {
   const reduced = usePrefersReducedMotion();
+  const hasPointer = useHasPointer();
+
+  /* Animating it repaints a full-viewport layer several times a second. Worth
+     it on desktop, pure battery drain on a phone nobody is studying it on. */
+  const animate = !reduced && hasPointer;
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[110]">
       <div
-        className={`grain-layer absolute -inset-[60%] ${reduced ? '' : 'animate-grain-shift'}`}
-        style={{ opacity: 'var(--grain-opacity)' }}
+        className={`grain-layer absolute -inset-[30%] ${animate ? 'animate-grain-shift' : ''}`}
+        style={{ opacity: 'var(--grain-opacity)', willChange: animate ? 'transform' : 'auto' }}
       />
       <div
         className="absolute inset-0"

@@ -12,7 +12,7 @@ export function Eyebrow({ children, numeral, muted = false, className = '' }) {
   return (
     <div className={cn('flex items-center gap-4', className)}>
       {numeral && (
-        <span className="font-mono text-[10px] tabular-nums tracking-[0.3em] text-ink-4">
+        <span className="font-mono text-[13px] tabular-nums tracking-[0.1em] text-ink-4">
           {numeral}
         </span>
       )}
@@ -41,7 +41,7 @@ export function SectionHeading({ eyebrow, numeral, title, lede, align = 'left', 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 1, ease: EASE.luxe }}
-          className="max-w-3xl font-display text-display-sm font-light"
+          className="max-w-3xl font-display text-display-sm font-normal"
         >
           {title}
         </motion.h2>
@@ -52,7 +52,7 @@ export function SectionHeading({ eyebrow, numeral, title, lede, align = 'left', 
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT}
           transition={{ duration: 1, ease: EASE.luxe, delay: 0.12 }}
-          className="max-w-prose text-[15px] leading-relaxed text-ink-2"
+          className="max-w-prose text-[17px] leading-relaxed text-ink-2"
         >
           {lede}
         </motion.p>
@@ -135,10 +135,10 @@ function AccordionRow({ index, question, answer, isOpen, onToggle }) {
           className="group flex w-full items-start justify-between gap-8 py-7 text-left"
         >
           <span className="flex items-start gap-6">
-            <span className="mt-1 font-mono text-[10px] tabular-nums text-ink-4">
+            <span className="mt-1 font-mono text-[13px] tabular-nums text-ink-4">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="font-display text-xl font-light leading-snug transition-colors group-hover:text-accent md:text-2xl">
+            <span className="font-display text-xl font-normal leading-snug transition-colors group-hover:text-accent md:text-2xl">
               {question}
             </span>
           </span>
@@ -165,7 +165,7 @@ function AccordionRow({ index, question, answer, isOpen, onToggle }) {
             transition={{ duration: 0.55, ease: EASE.luxe }}
             className="overflow-hidden"
           >
-            <p className="max-w-prose pb-8 pl-12 text-[15px] leading-relaxed text-ink-2">
+            <p className="max-w-prose pb-8 pl-12 text-[17px] leading-relaxed text-ink-2">
               {answer}
             </p>
           </motion.div>
@@ -215,7 +215,7 @@ export function ScrollCue({ label = 'Scroll', className = '' }) {
 
   return (
     <div className={cn('flex flex-col items-center gap-4', className)} aria-hidden>
-      <span className="writing-vertical font-mono text-[9px] uppercase tracking-[0.4em] text-ink-3">
+      <span className="writing-vertical font-mono text-[12px] uppercase tracking-[0.14em] text-ink-3">
         {label}
       </span>
       <span className="relative h-16 w-px overflow-hidden bg-hairline">

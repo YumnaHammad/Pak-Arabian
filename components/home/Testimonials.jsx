@@ -55,7 +55,7 @@ export default function Testimonials() {
               as="h2"
               id="clients-heading"
               lines={['Worn, and', 'then written about.']}
-              className="mt-8 font-display text-display-sm font-light"
+              className="mt-8 font-display text-display-sm font-normal"
             />
           </div>
 
@@ -94,7 +94,7 @@ export default function Testimonials() {
             {/* Quote mark */}
             <span
               aria-hidden
-              className="pointer-events-none absolute right-6 top-2 select-none font-display text-8xl font-light leading-none text-ink opacity-[0.06]"
+              className="pointer-events-none absolute right-6 top-2 select-none font-display text-8xl font-normal leading-none text-ink opacity-[0.06]"
             >
               ”
             </span>
@@ -102,17 +102,17 @@ export default function Testimonials() {
             <Rating value={item.rating} />
 
             <blockquote className="relative mt-7">
-              <p className="font-display text-xl font-light leading-relaxed text-ink-2 md:text-2xl">
+              <p className="font-display text-xl font-normal leading-relaxed text-ink-2 md:text-2xl">
                 {item.quote}
               </p>
             </blockquote>
 
             <figcaption className="mt-9 flex items-end justify-between border-t border-hairline/40 pt-6">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink">
+                <p className="font-mono text-[13px] uppercase tracking-[0.08em] text-ink">
                   {item.name}
                 </p>
-                <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+                <p className="mt-1.5 font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
                   {item.location}
                 </p>
               </div>

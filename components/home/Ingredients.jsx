@@ -35,10 +35,10 @@ export default function Ingredients() {
               as="h2"
               id="ingredients-heading"
               lines={['Eight materials.', 'Eight provenances.']}
-              className="mt-8 font-display text-display-sm font-light"
+              className="mt-8 font-display text-display-sm font-normal"
             />
           </div>
-          <p className="max-w-prose text-[15px] leading-relaxed text-ink-2 md:text-right">
+          <p className="max-w-prose text-[17px] leading-relaxed text-ink-2 md:text-right">
             Nothing in the cabinet is bought through a broker. Each material is
             contracted a season ahead, direct from the people who grow it.
           </p>
@@ -92,14 +92,14 @@ export default function Ingredients() {
 
                         <span
                           className={cn(
-                            'flex-1 font-display text-2xl font-light transition-all duration-500 md:text-3xl',
+                            'flex-1 font-display text-2xl font-normal transition-all duration-500 md:text-3xl',
                             isActive ? 'text-ink translate-x-1' : 'text-ink-3'
                           )}
                         >
                           {ing.name}
                         </span>
 
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-4">
+                        <span className="font-mono text-[12px] uppercase tracking-[0.07em] text-ink-4">
                           {ing.note}
                         </span>
                       </button>
@@ -152,10 +152,10 @@ export default function Ingredients() {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.5, ease: EASE.luxe }}
                     >
-                      <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-cream/50">
+                      <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-cream/50">
                         {active.family}
                       </p>
-                      <h3 className="mt-3 font-display text-4xl font-light text-cream md:text-6xl">
+                      <h3 className="mt-3 font-display text-4xl font-normal text-cream md:text-6xl">
                         {active.name}
                       </h3>
                       <p className="mt-2 font-display text-lg italic text-cream/50">
@@ -164,7 +164,7 @@ export default function Ingredients() {
                     </motion.div>
                   </AnimatePresence>
 
-                  <span className="shrink-0 border border-cream/20 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-cream/70 backdrop-blur-sm">
+                  <span className="shrink-0 border border-cream/20 px-3 py-2 font-mono text-[12px] uppercase tracking-[0.07em] text-cream/70 backdrop-blur-sm">
                     {active.origin}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ export default function Ingredients() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.5, ease: EASE.luxe, delay: 0.06 }}
-                    className="max-w-[52ch] text-[15px] leading-relaxed text-cream/80"
+                    className="max-w-[52ch] text-[17px] leading-relaxed text-cream/80"
                   >
                     {active.blurb}
                   </motion.p>
@@ -258,7 +258,7 @@ function OriginPlate({ active, onSelect }) {
                   initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap font-mono text-[8px] uppercase tracking-[0.2em] text-accent"
+                  className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap font-mono text-[12px] uppercase tracking-[0.07em] text-accent"
                 >
                   {ing.origin}
                 </motion.span>
@@ -268,7 +268,7 @@ function OriginPlate({ active, onSelect }) {
         );
       })}
 
-      <p className="absolute bottom-3 left-4 font-mono text-[8px] uppercase tracking-[0.24em] text-ink-4">
+      <p className="absolute bottom-3 left-4 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
         Provenance — 8 origins
       </p>
     </div>

@@ -3,7 +3,7 @@ import { createContext, useContext, useCallback, useEffect, useMemo, useRef, use
 import { useAuth } from '@/lib/auth-context';
 
 const WishlistContext = createContext(null);
-const LOCAL_KEY = 'azwah_wishlist';
+const LOCAL_KEY = 'pakarabian_wishlist';
 
 /**
  * Wishlist with a guest tier.
