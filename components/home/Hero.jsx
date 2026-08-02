@@ -87,13 +87,13 @@ export default function Hero({ productCount = 0 }) {
               href="/collection?category=men"
               className="flex min-h-[3.5rem] items-center justify-center border border-hairline px-7 text-[15px] font-semibold uppercase tracking-[0.05em] transition-colors hover:border-accent hover:text-accent"
             >
-              For Him
+              Men
             </Link>
             <Link
               href="/collection?category=women"
               className="flex min-h-[3.5rem] items-center justify-center border border-hairline px-7 text-[15px] font-semibold uppercase tracking-[0.05em] transition-colors hover:border-accent hover:text-accent"
             >
-              For Her
+              Women
             </Link>
           </motion.div>
 

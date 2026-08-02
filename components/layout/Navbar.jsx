@@ -22,8 +22,8 @@ import { cn } from '@/lib/utils';
  */
 const PRIMARY = [
   { label: 'Shop', href: '/collection', mega: true },
-  { label: 'For Him', href: '/collection?category=men' },
-  { label: 'For Her', href: '/collection?category=women' },
+  { label: 'Men', href: '/collection?category=men' },
+  { label: 'Women', href: '/collection?category=women' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
   { label: 'FAQ', href: '/faq' },
@@ -33,7 +33,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   /*
-   * "For Him"/"For Her" differ from "Shop" only by query string. `useSearchParams`
+   * "Men"/"Women" differ from "Shop" only by query string. `useSearchParams`
    * would read it directly, but calling it here — in the root layout — opts every
    * static page in the app into dynamic rendering. Reading `location.search` after
    * mount costs one render and keeps the pages static.
