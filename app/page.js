@@ -1,10 +1,12 @@
 import { redirect } from 'next/navigation';
 import { dbConnect } from '@/lib/mongodb';
 import Product from '@/models/Product';
+import Poster from '@/models/Poster';
 import { BRAND, PITCH } from '@/lib/content/site';
 
 import Hero from '@/components/home/Hero';
 import TrustBar from '@/components/home/TrustBar';
+import PosterCarousel from '@/components/home/PosterCarousel';
 import ShopCategories from '@/components/home/ShopCategories';
 import SignatureCollection from '@/components/home/SignatureCollection';
 import HowItWorks from '@/components/home/HowItWorks';
@@ -36,14 +38,15 @@ export const metadata = {
 async function getHomeData() {
   try {
     await dbConnect();
-    const products = await Product.find({ active: true })
-      .sort({ featured: -1, createdAt: -1 })
-      .limit(40)
-      .lean();
-    return JSON.parse(JSON.stringify(products));
+    const [products, posters] = await Promise.all([
+      Product.find({ active: true }).sort({ featured: -1, createdAt: -1 }).limit(40).lean(),
+      /* Only posters whose schedule window is open right now. */
+      Poster.find(Poster.liveFilter()).sort({ sortOrder: 1, createdAt: -1 }).limit(8).lean(),
+    ]);
+    return JSON.parse(JSON.stringify({ products, posters }));
   } catch (error) {
-    console.error('[home] product query failed:', error.message);
-    return [];
+    console.error('[home] query failed:', error.message);
+    return { products: [], posters: [] };
   }
 }
 
@@ -56,7 +59,7 @@ export default async function HomePage({ searchParams }) {
     redirect(`/collection?${params.toString()}`);
   }
 
-  const products = await getHomeData();
+  const { products, posters } = await getHomeData();
 
   const featured = products.filter((p) => p.featured);
   const bestSellers = (featured.length >= 4 ? featured : products).slice(0, 8);
@@ -71,8 +74,6 @@ export default async function HomePage({ searchParams }) {
     acc[p.category] = (acc[p.category] || 0) + 1;
     return acc;
   }, {});
-
-  const heroCategory = inStock[0]?.category || products[0]?.category || 'signature';
 
   /* Lowest live price keeps the "from" figure honest against real inventory. */
   const priceFrom = inStock.length
@@ -99,10 +100,13 @@ export default async function HomePage({ searchParams }) {
       />
 
       {/* ── 1. What this is, what it costs, how to buy ── */}
-      <Hero featuredCategory={heroCategory} productCount={products.length} />
+      <Hero productCount={products.length} />
 
       {/* ── 2. Why it is safe to order ── */}
       <TrustBar />
+
+      {/* ── 2b. Whatever is on offer right now ── */}
+      <PosterCarousel posters={posters} />
 
       {/* ── 3. Where do I start? ── */}
       <ShopCategories covers={covers} counts={counts} />

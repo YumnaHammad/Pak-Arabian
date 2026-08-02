@@ -1,5 +1,4 @@
 'use client';
-import { useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useUI } from '@/lib/store/ui';
@@ -7,22 +6,20 @@ import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
 import { BRAND, PITCH } from '@/lib/content/site';
 import { formatPKR } from '@/lib/utils';
-import FlaconStage from '@/components/three/FlaconStage';
+import HeroVideo from './HeroVideo';
 
 /**
  * The opening frame.
  *
- * Rebuilt to answer "what is this shop?" before anything else. The previous
- * hero led with an abstract line of poetry over a rotating bottle — beautiful,
- * but a first-time visitor could not tell what was being sold, for how much, or
- * how to buy it.
+ * Answers "what is this shop?" before anything else: a plain headline, the
+ * concrete facts (price from, longevity, delivery), and obvious buttons.
  *
- * Now: a plain headline, the concrete facts (price from, longevity, delivery),
- * and obvious buttons. The flacon moves to its own column so the type never
- * competes with it for legibility.
+ * The house film now carries the background. The real-time flacon used to sit
+ * in a second column here — two competing focal points, and a WebGL context on
+ * the highest-traffic page. With the film doing that job the canvas is gone
+ * from the homepage entirely; it still runs on /about and the product gallery.
  */
-export default function Hero({ featuredCategory = 'signature', productCount = 0 }) {
-  const section = useRef(null);
+export default function Hero({ productCount = 0 }) {
   const reduced = usePrefersReducedMotion();
   const introComplete = useUI((s) => s.introComplete);
   const gate = introComplete || reduced;
@@ -35,13 +32,13 @@ export default function Hero({ featuredCategory = 'signature', productCount = 0 
 
   return (
     <section
-      ref={section}
-      className="relative overflow-hidden pt-28 md:pt-36"
+      className="relative flex min-h-[92svh] items-center overflow-hidden pt-28 md:min-h-[88svh] md:pt-32"
       aria-label={`${BRAND.legal} — premium perfumes`}
     >
-      <div className="shell-wide grid items-center gap-12 pb-16 lg:grid-cols-2 lg:gap-16 lg:pb-24">
-        {/* ══════════ Words ══════════ */}
-        <div className="order-2 lg:order-1">
+      <HeroVideo className="absolute inset-0" />
+
+      <div className="shell-wide relative w-full pb-16 md:pb-24">
+        <div className="max-w-[42rem]">
           <motion.p {...rise(0.1)} className="eyebrow">
             {BRAND.legal} · Est. {BRAND.founded}
           </motion.p>
@@ -104,29 +101,6 @@ export default function Hero({ featuredCategory = 'signature', productCount = 0 
             {productCount > 0 ? `${productCount} fragrances available` : 'Browse the collection'} ·
             No account needed · Pay on delivery
           </motion.p>
-        </div>
-
-        {/* ══════════ Object ══════════ */}
-        <div className="relative order-1 h-[42vh] min-h-[300px] lg:order-2 lg:h-[68vh]">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(58% 58% at 50% 48%, rgba(212,175,55,0.14), transparent 72%)',
-            }}
-          />
-          <FlaconStage
-            category={featuredCategory}
-            label={BRAND.name.toUpperCase()}
-            subtitle="EAU DE PARFUM"
-            className="absolute inset-0"
-            trackScrollOf={section}
-            cameraZ={6}
-            scrollRotations={0.5}
-            showMotes
-            showVapour={false}
-          />
         </div>
       </div>
     </section>

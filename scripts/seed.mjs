@@ -14,7 +14,7 @@ const products = [
     images: [], stock: 24, featured: true, active: true,
   },
   {
-    name: 'Cedre Blanc', slug: 'cedre-blanc', sku: 'MN-002', price: 7500, volumeMl: 50,
+    name:  'Cedre Blanc', slug: 'cedre-blanc', sku: 'MN-002', price: 7500, volumeMl: 50,
     concentration: 'Eau de Parfum', category: 'woody',
     description: 'Virginia cedar sanded smooth, softened with white musk and cashmere wood.',
     notes: { top: ['Cardamom'], heart: ['Cedarwood', 'Violet'], base: ['White Musk', 'Cashmeran'] },

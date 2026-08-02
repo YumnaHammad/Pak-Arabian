@@ -141,5 +141,12 @@ match the business. **These are not legal advice — have them reviewed.**
   collection degrade to editorial content if the database is unreachable rather
   than returning a 500.
 - Payment is cash on delivery, as before. No payment provider is integrated.
-- `/api/upload` still writes to `public/uploads`, which does not persist on
-  ephemeral hosts — move it to S3 or Cloudinary before deploying there.
+- `/api/upload` stores images in MongoDB and serves them from `/api/media/[id]`.
+  It used to write into `public/uploads`, which threw `EROFS` on Vercel — the
+  serverless filesystem is read-only. The files already committed under
+  `public/uploads` are static assets and still resolve; only new uploads go to
+  the database. Uploading requires an admin session and is capped at 4MB per
+  file, under Vercel's 4.5MB request body limit.
+- Atlas' free tier is 512MB shared with the catalogue. If photography outgrows
+  it, point `/api/upload` at Vercel Blob or Cloudinary — `images` is just a list
+  of URLs, so existing records keep resolving and nothing needs migrating.

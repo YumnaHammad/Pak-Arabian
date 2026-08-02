@@ -16,7 +16,11 @@ export async function middleware(req) {
 
   /* ── Admin ── */
   const isAdminPath = pathname.startsWith('/admin') && pathname !== '/admin/login';
-  const isAdminApi = pathname.startsWith('/api/admin') && !pathname.endsWith('/login');
+  const isAdminApi =
+    (pathname.startsWith('/api/admin') && !pathname.endsWith('/login')) ||
+    /* Uploads write to the database, so they belong behind the same gate.
+       Reads of the stored bytes stay public — they are product photographs. */
+    pathname.startsWith('/api/upload');
 
   if (isAdminPath || isAdminApi) {
     const token = req.cookies.get('admin_token')?.value;
@@ -41,5 +45,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*', '/api/account/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*', '/api/account/:path*', '/api/upload'],
 };

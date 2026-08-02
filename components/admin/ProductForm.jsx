@@ -46,6 +46,10 @@ export default function ProductForm({ initial }) {
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  /* Kept apart from `error` so an upload failure can be shown at the dropzone.
+     The form is long enough that a banner at the top is off-screen from here,
+     which reads as the picker silently ignoring the file. */
+  const [uploadError, setUploadError] = useState('');
   const [dragOver, setDragOver] = useState(false);
 
   function set(field, value) {
@@ -55,20 +59,40 @@ export default function ProductForm({ initial }) {
   async function uploadFiles(files) {
     if (!files?.length) return;
     setUploading(true);
-    setError('');
+    setUploadError('');
     try {
       const fd = new FormData();
       Array.from(files).forEach((f) => fd.append('files', f));
       const res = await fetch('/api/upload', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Upload failed');
+
+      /* A 401 from the middleware and a crashed route both return non-JSON,
+         which would otherwise surface as an unrelated JSON parse error. */
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(
+          data.error ||
+            (res.status === 401
+              ? 'Your admin session expired — sign in again.'
+              : `Upload failed (${res.status}).`)
+        );
+      }
+
       setForm((f) => ({ ...f, images: [...(f.images || []), ...data.urls] }));
       setPreviews((prev) => [...prev, ...data.urls]);
     } catch (err) {
-      setError(err.message);
+      setUploadError(err.message);
     } finally {
       setUploading(false);
     }
+  }
+
+  /** Copies the picked files before clearing the input: resetting `value`
+   *  empties the live FileList, and without the reset choosing the same file
+   *  twice fires no `change` event at all. */
+  function handlePicked(e) {
+    const picked = Array.from(e.target.files || []);
+    e.target.value = '';
+    uploadFiles(picked);
   }
 
   function removeImage(idx) {
@@ -230,13 +254,25 @@ export default function ProductForm({ initial }) {
 
           {/* Photography */}
           <Section title="Photography" hint="The first image is the cover shown in the grid.">
+            {/* Outside the clickable box on purpose: nested, the synthetic
+                click from `fileInput.click()` bubbles back into the box's own
+                onClick handler. */}
+            <input
+              ref={fileInput}
+              type="file"
+              multiple
+              accept="image/*"
+              className="hidden"
+              onChange={handlePicked}
+            />
+
             <div
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={(e) => {
                 e.preventDefault();
                 setDragOver(false);
-                uploadFiles(e.dataTransfer.files);
+                uploadFiles(Array.from(e.dataTransfer.files || []));
               }}
               onClick={() => fileInput.current?.click()}
               className={cn(
@@ -244,23 +280,21 @@ export default function ProductForm({ initial }) {
                 dragOver ? 'border-[var(--accent)] bg-[var(--accent)]/5' : 'border-hairline hover:border-[var(--accent)]/50'
               )}
             >
-              <input
-                ref={fileInput}
-                type="file"
-                multiple
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => uploadFiles(e.target.files)}
-              />
               {uploading ? (
                 <p className="text-[13px] text-[var(--accent)]">Uploading…</p>
               ) : (
                 <>
                   <p className="text-[13px] text-ink-2">Click to upload, or drop images here</p>
-                  <p className="mt-1.5 text-[11px] text-ink-4">PNG, JPG or WEBP · multiple allowed</p>
+                  <p className="mt-1.5 text-[11px] text-ink-4">PNG, JPG or WEBP · max 4MB each · multiple allowed</p>
                 </>
               )}
             </div>
+
+            {uploadError && (
+              <p role="alert" className="mt-3 rounded-lg border border-red-500/35 bg-red-500/5 px-4 py-3 text-[13px] text-red-400">
+                {uploadError}
+              </p>
+            )}
 
             {previews.length > 0 && (
               <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5">
