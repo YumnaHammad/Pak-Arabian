@@ -120,7 +120,7 @@ export default function Navbar() {
       >
         <nav
           aria-label="Primary"
-          className="shell-wide flex h-[76px] items-center justify-between gap-3 md:h-[92px] md:gap-8"
+          className="shell-wide relative flex h-[76px] items-center justify-between gap-3 md:h-[92px] md:gap-8"
         >
           {/* ── Wordmark ── */}
           <Cursorable variant="link">
@@ -130,7 +130,7 @@ export default function Navbar() {
           </Cursorable>
 
           {/* ── Desktop links ── */}
-          <ul className="hidden items-center gap-7 lg:flex xl:gap-9">
+          <ul className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-5 lg:flex xl:gap-9">
             {PRIMARY.map((item) => {
               const active =
                 item.href === pathname ||

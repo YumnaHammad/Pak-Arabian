@@ -97,6 +97,16 @@ export default function SearchOverlay() {
           aria-modal="true"
           aria-label="Search the library"
         >
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close search"
+            className="absolute end-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-base text-ink shadow-sm transition-colors hover:border-accent hover:bg-[var(--accent)] hover:text-white md:end-8 md:top-8 md:h-14 md:w-14"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
           <div className="shell flex h-full flex-col pt-28 md:pt-36">
             {/* ── Input ── */}
             <motion.div
@@ -120,8 +130,8 @@ export default function SearchOverlay() {
                 />
                 <button
                   onClick={() => setOpen(false)}
-                  aria-label="Close search"
-                  className="shrink-0 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:text-accent"
+                  aria-label="Close search (Esc)"
+                  className="hidden shrink-0 md:block font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:text-accent"
                 >
                   Esc
                 </button>
