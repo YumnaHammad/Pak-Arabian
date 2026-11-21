@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { COLLECTION_DOORS } from '@/lib/content/site';
 import { EASE, VIEWPORT } from '@/lib/motion';
+import { useT } from '@/lib/i18n';
 import BottleGlyph from '@/components/ui/BottleGlyph';
 
 /**
@@ -15,20 +16,21 @@ import BottleGlyph from '@/components/ui/BottleGlyph';
  * with a name, a plain description and a count.
  */
 export default function ShopCategories({ covers = {}, counts = {} }) {
+  const t = useT();
   return (
     <section className="shell-wide py-16 md:py-24" aria-labelledby="shop-heading">
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-          <p className="eyebrow">Shop by category</p>
+          <p className="eyebrow">{t('cat.kicker')}</p>
           <h2 id="shop-heading" className="mt-4 font-display text-[clamp(1.9rem,4vw,2.8rem)] font-semibold">
-            What are you looking for?
+            {t('cat.title')}
           </h2>
         </div>
         <Link
           href="/collection"
           className="shrink-0 text-[15px] font-semibold text-accent hover:underline"
         >
-          View all fragrances →
+          {t('cat.all')}
         </Link>
       </div>
 

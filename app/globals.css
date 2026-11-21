@@ -484,3 +484,21 @@ html.lenis, html.lenis body { height: auto; }
   html.has-custom-cursor,
   html.has-custom-cursor * { cursor: auto !important; }
 }
+
+/* ── Urdu: Nastaliq needs its own face and much more line height ── */
+html[data-lang='ur'] body,
+html[data-lang='ur'] h1,
+html[data-lang='ur'] h2,
+html[data-lang='ur'] h3,
+html[data-lang='ur'] .eyebrow,
+html[data-lang='ur'] .font-display {
+  font-family: var(--font-urdu), 'Noto Nastaliq Urdu', serif;
+  letter-spacing: 0;
+  font-style: normal;
+}
+html[data-lang='ur'] body { line-height: 2.1; }
+html[data-lang='ur'] h1,
+html[data-lang='ur'] h2,
+html[data-lang='ur'] h3 { line-height: 1.9; }
+html[data-lang='ur'] .hero-title { font-size: clamp(1.8rem, 3.8vw, 3.1rem); }
+html[data-lang='ur'] .uppercase { text-transform: none; }

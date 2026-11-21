@@ -10,6 +10,8 @@ import { EASE } from '@/lib/motion';
 import Logo from '@/components/ui/Logo';
 import { BRAND, COLLECTION_DOORS, CATEGORIES } from '@/lib/content/site';
 import ThemeToggle from './ThemeToggle';
+import LangSwitch from './LangSwitch';
+import { useT } from '@/lib/i18n';
 import Cursorable from '@/components/ui/Cursorable';
 import { cn } from '@/lib/utils';
 
@@ -22,15 +24,16 @@ import { cn } from '@/lib/utils';
  * now top-level, and the shop link says "Shop".
  */
 const PRIMARY = [
-  { label: 'Shop', href: '/collection', mega: true },
-  { label: 'Men', href: '/collection?category=men' },
-  { label: 'Women', href: '/collection?category=women' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'Shop', k: 'nav.shop', href: '/collection', mega: true },
+  { label: 'Men', k: 'nav.men', href: '/collection?category=men' },
+  { label: 'Women', k: 'nav.women', href: '/collection?category=women' },
+  { label: 'About', k: 'nav.about', href: '/about' },
+  { label: 'Contact', k: 'nav.contact', href: '/contact' },
+  { label: 'FAQ', k: 'nav.faq', href: '/faq' },
 ];
 
 export default function Navbar() {
+  const t = useT();
   const pathname = usePathname();
 
   /*
@@ -115,7 +118,6 @@ export default function Navbar() {
         onMouseLeave={closeMega}
         /* Over the teal hero the header borrows the dark tokens so the mark
            and links stay cream until the page scrolls. */
-        data-theme={pathname === '/' && !scrolled && !mega ? 'noir' : undefined}
       >
         <nav
           aria-label="Primary"
@@ -145,7 +147,7 @@ export default function Navbar() {
                       )}
                       aria-expanded={item.mega ? mega : undefined}
                     >
-                      {item.label}
+                      {t(item.k)}
                     </Link>
                   </Cursorable>
                 </li>
@@ -167,6 +169,7 @@ export default function Navbar() {
               </IconAction>
             </Link>
 
+            <LangSwitch />
             <ThemeToggle className="hidden md:flex" />
 
             {/* Cart */}
@@ -328,18 +331,20 @@ function IconAction({ children, label, onClick, as: Tag = 'button' }) {
 
 /* ── Full-screen mobile navigation ── */
 function MobileMenu({ onClose, pathname }) {
+  const t = useT();
   const links = [
-    { label: 'Home', href: '/' },
-    { label: 'Collections', href: '/collection' },
+    { label: 'Home', k: 'nav.home', href: '/' },
+    { label: 'Collections', k: 'nav.shop', href: '/collection' },
     ...COLLECTION_DOORS.map((d) => ({
       label: d.label,
+      k: { men: 'nav.men', women: 'nav.women' }[d.value],
       href: `/collection?category=${d.value}`,
       sub: true,
     })),
-    { label: 'The House', href: '/about' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'FAQ', href: '/faq' },
-    { label: 'Account', href: '/account' },
+    { label: 'The House', k: 'nav.about', href: '/about' },
+    { label: 'Contact', k: 'nav.contact', href: '/contact' },
+    { label: 'FAQ', k: 'nav.faq', href: '/faq' },
+    { label: 'Account', k: 'nav.account', href: '/account' },
   ];
 
   return (
@@ -379,7 +384,7 @@ function MobileMenu({ onClose, pathname }) {
                       pathname === link.href && 'text-accent'
                     )}
                   >
-                    {link.label}
+                    {link.k ? t(link.k) : link.label}
                   </span>
                   <span className="font-mono text-[13px] text-ink-4">
                     {String(i + 1).padStart(2, '0')}

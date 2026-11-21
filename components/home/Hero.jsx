@@ -1,153 +1,140 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useUI } from '@/lib/store/ui';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
-import { BRAND, PITCH } from '@/lib/content/site';
+import { CONTACT } from '@/lib/content/site';
+import { useT } from '@/lib/i18n';
 import Logo from '@/components/ui/Logo';
 
-const HeroScene = dynamic(() => import('@/components/three/HeroScene'), { ssr: false });
-
-const RANGE = ['Perfumes', 'Attars', 'Honey', 'Dates & Zam Zam', 'Gift Items', 'Caps & Ihram'];
+const SLIDES = [
+  { key: 's1', img: '/uploads/mens-1.png', href: '/collection?category=men' },
+  { key: 's2', img: '/uploads/mens-2.png', href: '/collection?q=attar' },
+  { key: 's3', img: '/uploads/womens-1.png', href: '/collection?category=women' },
+];
 
 /**
- * Opening frame: always on the brand teal (it is the identity, not the
- * theme), copy on the left, a live 3D flacon on the right.
+ * Homepage banner: a teal card with rotating product slides. Plain images and
+ * opacity/transform transitions only — no WebGL, no video — so it stays
+ * smooth on any phone or laptop.
  */
 export default function Hero() {
+  const t = useT();
   const reduced = usePrefersReducedMotion();
-  const introComplete = useUI((s) => s.introComplete);
-  const gate = introComplete || reduced;
-  const pointer = useRef({ x: 0, y: 0 });
-  const [webgl, setWebgl] = useState(false);
-  const [active, setActive] = useState(true);
-  const section = useRef(null);
+  const [i, setI] = useState(0);
 
   useEffect(() => {
     if (reduced) return;
-    /* Real-time 3D only on capable desktops; phones get the static mark. */
-    const capable =
-      window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
-      (navigator.hardwareConcurrency || 4) >= 4;
-    if (!capable) return;
-    try {
-      const c = document.createElement('canvas');
-      setWebgl(!!(c.getContext('webgl2') || c.getContext('webgl')));
-    } catch {
-      setWebgl(false);
-    }
-    const move = (e) => {
-      pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-    };
-    window.addEventListener('pointermove', move, { passive: true });
-    /* Stop rendering once the hero is scrolled out of view. */
-    const io = new IntersectionObserver(([e]) => setActive(e.isIntersecting));
-    if (section.current) io.observe(section.current);
-    return () => {
-      window.removeEventListener('pointermove', move);
-      io.disconnect();
-    };
-  }, [reduced]);
+    const id = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 5500);
+    return () => clearInterval(id);
+  }, [reduced, i]);
 
-  const rise = (delay) => ({
-    initial: { opacity: 0, y: 22 },
-    animate: gate ? { opacity: 1, y: 0 } : {},
-    transition: { duration: 0.9, ease: EASE.luxe, delay },
-  });
+  const s = SLIDES[i];
 
   return (
-    <section
-      ref={section}
-      className="relative isolate overflow-hidden bg-[#083234] text-[#fbf3e2]"
-      aria-label={`${BRAND.name} Fragrances`}
-    >
-      {/* Ground: deep teal with a warm glow behind the flacon */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(60%_70%_at_72%_45%,#0f6266_0%,#0a4446_45%,#062627_100%)]" />
-        <div className="absolute right-[8%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[#d9b45a]/15 blur-[80px]" />
-        <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#fbf3e2_1px,transparent_1px)] [background-size:22px_22px]" />
-        {/* Faint mark as watermark */}
-        <Logo className="absolute -left-24 bottom-[-6rem] h-[34rem] w-[26rem] text-[#fbf3e2] opacity-[0.04]" title="" />
-      </div>
-
-      <div className="shell-wide grid min-h-[100svh] items-center gap-6 pb-14 pt-28 md:pt-32 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
-        {/* Copy */}
-        <div className="relative z-10 max-w-[38rem]">
-          <motion.p {...rise(0.1)} className="flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.28em] text-[#d9b45a]">
-            <span className="h-px w-10 bg-[#d9b45a]" />
-            {BRAND.name} Fragrances · {BRAND.city}
-          </motion.p>
-
-          <motion.h1
-            {...rise(0.2)}
-            className="mt-7 font-display text-[clamp(2.7rem,6.2vw,5.2rem)] font-medium leading-[1.02] tracking-[-0.02em]"
-          >
-            {PITCH.headline}{' '}
-            <span className="italic text-[#d9b45a]">{PITCH.headlineAccent}</span>
-          </motion.h1>
-
-          <motion.p {...rise(0.3)} className="mt-7 max-w-[44ch] text-[17px] leading-relaxed text-[#fbf3e2]/75">
-            {PITCH.sub}
-          </motion.p>
-
-          <motion.div {...rise(0.4)} className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/collection"
-              className="group inline-flex min-h-[3.5rem] items-center gap-3 rounded-full bg-[#d9b45a] px-8 text-[14px] font-semibold uppercase tracking-[0.08em] text-[#083234] shadow-[0_18px_50px_-18px_rgba(217,180,90,0.8)] transition-transform hover:-translate-y-0.5"
-            >
-              Shop the collection
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex min-h-[3.5rem] items-center rounded-full border border-[#fbf3e2]/30 px-8 text-[14px] font-semibold uppercase tracking-[0.08em] transition-colors hover:border-[#d9b45a] hover:text-[#d9b45a]"
-            >
-              Wholesale enquiry
-            </Link>
-          </motion.div>
-
-          <motion.ul {...rise(0.5)} className="mt-12 flex flex-wrap gap-2">
-            {RANGE.map((r) => (
-              <li
-                key={r}
-                className="rounded-full border border-[#fbf3e2]/15 bg-[#fbf3e2]/[0.04] px-3.5 py-1.5 text-[12.5px] text-[#fbf3e2]/80"
-              >
-                {r}
-              </li>
-            ))}
-          </motion.ul>
+    <section className="px-3 pb-6 pt-[84px] md:px-6 md:pt-[100px]" aria-roledescription="carousel">
+      <div className="relative isolate overflow-hidden rounded-[28px] bg-[#083234] text-[#fbf3e2] md:rounded-[36px]">
+        {/* Ground */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-[radial-gradient(70%_90%_at_75%_50%,#0f6266_0%,#0a4446_50%,#062627_100%)]" />
+          <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(#fbf3e2_1px,transparent_1px)] [background-size:20px_20px]" />
+          <Logo className="absolute -bottom-16 start-[-3rem] h-[24rem] w-[19rem] text-[#fbf3e2] opacity-[0.045]" title="" />
         </div>
 
-        {/* 3D */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={gate ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.4, ease: EASE.luxe, delay: 0.25 }}
-          className="relative order-first h-[46svh] min-h-[320px] lg:order-none lg:h-[78svh]"
-        >
-          {/* Arch frame from the mark */}
-          <svg aria-hidden viewBox="0 0 200 300" className="absolute left-1/2 top-1/2 h-[92%] -translate-x-1/2 -translate-y-1/2 text-[#d9b45a]/30" fill="none" stroke="currentColor" strokeWidth="0.6">
-            <path d="M20 300 V120 C20 70 70 40 100 6 C130 40 180 70 180 120 V300" />
-            <path d="M36 300 V126 C36 84 76 58 100 26 C124 58 164 84 164 126 V300" opacity="0.5" />
-          </svg>
-          {webgl ? (
-            <HeroScene pointer={pointer} active={active} />
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <Logo className="h-[70%] w-[60%] text-[#fbf3e2]" />
-            </div>
-          )}
-        </motion.div>
-      </div>
+        <div className="grid items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-6 lg:px-20 lg:py-20">
+          {/* Copy */}
+          <div className="order-2 lg:order-1">
+            <p className="inline-flex items-center gap-2 rounded-full border border-[#d9b45a]/40 bg-[#d9b45a]/10 px-4 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-[#e7c877]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#e7c877]" />
+              {t('hero.kicker')}
+            </p>
 
-      {/* Scroll cue */}
-      <div aria-hidden className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-[#fbf3e2]/50 md:flex">
-        Scroll
-        <span className="h-10 w-px animate-pulse bg-gradient-to-b from-[#d9b45a] to-transparent" />
+            <div className="mt-6 min-h-[13rem] md:min-h-[15rem]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={s.key + t('nav.shop')}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.55, ease: EASE.luxe }}
+                >
+                  <h1 className="hero-title max-w-[16ch] font-display text-[clamp(2.1rem,4.6vw,3.9rem)] font-semibold leading-[1.1]">
+                    {t(`${s.key}.title`)}
+                  </h1>
+                  <p className="mt-5 max-w-[44ch] text-[16px] leading-relaxed text-[#fbf3e2]/75 md:text-[17px]">
+                    {t(`${s.key}.body`)}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={s.href}
+                className="inline-flex min-h-[3.25rem] items-center gap-2 rounded-full bg-[#d9b45a] px-7 text-[15px] font-semibold text-[#083234] transition-colors hover:bg-[#e7c877]"
+              >
+                {t('hero.shop')} <span aria-hidden className="rtl:rotate-180">→</span>
+              </Link>
+              <a
+                href={CONTACT.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[3.25rem] items-center gap-2 rounded-full border border-[#fbf3e2]/30 px-7 text-[15px] font-semibold transition-colors hover:border-[#25d366] hover:text-[#7be39f]"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.6-.1 1.2z"/></svg>
+                {t('hero.whatsapp')}
+              </a>
+            </div>
+
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-[#fbf3e2]/80">
+              {['hero.f1', 'hero.f2', 'hero.f3'].map((k) => (
+                <li key={k} className="flex items-center gap-2">
+                  <span aria-hidden className="text-[#d9b45a]">✓</span>
+                  {t(k)}
+                </li>
+              ))}
+            </ul>
+
+            {/* Slide dots */}
+            <div className="mt-9 flex items-center gap-2">
+              {SLIDES.map((sl, n) => (
+                <button
+                  key={sl.key}
+                  type="button"
+                  aria-label={`Slide ${n + 1}`}
+                  aria-current={n === i}
+                  onClick={() => setI(n)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${n === i ? 'w-10 bg-[#d9b45a]' : 'w-4 bg-[#fbf3e2]/30 hover:bg-[#fbf3e2]/60'}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Arch-framed product image */}
+          <div className="relative order-1 mx-auto w-full max-w-[22rem] lg:order-2 lg:max-w-[26rem]">
+            <div aria-hidden className="absolute -inset-3 rounded-t-full border border-[#d9b45a]/50 md:-inset-4" />
+            <div aria-hidden className="absolute -inset-7 rounded-t-full border border-[#d9b45a]/15 md:-inset-9" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-[#0a4446]">
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={s.img}
+                  initial={{ opacity: 0, scale: 1.06 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.9, ease: EASE.luxe }}
+                  className="absolute inset-0"
+                >
+                  <Image src={s.img} alt="" fill priority={i === 0} sizes="(max-width: 1024px) 80vw, 420px" className="object-cover" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className="absolute -bottom-4 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 whitespace-nowrap rounded-full bg-[#fbf3e2] px-5 py-2 text-[13px] font-semibold text-[#083234] shadow-lg">
+              Pak Arabian Fragrances
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

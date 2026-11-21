@@ -1,6 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
-import { VALUE_PROPS } from '@/lib/content/site';
+import { useT } from '@/lib/i18n';
+
+const VALUE_PROPS = [
+  { title: 't.cod', body: 't.cod.b', icon: 'wallet' },
+  { title: 't.ship', body: 't.ship.b', icon: 'truck' },
+  { title: 't.orig', body: 't.orig.b', icon: 'shield' },
+  { title: 't.ret', body: 't.ret.b', icon: 'clock' },
+];
 import { EASE, VIEWPORT } from '@/lib/motion';
 
 /**
@@ -11,6 +18,7 @@ import { EASE, VIEWPORT } from '@/lib/motion';
  * headings, one line of detail each. No animation beyond a single entrance.
  */
 export default function TrustBar() {
+  const t = useT();
   return (
     <section
       aria-label="Why buy from us"
@@ -28,8 +36,8 @@ export default function TrustBar() {
           >
             <Icon name={prop.icon} />
             <div>
-              <p className="text-[16px] font-semibold leading-snug">{prop.title}</p>
-              <p className="mt-1.5 text-[14px] leading-relaxed text-ink-3">{prop.body}</p>
+              <p className="text-[16px] font-semibold leading-snug">{t(prop.title)}</p>
+              <p className="mt-1.5 text-[14px] leading-relaxed text-ink-3">{t(prop.body)}</p>
             </div>
           </motion.li>
         ))}

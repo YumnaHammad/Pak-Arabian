@@ -3,8 +3,7 @@ import { usePathname } from 'next/navigation';
 import { CartProvider } from '@/lib/cart-context';
 import { AuthProvider } from '@/lib/auth-context';
 import { WishlistProvider } from '@/lib/wishlist-context';
-import SmoothScroll from './SmoothScroll';
-import Cursor from './Cursor';
+import { LangSync } from '@/lib/i18n';
 import Grain from './Grain';
 import Loader from './Loader';
 import PageTransition from './PageTransition';
@@ -33,10 +32,9 @@ export default function Providers({ children }) {
     <AuthProvider>
       <WishlistProvider>
         <CartProvider>
-          <SmoothScroll />
+          <LangSync />
           <Loader />
           <Grain />
-          <Cursor />
           <ScrollProgress />
 
           <Navbar />

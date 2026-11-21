@@ -1,4 +1,4 @@
-import { Lora, Inter, JetBrains_Mono } from 'next/font/google';
+import { Lora, Inter, JetBrains_Mono, Noto_Nastaliq_Urdu } from 'next/font/google';
 import './globals.css';
 import { BRAND, CONTACT } from '@/lib/content/site';
 import Providers from '@/components/layout/Providers';
@@ -29,6 +29,13 @@ const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   weight: ['300', '400', '500'],
+  display: 'swap',
+});
+
+const urdu = Noto_Nastaliq_Urdu({
+  subsets: ['arabic'],
+  variable: '--font-urdu',
+  weight: ['400', '600', '700'],
   display: 'swap',
 });
 
@@ -110,7 +117,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-theme="ivoire"
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
+      className={`${display.variable} ${body.variable} ${mono.variable} ${urdu.variable}`}
       suppressHydrationWarning
     >
       <head>
