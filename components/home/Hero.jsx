@@ -44,7 +44,7 @@ export default function Hero() {
           <Logo className="absolute -bottom-16 start-[-3rem] h-[24rem] w-[19rem] text-[#fbf3e2] opacity-[0.045]" title="" />
         </div>
 
-        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-[28.5px]">
+        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-[58.5px]">
           {/* Copy */}
           <div className="order-2 lg:order-1">
             <p className="inline-flex items-center gap-2 rounded-full border border-[#d9b45a]/40 bg-[#d9b45a]/10 px-4 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-[#e7c877]">
@@ -114,7 +114,7 @@ export default function Hero() {
           </div>
 
           {/* Arch-framed product image */}
-          <div className="relative order-1 mx-auto w-full max-w-[15rem] sm:max-w-[17rem] lg:order-2 lg:max-w-[17.5rem]">
+          <div className="relative order-1 mx-auto w-full max-w-[15rem] sm:max-w-[17rem] lg:order-2 lg:max-w-[19.5rem]">
             <div aria-hidden className="absolute -inset-3 rounded-t-full border border-[#d9b45a]/50 md:-inset-4" />
             <div aria-hidden className="absolute -inset-7 rounded-t-full border border-[#d9b45a]/15 md:-inset-9" />
             <div className="relative aspect-[5/6] overflow-hidden rounded-t-full bg-[#0a4446]">
