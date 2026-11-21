@@ -83,11 +83,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductPage({ params }) {
-  const product = await getProduct(params.slug);
+  /* An unreachable database shows "not found" rather than a crash page. */
+  const product = await getProduct(params.slug).catch(() => null);
   if (!product) notFound();
 
   const [related, rating] = await Promise.all([
-    getRelated(product.category, product.slug),
+    getRelated(product.category, product.slug).catch(() => []),
     getRatingSummary(product._id),
   ]);
 

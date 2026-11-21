@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
 import { CONTACT } from '@/lib/content/site';
-import { useT } from '@/lib/i18n';
+import { useT, useLang } from "@/lib/i18n";
 import Logo from '@/components/ui/Logo';
 
 const SLIDES = [
@@ -22,6 +22,7 @@ const SLIDES = [
  */
 export default function Hero() {
   const t = useT();
+  const lang = useLang((st) => st.lang);
   const reduced = usePrefersReducedMotion();
   const [i, setI] = useState(0);
 
@@ -34,7 +35,7 @@ export default function Hero() {
   const s = SLIDES[i];
 
   return (
-    <section className="px-3 pb-6 pt-[84px] md:px-6 md:pt-[100px]" aria-roledescription="carousel">
+    <section className="px-3 pb-6 pt-[88px] md:px-6 md:pt-[104px]" aria-roledescription="carousel">
       <div className="relative isolate overflow-hidden rounded-[28px] bg-[#083234] text-[#fbf3e2] md:rounded-[36px]">
         {/* Ground */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -43,7 +44,7 @@ export default function Hero() {
           <Logo className="absolute -bottom-16 start-[-3rem] h-[24rem] w-[19rem] text-[#fbf3e2] opacity-[0.045]" title="" />
         </div>
 
-        <div className="grid items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-6 lg:px-20 lg:py-20">
+        <div className="grid items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-10">
           {/* Copy */}
           <div className="order-2 lg:order-1">
             <p className="inline-flex items-center gap-2 rounded-full border border-[#d9b45a]/40 bg-[#d9b45a]/10 px-4 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-[#e7c877]">
@@ -51,16 +52,16 @@ export default function Hero() {
               {t('hero.kicker')}
             </p>
 
-            <div className="mt-6 min-h-[13rem] md:min-h-[15rem]">
+            <div className="mt-5 min-h-[11rem] md:min-h-[10.5rem]">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={s.key + t('nav.shop')}
+                  key={s.key + lang}
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.55, ease: EASE.luxe }}
                 >
-                  <h1 className="hero-title max-w-[16ch] font-display text-[clamp(2.1rem,4.6vw,3.9rem)] font-semibold leading-[1.1]">
+                  <h1 className="hero-title max-w-[20ch] font-display text-[clamp(2rem,3.8vw,3.2rem)] font-semibold leading-[1.1]">
                     {t(`${s.key}.title`)}
                   </h1>
                   <p className="mt-5 max-w-[44ch] text-[16px] leading-relaxed text-[#fbf3e2]/75 md:text-[17px]">
@@ -88,7 +89,7 @@ export default function Hero() {
               </a>
             </div>
 
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-[#fbf3e2]/80">
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-[#fbf3e2]/80">
               {['hero.f1', 'hero.f2', 'hero.f3'].map((k) => (
                 <li key={k} className="flex items-center gap-2">
                   <span aria-hidden className="text-[#d9b45a]">✓</span>
@@ -98,7 +99,7 @@ export default function Hero() {
             </ul>
 
             {/* Slide dots */}
-            <div className="mt-9 flex items-center gap-2">
+            <div className="mt-6 flex items-center gap-2">
               {SLIDES.map((sl, n) => (
                 <button
                   key={sl.key}
@@ -113,10 +114,10 @@ export default function Hero() {
           </div>
 
           {/* Arch-framed product image */}
-          <div className="relative order-1 mx-auto w-full max-w-[22rem] lg:order-2 lg:max-w-[26rem]">
+          <div className="relative order-1 mx-auto w-full max-w-[15rem] sm:max-w-[17rem] lg:order-2 lg:max-w-[18.5rem]">
             <div aria-hidden className="absolute -inset-3 rounded-t-full border border-[#d9b45a]/50 md:-inset-4" />
             <div aria-hidden className="absolute -inset-7 rounded-t-full border border-[#d9b45a]/15 md:-inset-9" />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-[#0a4446]">
+            <div className="relative aspect-[5/6] overflow-hidden rounded-t-full bg-[#0a4446]">
               <AnimatePresence initial={false}>
                 <motion.div
                   key={s.img}

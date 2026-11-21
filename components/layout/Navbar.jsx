@@ -9,7 +9,6 @@ import { useScrollLock, useEscape } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
 import Logo from '@/components/ui/Logo';
 import { BRAND, COLLECTION_DOORS, CATEGORIES } from '@/lib/content/site';
-import ThemeToggle from './ThemeToggle';
 import LangSwitch from './LangSwitch';
 import { useT } from '@/lib/i18n';
 import Cursorable from '@/components/ui/Cursorable';
@@ -121,12 +120,12 @@ export default function Navbar() {
       >
         <nav
           aria-label="Primary"
-          className="shell-wide flex h-[72px] items-center justify-between gap-8 md:h-[86px]"
+          className="shell-wide flex h-[76px] items-center justify-between gap-8 md:h-[92px]"
         >
           {/* ── Wordmark ── */}
           <Cursorable variant="link">
             <Link href="/" className="group relative shrink-0" aria-label={`${BRAND.legal} home`}>
-              <Logo className="h-[52px] w-[42px] transition-transform duration-500 group-hover:scale-105 md:h-[64px] md:w-[52px]" />
+              <Logo className="h-[64px] w-[52px] transition-transform duration-500 group-hover:scale-105 md:h-[80px] md:w-[65px]" />
             </Link>
           </Cursorable>
 
@@ -170,7 +169,6 @@ export default function Navbar() {
             </Link>
 
             <LangSwitch />
-            <ThemeToggle className="hidden md:flex" />
 
             {/* Cart */}
             <Cursorable variant="link">
@@ -402,9 +400,9 @@ function MobileMenu({ onClose, pathname }) {
           className="mt-12 flex items-center justify-between"
         >
           <div>
-            <p className="eyebrow-muted">Theme</p>
+            <p className="eyebrow-muted">{t('nav.language')}</p>
             <div className="mt-3">
-              <ThemeToggle />
+              <LangSwitch />
             </div>
           </div>
           <div className="text-right">
@@ -413,7 +411,7 @@ function MobileMenu({ onClose, pathname }) {
               href="tel:+923009672021"
               className="mt-3 block font-mono text-sm text-ink-2 hover:text-accent"
             >
-              0310-1272021
+              0300-967-2021
             </a>
           </div>
         </motion.div>

@@ -77,17 +77,17 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#083234' },
+    { media: '(prefers-color-scheme: dark)', color: '#FBF6EC' },
     { media: '(prefers-color-scheme: light)', color: '#FBF6EC' },
   ],
-  colorScheme: 'dark light',
+  colorScheme: 'light',
 };
 
 /**
  * Replays the stored theme before first paint. Without this the page renders
  * in Noir for a frame before switching to Ivoire, which reads as a flash.
  */
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('pakarabian_theme');document.documentElement.setAttribute('data-theme',t==='noir'?'noir':'ivoire');}catch(e){document.documentElement.setAttribute('data-theme','ivoire');}})();`;
+const THEME_SCRIPT = `(function(){document.documentElement.setAttribute('data-theme','ivoire');try{var l=localStorage.getItem('pakarabian_lang');if(l==='ur'){document.documentElement.setAttribute('dir','rtl');document.documentElement.setAttribute('lang','ur');document.documentElement.setAttribute('data-lang','ur');}}catch(e){}})();`;
 
 /* Organisation + storefront structured data */
 const ORG_SCHEMA = {
