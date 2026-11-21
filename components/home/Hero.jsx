@@ -23,9 +23,16 @@ export default function Hero() {
   const gate = introComplete || reduced;
   const pointer = useRef({ x: 0, y: 0 });
   const [webgl, setWebgl] = useState(false);
+  const [active, setActive] = useState(true);
+  const section = useRef(null);
 
   useEffect(() => {
     if (reduced) return;
+    /* Real-time 3D only on capable desktops; phones get the static mark. */
+    const capable =
+      window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches &&
+      (navigator.hardwareConcurrency || 4) >= 4;
+    if (!capable) return;
     try {
       const c = document.createElement('canvas');
       setWebgl(!!(c.getContext('webgl2') || c.getContext('webgl')));
@@ -37,7 +44,13 @@ export default function Hero() {
       pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
     window.addEventListener('pointermove', move, { passive: true });
-    return () => window.removeEventListener('pointermove', move);
+    /* Stop rendering once the hero is scrolled out of view. */
+    const io = new IntersectionObserver(([e]) => setActive(e.isIntersecting));
+    if (section.current) io.observe(section.current);
+    return () => {
+      window.removeEventListener('pointermove', move);
+      io.disconnect();
+    };
   }, [reduced]);
 
   const rise = (delay) => ({
@@ -48,13 +61,14 @@ export default function Hero() {
 
   return (
     <section
+      ref={section}
       className="relative isolate overflow-hidden bg-[#083234] text-[#fbf3e2]"
       aria-label={`${BRAND.name} Fragrances`}
     >
       {/* Ground: deep teal with a warm glow behind the flacon */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(60%_70%_at_72%_45%,#0f6266_0%,#0a4446_45%,#062627_100%)]" />
-        <div className="absolute right-[8%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[#d9b45a]/15 blur-[120px]" />
+        <div className="absolute right-[8%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[#d9b45a]/15 blur-[80px]" />
         <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#fbf3e2_1px,transparent_1px)] [background-size:22px_22px]" />
         {/* Faint mark as watermark */}
         <Logo className="absolute -left-24 bottom-[-6rem] h-[34rem] w-[26rem] text-[#fbf3e2] opacity-[0.04]" title="" />
@@ -121,7 +135,7 @@ export default function Hero() {
             <path d="M36 300 V126 C36 84 76 58 100 26 C124 58 164 84 164 126 V300" opacity="0.5" />
           </svg>
           {webgl ? (
-            <HeroScene pointer={pointer} />
+            <HeroScene pointer={pointer} active={active} />
           ) : (
             <div className="flex h-full items-center justify-center">
               <Logo className="h-[70%] w-[60%] text-[#fbf3e2]" />

@@ -14,7 +14,7 @@ export default function Grain() {
 
   /* Animating it repaints a full-viewport layer several times a second. Worth
      it on desktop, pure battery drain on a phone nobody is studying it on. */
-  const animate = !reduced && hasPointer;
+  const animate = false; // static grain: the animated layer cost a full repaint per frame
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[110]">

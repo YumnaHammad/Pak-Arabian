@@ -8,8 +8,6 @@ import {
   Float,
   Sparkles,
   RoundedBox,
-  MeshTransmissionMaterial,
-  ContactShadows,
 } from '@react-three/drei';
 
 /**
@@ -30,7 +28,7 @@ function Dome() {
       const r = 0.42 * Math.sin(Math.PI * Math.pow(t, 0.72)) * (1 - 0.15 * t) + 0.12 * (1 - t);
       pts.push(new THREE.Vector2(Math.max(r, 0.001), y));
     }
-    return new THREE.LatheGeometry(pts, 64);
+    return new THREE.LatheGeometry(pts, 32);
   }, []);
   return (
     <mesh geometry={geo} position={[0, 1.42, 0]} castShadow>
@@ -53,26 +51,22 @@ function Flacon({ pointer }) {
   return (
     <group ref={group}>
       {/* Glass body */}
-      <RoundedBox args={[1.5, 1.9, 0.8]} radius={0.18} smoothness={6} position={[0, 0, 0]}>
-        <MeshTransmissionMaterial
-          samples={6}
-          resolution={512}
-          thickness={0.6}
-          roughness={0.04}
-          ior={1.45}
-          chromaticAberration={0.06}
-          anisotropy={0.2}
-          backside
+      <RoundedBox args={[1.5, 1.9, 0.8]} radius={0.18} smoothness={3} position={[0, 0, 0]}>
+        <meshPhysicalMaterial
           color="#fff8ea"
+          metalness={0}
+          roughness={0.05}
+          transparent
+          opacity={0.28}
+          clearcoat={1}
+          envMapIntensity={1.4}
         />
       </RoundedBox>
       {/* Liquid */}
       <RoundedBox args={[1.24, 1.3, 0.56]} radius={0.12} smoothness={4} position={[0, -0.22, 0]}>
-        <meshPhysicalMaterial
+        <meshStandardMaterial
           color="#c98b2b"
-          transmission={0.6}
-          roughness={0.15}
-          thickness={1}
+          roughness={0.2}
           emissive="#5a3208"
           emissiveIntensity={0.25}
         />
@@ -117,12 +111,13 @@ function Rings() {
   );
 }
 
-export default function HeroScene({ pointer }) {
+export default function HeroScene({ pointer, active = true }) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
+      dpr={[1, 1.25]}
+      frameloop={active ? 'always' : 'never'}
       camera={{ position: [0, 0.9, 8], fov: 34 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
     >
       <ambientLight intensity={0.35} />
       <spotLight position={[4, 6, 4]} angle={0.4} penumbra={1} intensity={60} color="#fff1d0" />
@@ -134,11 +129,10 @@ export default function HeroScene({ pointer }) {
         </group>
       </Float>
       <Rings />
-      <Sparkles count={70} scale={[6, 5, 4]} size={3} speed={0.35} color="#f0d58c" opacity={0.85} />
+      <Sparkles count={30} scale={[6, 5, 4]} size={3} speed={0.35} color="#f0d58c" opacity={0.85} />
 
-      <ContactShadows position={[0, -1.85, 0]} opacity={0.45} scale={8} blur={2.6} far={3} color="#02201f" />
 
-      <Environment resolution={256}>
+      <Environment resolution={64} frames={1}>
         <Lightformer form="rect" intensity={3} position={[0, 4, -6]} scale={[10, 3, 1]} color="#fff4dc" />
         <Lightformer form="rect" intensity={2} position={[-5, 1, 1]} rotation-y={Math.PI / 2} scale={[8, 2, 1]} color="#ffe2a8" />
         <Lightformer form="rect" intensity={2} position={[5, 1, 1]} rotation-y={-Math.PI / 2} scale={[8, 2, 1]} color="#9fd8d0" />
