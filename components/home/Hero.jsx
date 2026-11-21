@@ -44,7 +44,7 @@ export default function Hero() {
           <Logo className="absolute -bottom-16 start-[-3rem] h-[24rem] w-[19rem] text-[#fbf3e2] opacity-[0.045]" title="" />
         </div>
 
-        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-10">
+        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-14 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-20">
           {/* Copy */}
           <div className="order-2 lg:order-1">
             <p className="inline-flex items-center gap-2 rounded-full border border-[#d9b45a]/40 bg-[#d9b45a]/10 px-4 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-[#e7c877]">
@@ -61,7 +61,7 @@ export default function Hero() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.55, ease: EASE.luxe }}
                 >
-                  <h1 className="hero-title max-w-[20ch] font-display text-[clamp(2rem,3.8vw,3.2rem)] font-semibold leading-[1.1]">
+                  <h1 className="hero-title max-w-[20ch] font-display text-[clamp(2rem,3.9vw,3.5rem)] font-semibold leading-[1.1]">
                     {t(`${s.key}.title`)}
                   </h1>
                   <p className="mt-5 max-w-[44ch] text-[16px] leading-relaxed text-[#fbf3e2]/75 md:text-[17px]">
@@ -114,7 +114,7 @@ export default function Hero() {
           </div>
 
           {/* Arch-framed product image */}
-          <div className="relative order-1 mx-auto w-full max-w-[15rem] sm:max-w-[17rem] lg:order-2 lg:max-w-[18.5rem]">
+          <div className="relative order-1 mx-auto w-full max-w-[15rem] sm:max-w-[17rem] lg:order-2 lg:max-w-[25rem]">
             <div aria-hidden className="absolute -inset-3 rounded-t-full border border-[#d9b45a]/50 md:-inset-4" />
             <div aria-hidden className="absolute -inset-7 rounded-t-full border border-[#d9b45a]/15 md:-inset-9" />
             <div className="relative aspect-[5/6] overflow-hidden rounded-t-full bg-[#0a4446]">
