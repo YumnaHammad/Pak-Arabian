@@ -141,7 +141,7 @@ export default function PurchasePanel({ product }) {
       </p>
 
       {/* ── Reassurance ── */}
-      <ul className="mt-8 grid gap-4 border-t border-hairline/50 pt-7 sm:grid-cols-2">
+      <ul className="mt-8 grid grid-cols-1 gap-4 border-t border-hairline/50 pt-7 sm:grid-cols-2">
         {VALUE_PROPS.map((v) => (
           <li key={v.title} className="flex gap-2.5">
             <span aria-hidden className="mt-0.5 shrink-0 text-accent">

@@ -182,22 +182,22 @@ export default function CheckoutFlow() {
         className="mt-8 font-display text-display-sm font-normal"
       />
 
-      <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-20">
+      <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
         {/* ══════════ Form column ══════════ */}
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           {/* Progress */}
-          <ol className="flex items-center gap-3" aria-label="Checkout progress">
+          <ol className="flex items-start gap-2 sm:gap-3" aria-label="Checkout progress">
             {STEPS.map((s, i) => {
               const done = i < step;
               const current = i === step;
               return (
-                <li key={s.id} className="flex flex-1 items-center gap-3">
+                <li key={s.id} className="flex min-w-0 flex-1 items-center gap-3">
                   <button
                     onClick={() => i < step && setStep(i)}
                     disabled={i > step}
                     aria-current={current ? 'step' : undefined}
                     className={cn(
-                      'flex flex-1 flex-col gap-2.5 text-left transition-opacity',
+                      'flex min-w-0 flex-1 flex-col gap-2.5 text-start transition-opacity',
                       i > step && 'cursor-default opacity-40'
                     )}
                   >
@@ -211,7 +211,7 @@ export default function CheckoutFlow() {
                     </span>
                     <span
                       className={cn(
-                        'font-mono text-[12px] uppercase tracking-[0.07em]',
+                        'font-mono text-[11px] uppercase leading-snug tracking-[0.05em] sm:text-[12px] sm:tracking-[0.07em]',
                         current ? 'text-accent' : done ? 'text-ink-2' : 'text-ink-4'
                       )}
                     >
@@ -250,7 +250,7 @@ export default function CheckoutFlow() {
                 transition={{ duration: 0.45, ease: EASE.luxe }}
               >
                 {step === 0 && (
-                  <div className="grid gap-8 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                     <Field label="Full name" value={form.name} onChange={(v) => set('name', v)} error={errors.name} autoComplete="name" />
                     <Field label="Phone" value={form.phone} onChange={(v) => set('phone', v)} error={errors.phone} type="tel" autoComplete="tel" />
                     <div className="sm:col-span-2">
@@ -265,7 +265,7 @@ export default function CheckoutFlow() {
                     {isAuthenticated && customer?.addresses?.length > 0 && (
                       <div>
                         <p className="eyebrow-muted">Saved addresses</p>
-                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                           {customer.addresses.map((a) => (
                             <button
                               key={a._id}
@@ -377,7 +377,7 @@ export default function CheckoutFlow() {
         </div>
 
         {/* ══════════ Summary column ══════════ */}
-        <aside className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
+        <aside className="min-w-0 lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
           <div className="border border-hairline/60 bg-surface p-8">
             <p className="eyebrow-muted">Order summary</p>
 

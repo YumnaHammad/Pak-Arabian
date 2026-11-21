@@ -89,7 +89,7 @@ export default function FeaturedFragrance({ product }) {
           }}
         />
 
-        <div className="shell-wide relative grid w-full items-center gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="shell-wide relative grid grid-cols-1 w-full items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* ── Stage ── */}
           <div className="relative order-2 h-[46vh] lg:order-1 lg:h-[76vh]">
             <FlaconStage

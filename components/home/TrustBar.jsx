@@ -24,7 +24,7 @@ export default function TrustBar() {
       aria-label="Why buy from us"
       className="border-y border-hairline/60 bg-surface"
     >
-      <ul className="shell-wide grid gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:py-12">
+      <ul className="shell-wide grid grid-cols-1 gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:py-12">
         {VALUE_PROPS.map((prop, i) => (
           <motion.li
             key={prop.title}

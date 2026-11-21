@@ -10,7 +10,7 @@ export const metadata = {
 export default function NotFound() {
   return (
     <div className="shell-wide flex min-h-[86vh] items-center pb-24 pt-32">
-      <div className="grid w-full items-center gap-16 lg:grid-cols-2">
+      <div className="grid grid-cols-1 w-full items-center gap-16 lg:grid-cols-2">
         <div>
           <p className="eyebrow">Error 404</p>
 

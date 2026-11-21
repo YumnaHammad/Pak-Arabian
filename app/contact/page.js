@@ -54,7 +54,7 @@ export default function ContactPage() {
 
       {/* ══════════ The three ways to reach us ══════════ */}
       <section className="shell-wide mt-12" aria-label="Ways to contact us">
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <ContactCard
             label="WhatsApp"
             value={CONTACT.phone}
@@ -92,7 +92,7 @@ export default function ContactPage() {
 
       {/* ══════════ Visit + owner ══════════ */}
       <section className="shell-wide py-16 md:py-24" aria-labelledby="visit-heading">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <p className="eyebrow">Visit the shop</p>
             <h2
@@ -193,7 +193,7 @@ export default function ContactPage() {
         className="border-y border-hairline/60 bg-surface py-16 md:py-24"
         aria-labelledby="write-heading"
       >
-        <div className="shell-wide grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="shell-wide grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <p className="eyebrow">Send a message</p>
             <h2
@@ -216,7 +216,7 @@ export default function ContactPage() {
 
       {/* ══════════ Quick answers ══════════ */}
       <section className="shell-wide py-16 md:py-24" aria-labelledby="cq-heading">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <p className="eyebrow">Before you ask</p>
             <h2

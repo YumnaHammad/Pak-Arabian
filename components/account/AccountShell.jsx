@@ -73,7 +73,7 @@ export default function AccountShell() {
         </Cursorable>
       </div>
 
-      <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
         {/* ── Navigation ── */}
         <nav className="lg:col-span-3" aria-label="Account sections">
           <LayoutGroup id="account-tabs">

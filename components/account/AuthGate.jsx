@@ -49,7 +49,7 @@ export default function AuthGate() {
   }
 
   return (
-    <div className="shell-wide grid min-h-[70vh] items-center gap-16 pb-28 pt-32 lg:grid-cols-2 lg:gap-24 md:pt-44">
+    <div className="shell-wide grid grid-cols-1 min-h-[70vh] items-center gap-16 pb-28 pt-32 lg:grid-cols-2 lg:gap-24 md:pt-44">
       {/* ── Form ── */}
       <div className="order-2 lg:order-1">
         <Eyebrow>{isRegister ? 'Open an account' : 'Welcome back'}</Eyebrow>

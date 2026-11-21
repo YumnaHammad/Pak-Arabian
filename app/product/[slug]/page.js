@@ -197,7 +197,7 @@ export default async function ProductPage({ params }) {
       </header>
 
       {/* ── Gallery + purchase ── */}
-      <section className="shell-wide mt-16 grid gap-14 lg:grid-cols-2 lg:gap-20">
+      <section className="shell-wide mt-16 grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
         <ProductGallery product={product} />
 
         <div className="flex flex-col">
@@ -235,7 +235,7 @@ export default async function ProductPage({ params }) {
               Where these materials come from.
             </h2>
 
-            <div className="mt-14 grid gap-8 md:grid-cols-3">
+            <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-3">
               {documented.map((ing, i) => (
                 <Reveal key={ing.id} delay={i * 0.1}>
                   <article className="group relative h-full overflow-hidden border border-hairline/50 bg-elevated p-8">

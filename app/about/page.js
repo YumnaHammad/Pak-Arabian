@@ -35,7 +35,7 @@ export default function AboutPage() {
         and the headline is a sentence rather than a 13vw slogan.
       */}
       <header className="shell-wide pt-28 md:pt-36">
-        <div className="grid items-center gap-12 pb-14 lg:grid-cols-2 lg:gap-16 lg:pb-20">
+        <div className="grid grid-cols-1 items-center gap-12 pb-14 lg:grid-cols-2 lg:gap-16 lg:pb-20">
           {/* ── Words ── */}
           <div className="order-2 lg:order-1">
             <p className="eyebrow">About us</p>
@@ -117,7 +117,7 @@ export default function AboutPage() {
 
       {/* ══════════ Founder ══════════ */}
       <section className="section" aria-labelledby="founder-heading">
-        <div className="shell-wide grid gap-16 lg:grid-cols-12">
+        <div className="shell-wide grid grid-cols-1 gap-16 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Eyebrow numeral="I">The Founder</Eyebrow>
           </div>
@@ -139,7 +139,7 @@ export default function AboutPage() {
               </p>
             </blockquote>
 
-            <div className="mt-12 grid gap-10 sm:grid-cols-3">
+            <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
               {HOUSE_STORY.columns.map((col) => (
                 <Reveal key={col.heading}>
                   <p className="mb-4 h-px w-8 bg-[var(--accent)]" />
@@ -188,7 +188,7 @@ export default function AboutPage() {
           <ol className="mt-20">
             {CHRONOLOGY.map((entry, i) => (
               <Reveal key={entry.year} as="li" delay={i * 0.06}>
-                <div className="grid gap-6 border-t border-hairline/40 py-10 md:grid-cols-12 md:gap-10">
+                <div className="grid grid-cols-1 gap-6 border-t border-hairline/40 py-10 md:grid-cols-12 md:gap-10">
                   <p className="font-display text-4xl font-normal text-accent md:col-span-2 md:text-5xl">
                     {entry.year}
                   </p>
@@ -216,7 +216,7 @@ export default function AboutPage() {
             className="mt-8 font-display text-display-sm font-normal"
           />
 
-          <RevealGroup as="ul" className="mt-16 grid gap-px sm:grid-cols-2">
+          <RevealGroup as="ul" className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2">
             {VALUES.map((v, i) => (
               <RevealItem
                 as="li"
@@ -245,7 +245,7 @@ export default function AboutPage() {
             className="mt-8 font-display text-display-sm font-normal"
           />
 
-          <div className="mt-16 grid gap-px md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid grid-cols-1 gap-px md:grid-cols-2 lg:grid-cols-3">
             {CRAFT_CHAPTERS.map((chapter, i) => (
               <Reveal key={chapter.numeral} delay={(i % 3) * 0.08}>
                 <article className="h-full border border-hairline/50 p-8">

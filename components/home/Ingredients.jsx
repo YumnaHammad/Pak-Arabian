@@ -45,7 +45,7 @@ export default function Ingredients() {
         </div>
 
         {/* ── Index + display ── */}
-        <div className="mt-20 grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Index */}
           <div
             className="lg:col-span-5"

@@ -34,7 +34,7 @@ export default function ShopCategories({ covers = {}, counts = {} }) {
         </Link>
       </div>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {COLLECTION_DOORS.map((door, i) => {
           const count = counts[door.value] || 0;
           return (

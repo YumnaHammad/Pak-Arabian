@@ -50,7 +50,7 @@ export default function FaqPage() {
       </header>
 
       {/* ══════════ Groups ══════════ */}
-      <div className="shell-wide grid gap-14 py-16 lg:grid-cols-12 lg:gap-20 md:py-24">
+      <div className="shell-wide grid grid-cols-1 gap-14 py-16 lg:grid-cols-12 lg:gap-20 md:py-24">
         {/* Index */}
         <nav className="lg:col-span-3 lg:sticky lg:top-32 lg:self-start" aria-label="Question topics">
           <p className="eyebrow-muted">Topics</p>

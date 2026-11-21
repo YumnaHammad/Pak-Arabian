@@ -26,7 +26,7 @@ export default function LangSwitch({ className = '' }) {
         aria-label={t('nav.language')}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-10 items-center gap-1.5 rounded-full border border-hairline px-3 text-[13px] font-semibold transition-colors hover:border-accent"
+        className="flex h-10 items-center gap-1.5 rounded-full border border-hairline px-2.5 sm:px-3 text-[13px] font-semibold transition-colors hover:border-accent"
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
           <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" />

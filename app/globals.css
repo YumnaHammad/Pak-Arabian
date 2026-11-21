@@ -502,3 +502,20 @@ html[data-lang='ur'] h2,
 html[data-lang='ur'] h3 { line-height: 1.9; }
 html[data-lang='ur'] .hero-title { font-size: clamp(1.8rem, 3.8vw, 3.1rem); }
 html[data-lang='ur'] .uppercase { text-transform: none; }
+
+/* ── Urdu polish ── */
+html[data-lang='ur'] body { font-size: 18px; }
+html[data-lang='ur'] .font-mono,
+html[data-lang='ur'] .eyebrow-muted,
+html[data-lang='ur'] button,
+html[data-lang='ur'] input,
+html[data-lang='ur'] textarea {
+  font-family: var(--font-urdu), 'Noto Nastaliq Urdu', serif;
+  letter-spacing: 0 !important;
+}
+html[data-lang='ur'] .eyebrow,
+html[data-lang='ur'] .eyebrow-muted { font-size: 15px; line-height: 1.9; }
+html[dir='rtl'] .text-left { text-align: right; }
+html[dir='rtl'] .text-right { text-align: left; }
+/* Numbers, prices and phone numbers stay in Latin digits, left-to-right. */
+html[data-lang='ur'] .tabular-nums { font-family: var(--font-body), system-ui, sans-serif; }

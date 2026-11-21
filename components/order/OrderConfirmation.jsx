@@ -80,7 +80,7 @@ export default function OrderConfirmation({ order, isOwner, contact, assurances 
         </motion.div>
       </div>
 
-      <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-20">
+      <div className="mt-16 grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
         {/* ══════════ Left ══════════ */}
         <div className="lg:col-span-7">
           {/* Stage timeline */}

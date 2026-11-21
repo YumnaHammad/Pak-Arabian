@@ -70,7 +70,7 @@ export default function AddressesPanel() {
             className="overflow-hidden"
           >
             <div className="mb-12 border border-hairline/60 bg-surface p-8">
-              <div className="grid gap-7 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
                 <Field label="Label" value={form.label} onChange={(v) => setForm({ ...form, label: v })} placeholder="Home, Office…" />
                 <Field label="Recipient" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
                 <Field label="Phone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} type="tel" required />
@@ -100,7 +100,7 @@ export default function AddressesPanel() {
           body="Save an address and checkout fills itself in next time."
         />
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AnimatePresence initial={false}>
             {addresses.map((a) => (
               <motion.li

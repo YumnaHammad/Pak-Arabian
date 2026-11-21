@@ -35,7 +35,7 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <ol className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
+        <ol className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
           {HOW_IT_WORKS.map((item, i) => (
             <motion.li
               key={item.step}

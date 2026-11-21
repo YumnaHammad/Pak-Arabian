@@ -16,7 +16,7 @@ export default function QuickAnswers() {
   const items = [1, 2, 3, 4].map((n) => ({ q: t(`qa.${n}`), a: t(`qa.${n}.a`) }));
   return (
     <section className="shell-wide py-16 md:py-24" aria-labelledby="answers-heading">
-      <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
           <p className="eyebrow">{t('qa.kicker')}</p>
           <h2

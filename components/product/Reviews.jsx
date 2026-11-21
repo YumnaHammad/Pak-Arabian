@@ -38,7 +38,7 @@ export default function Reviews({ productId, productName }) {
 
   return (
     <section id="reviews" className="section border-t border-hairline/50" aria-labelledby="reviews-heading">
-      <div className="shell-wide grid gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="shell-wide grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
         {/* ── Summary ── */}
         <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
           <Eyebrow>Client Accounts</Eyebrow>
@@ -231,7 +231,7 @@ function ReviewForm({ productId, productName, defaultName, isAuthenticated, onDo
         </div>
       </fieldset>
 
-      <div className="mt-7 grid gap-6 sm:grid-cols-2">
+      <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {!isAuthenticated && (
           <Field
             label="Your name"

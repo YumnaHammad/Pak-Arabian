@@ -120,7 +120,7 @@ export default function Navbar() {
       >
         <nav
           aria-label="Primary"
-          className="shell-wide flex h-[76px] items-center justify-between gap-8 md:h-[92px]"
+          className="shell-wide flex h-[76px] items-center justify-between gap-3 md:h-[92px] md:gap-8"
         >
           {/* ── Wordmark ── */}
           <Cursorable variant="link">
@@ -175,9 +175,9 @@ export default function Navbar() {
               <button
                 onClick={() => setCartOpen(true)}
                 aria-label={`Open bag, ${count} item${count === 1 ? '' : 's'}`}
-                className="group relative flex h-9 items-center gap-2.5 pl-3 pr-1"
+                className="group relative flex h-9 items-center gap-2.5 ps-1 pe-1 sm:ps-3"
               >
-                <span className="font-mono text-[13px] uppercase tracking-[0.09em] text-ink-2 transition-colors group-hover:text-accent">
+                <span className="hidden font-mono text-[13px] uppercase tracking-[0.09em] text-ink-2 transition-colors group-hover:text-accent sm:inline">
                   {t('nav.bag')}
                 </span>
                 <span className="relative flex h-6 min-w-6 items-center justify-center rounded-full border border-hairline px-1.5 font-mono text-[13px] tabular-nums transition-colors group-hover:border-accent group-hover:text-accent">
