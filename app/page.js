@@ -12,7 +12,7 @@ import SignatureCollection from '@/components/home/SignatureCollection';
 import HowItWorks from '@/components/home/HowItWorks';
 import Testimonials from '@/components/home/Testimonials';
 import HouseStory from '@/components/home/HouseStory';
-import Ingredients from '@/components/home/Ingredients';
+import OurRange from '@/components/home/OurRange';
 import QuickAnswers from '@/components/home/QuickAnswers';
 
 export const dynamic = 'force-dynamic';
@@ -100,10 +100,13 @@ export default async function HomePage({ searchParams }) {
       />
 
       {/* ── 1. What this is, what it costs, how to buy ── */}
-      <Hero productCount={products.length} />
+      <Hero />
 
       {/* ── 2. Why it is safe to order ── */}
       <TrustBar />
+
+      {/* ── 2a. Everything the shop carries ── */}
+      <OurRange />
 
       {/* ── 2b. Whatever is on offer right now ── */}
       <PosterCarousel posters={posters} />
@@ -122,9 +125,6 @@ export default async function HomePage({ searchParams }) {
 
       {/* ── 7. Who we are — story comes after the sale is understood ── */}
       <HouseStory image={products.find((p) => p.images?.[0])?.images?.[0] || null} />
-
-      {/* ── 8. What goes into it ── */}
-      <Ingredients />
 
       {/* ── 9. Last objections handled ── */}
       <QuickAnswers />

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useUI } from '@/lib/store/ui';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
+import Logo from '@/components/ui/Logo';
 import { BRAND } from '@/lib/content/site';
 
 const SESSION_KEY = 'pakarabian_intro_seen';
@@ -97,7 +98,7 @@ export default function Loader() {
           exit={{ transition: { staggerChildren: 0.07 } }}
           role="status"
           aria-live="polite"
-          aria-label="Loading Pak Arabian Enterprises"
+          aria-label="Loading Pak Arabian Fragrances"
         >
           {/* Four curtain panels — they lift in sequence on exit */}
           <div className="absolute inset-0 flex">
@@ -124,10 +125,9 @@ export default function Loader() {
                 initial={{ y: '110%' }}
                 animate={{ y: '0%' }}
                 transition={{ duration: 1.1, ease: EASE.luxe, delay: 0.15 }}
-                className="whitespace-nowrap font-display text-[clamp(2.5rem,11vw,4.5rem)] font-normal tracking-tight text-cream"
+                className="text-cream"
               >
-                {BRAND.name}
-                <span className="foil align-super text-2xl">{BRAND.mark}</span>
+                <Logo className="h-40 w-32" title={BRAND.name} />
               </motion.h1>
             </div>
 

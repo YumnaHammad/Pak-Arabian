@@ -11,22 +11,21 @@
 /* ── Brand constants, identical in both moods ──
    Taken from the wordmark: deep pine-teal ground, warm cream mark. */
 :root {
-  --brand-green: #1d4a45;
-  --brand-green-deep: #143331;
-  --brand-green-light: #245751;
-  --brand-cream: #f5f1e3;
+  --brand-green: #0b4a4c;
+  --brand-green-deep: #083234;
+  --brand-green-light: #0f6266;
+  --brand-cream: #fbf3e2;
 }
 
-:root,
 [data-theme='noir'] {
   /* The wordmark's ground, carried across the whole site. */
-  --c-base: 29 74 69;
-  --c-surface: 25 64 60;
-  --c-elevated: 36 87 81;
-  --c-veil: 46 104 97;
-  --c-ink: 245 241 227;
+  --c-base: 8 50 52;
+  --c-surface: 11 60 62;
+  --c-elevated: 15 74 76;
+  --c-veil: 22 90 92;
+  --c-ink: 250 243 226;
   /* Hairlines sit between the ground and the cream so they read on both. */
-  --c-line: 66 122 115;
+  --c-line: 44 104 104;
 
   --ink-2: rgba(245, 241, 227, 0.82);
   --ink-3: rgba(245, 241, 227, 0.64);
@@ -34,11 +33,11 @@
 
   /* Brightened from #c9a227 — against the teal ground the old gold fell
      just under 4.5:1, and the eyebrow labels are small. */
-  --accent: #d4af37;
+  --accent: #d9b45a;
   --accent-soft: #e3c766;
   --accent-glow: rgba(212, 175, 55, 0.22);
 
-  --glass-bg: rgba(18, 52, 48, 0.88);
+  --glass-bg: rgba(8, 50, 52, 0.9);
   --glass-line: rgba(245, 241, 227, 0.12);
   --grain-opacity: 0.045;
   --scrim: rgba(20, 51, 49, 0.74);
@@ -46,28 +45,29 @@
   color-scheme: dark;
 }
 
+:root,
 [data-theme='ivoire'] {
   /* Plain white ground; the brand teal becomes the ink. */
-  --c-base: 255 255 255;
-  --c-surface: 250 250 249;
-  --c-elevated: 243 244 242;
-  --c-veil: 231 233 230;
-  --c-ink: 16 42 39;
-  --c-line: 209 214 211;
+  --c-base: 251 246 236;
+  --c-surface: 246 238 222;
+  --c-elevated: 239 229 207;
+  --c-veil: 228 215 188;
+  --c-ink: 9 58 59;
+  --c-line: 224 210 182;
 
-  --ink-2: rgba(16, 42, 39, 0.8);
-  --ink-3: rgba(16, 42, 39, 0.62);
-  --ink-4: rgba(16, 42, 39, 0.45);
+  --ink-2: rgba(9, 58, 59, 0.8);
+  --ink-3: rgba(9, 58, 59, 0.62);
+  --ink-4: rgba(9, 58, 59, 0.45);
 
   /* Darkened for white: #96731a sat at ~4.4:1, just short of AA. */
-  --accent: #8a6a16;
+  --accent: #94701f;
   --accent-soft: #a8831c;
   --accent-glow: rgba(138, 106, 22, 0.16);
 
-  --glass-bg: rgba(255, 255, 255, 0.93);
-  --glass-line: rgba(16, 42, 39, 0.1);
+  --glass-bg: rgba(251, 246, 236, 0.92);
+  --glass-line: rgba(9, 58, 59, 0.1);
   --grain-opacity: 0.022;
-  --scrim: rgba(16, 42, 39, 0.62);
+  --scrim: rgba(9, 58, 59, 0.62);
 
   color-scheme: light;
 }

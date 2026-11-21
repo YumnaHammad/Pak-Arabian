@@ -17,9 +17,9 @@ module.exports = {
            Straight off the wordmark. `brand` is the ground the logo sits on and
            stays constant in both moods — it is the identity, not the theme. */
         brand: {
-          DEFAULT: '#1D4A45',
-          deep: '#143331',
-          light: '#245751',
+          DEFAULT: '#0B4A4C',
+          deep: '#083234',
+          light: '#0F6266',
         },
         obsidian: '#0E2321',
         char: '#0E0E10',

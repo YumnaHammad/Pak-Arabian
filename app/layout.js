@@ -70,8 +70,8 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#1D4A45' },
-    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#083234' },
+    { media: '(prefers-color-scheme: light)', color: '#FBF6EC' },
   ],
   colorScheme: 'dark light',
 };
@@ -80,7 +80,7 @@ export const viewport = {
  * Replays the stored theme before first paint. Without this the page renders
  * in Noir for a frame before switching to Ivoire, which reads as a flash.
  */
-const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('pakarabian_theme');document.documentElement.setAttribute('data-theme',t==='ivoire'?'ivoire':'noir');}catch(e){document.documentElement.setAttribute('data-theme','noir');}})();`;
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('pakarabian_theme');document.documentElement.setAttribute('data-theme',t==='noir'?'noir':'ivoire');}catch(e){document.documentElement.setAttribute('data-theme','ivoire');}})();`;
 
 /* Organisation + storefront structured data */
 const ORG_SCHEMA = {
@@ -89,7 +89,7 @@ const ORG_SCHEMA = {
   name: BRAND.legal,
   description: BRAND.description,
   url: SITE_URL,
-  telephone: '+923101272021',
+  telephone: '+923009672021',
   email: CONTACT.email,
   founder: { '@type': 'Person', name: BRAND.owner },
   foundingDate: BRAND.founded,
@@ -109,7 +109,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      data-theme="noir"
+      data-theme="ivoire"
       className={`${display.variable} ${body.variable} ${mono.variable}`}
       suppressHydrationWarning
     >

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Logo from '@/components/ui/Logo';
 import { BRAND, CONTACT, COLLECTION_DOORS } from '@/lib/content/site';
 import { EASE, VIEWPORT } from '@/lib/motion';
 import Newsletter from './Newsletter';
@@ -49,11 +50,8 @@ export default function Footer() {
       <div className="shell-wide grid grid-cols-2 gap-x-8 gap-y-14 py-20 md:grid-cols-12 md:py-24">
         {/* ── Brand block ── */}
         <div className="col-span-2 md:col-span-4">
-          <p className="font-display text-3xl font-normal">
-            {BRAND.name}
-            <span className="text-accent align-super text-sm">{BRAND.mark}</span>
-          </p>
-          <p className="eyebrow-muted mt-2">Enterprises — Est. {BRAND.founded}</p>
+          <Logo className="h-28 w-[90px] text-ink" />
+          <p className="eyebrow-muted mt-5">Perfume &amp; Attar · Honey · Dates · Nature&rsquo;s Best</p>
           <p className="mt-6 max-w-[38ch] text-sm leading-relaxed text-ink-2">
             {BRAND.description}
           </p>

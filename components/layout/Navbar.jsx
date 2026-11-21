@@ -7,6 +7,7 @@ import { useCart } from '@/lib/cart-context';
 import { useUI } from '@/lib/store/ui';
 import { useScrollLock, useEscape } from '@/lib/hooks';
 import { EASE } from '@/lib/motion';
+import Logo from '@/components/ui/Logo';
 import { BRAND, COLLECTION_DOORS, CATEGORIES } from '@/lib/content/site';
 import ThemeToggle from './ThemeToggle';
 import Cursorable from '@/components/ui/Cursorable';
@@ -103,7 +104,7 @@ export default function Navbar() {
         animate={{ y: introComplete ? 0 : -100 }}
         transition={{ duration: 0.7, ease: EASE.luxe }}
         className={cn(
-          'fixed inset-x-0 top-0 z-[100] transition-colors duration-500',
+          'fixed inset-x-0 top-0 z-[100] text-ink transition-colors duration-500',
           /* Solid, not frosted. Product photography scrolling underneath a
              translucent header is the same bleed-through problem the filter
              bar had. */
@@ -112,6 +113,9 @@ export default function Navbar() {
             : 'border-b border-transparent bg-transparent'
         )}
         onMouseLeave={closeMega}
+        /* Over the teal hero the header borrows the dark tokens so the mark
+           and links stay cream until the page scrolls. */
+        data-theme={pathname === '/' && !scrolled && !mega ? 'noir' : undefined}
       >
         <nav
           aria-label="Primary"
@@ -120,11 +124,7 @@ export default function Navbar() {
           {/* ── Wordmark ── */}
           <Cursorable variant="link">
             <Link href="/" className="group relative shrink-0" aria-label={`${BRAND.legal} home`}>
-              <span className="font-display text-2xl font-normal tracking-tight md:text-[27px]">
-                {BRAND.name}
-                <span className="text-accent align-super text-xs">{BRAND.mark}</span>
-              </span>
-              <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-[var(--accent)] transition-transform duration-700 ease-luxe group-hover:origin-left group-hover:scale-x-100" />
+              <Logo className="h-[52px] w-[42px] transition-transform duration-500 group-hover:scale-105 md:h-[64px] md:w-[52px]" />
             </Link>
           </Cursorable>
 
@@ -405,7 +405,7 @@ function MobileMenu({ onClose, pathname }) {
           <div className="text-right">
             <p className="eyebrow-muted">Enquiries</p>
             <a
-              href="tel:+923101272021"
+              href="tel:+923009672021"
               className="mt-3 block font-mono text-sm text-ink-2 hover:text-accent"
             >
               0310-1272021

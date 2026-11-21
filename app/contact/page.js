@@ -19,7 +19,7 @@ const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Store',
   name: BRAND.legal,
-  telephone: '+923101272021',
+  telephone: '+923009672021',
   email: CONTACT.email,
   address: {
     '@type': 'PostalAddress',
@@ -181,7 +181,7 @@ export default function ContactPage() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <BoutiquePlate />
             <p className="mt-4 text-[15px] leading-relaxed text-ink-3">
-              We are on Milaad Chowk, directly beside Allied Bank in New Town.
+              We are in Qazafi Bazar, Kothi Area — opposite Masjid Khizra.
               Parking is available on the street outside.
             </p>
           </div>

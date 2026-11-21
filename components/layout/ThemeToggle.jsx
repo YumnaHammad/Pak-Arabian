@@ -12,11 +12,11 @@ const KEY = 'pakarabian_theme';
  * root layout replays it before first paint so there is never a flash.
  */
 export default function ThemeToggle({ className = '' }) {
-  const [theme, setTheme] = useState('noir');
+  const [theme, setTheme] = useState('ivoire');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const current = document.documentElement.getAttribute('data-theme') || 'noir';
+    const current = document.documentElement.getAttribute('data-theme') || 'ivoire';
     setTheme(current);
     setMounted(true);
   }, []);
