@@ -72,11 +72,11 @@ export default function ShopCategories({ covers = {}, counts = {} }) {
 
                 <div className="p-5">
                   <h3 className="font-display text-[21px] font-semibold transition-colors group-hover:text-accent">
-                    {door.label}
+                    {t(`door.${door.value}`)}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ink-3">{door.line}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-ink-3">{t(`door.${door.value}.l`)}</p>
                   <p className="mt-4 text-[14px] font-semibold text-accent">
-                    {count > 0 ? `${count} available` : 'Browse'} →
+                    {count > 0 ? `${count} ${t('cat.items')}` : t('cat.all')}
                   </p>
                 </div>
               </Link>

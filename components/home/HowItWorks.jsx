@@ -1,7 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { HOW_IT_WORKS, CONTACT } from '@/lib/content/site';
+import { CONTACT } from '@/lib/content/site';
+import { useT } from '@/lib/i18n';
+
+const HOW_IT_WORKS = [{ step: '1' }, { step: '2' }, { step: '3' }];
 import { EASE, VIEWPORT } from '@/lib/motion';
 
 /**
@@ -12,6 +15,7 @@ import { EASE, VIEWPORT } from '@/lib/motion';
  * removes the single biggest reason a first-time visitor abandons the bag.
  */
 export default function HowItWorks() {
+  const t = useT();
   return (
     <section
       className="border-y border-hairline/60 bg-surface py-16 md:py-24"
@@ -19,15 +23,15 @@ export default function HowItWorks() {
     >
       <div className="shell-wide">
         <div className="max-w-2xl">
-          <p className="eyebrow">Ordering is simple</p>
+          <p className="eyebrow">{t('how.kicker')}</p>
           <h2
             id="how-heading"
             className="mt-4 font-display text-[clamp(1.9rem,4vw,2.8rem)] font-semibold"
           >
-            How it works
+            {t('how.title')}
           </h2>
           <p className="mt-4 text-[17px] leading-relaxed text-ink-2">
-            No card, no account, no payment until the bottle is in your hand.
+            {t('how.sub')}
           </p>
         </div>
 
@@ -44,8 +48,8 @@ export default function HowItWorks() {
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent)] text-[16px] font-bold text-obsidian">
                 {item.step}
               </span>
-              <h3 className="mt-5 font-display text-[21px] font-semibold">{item.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{item.body}</p>
+              <h3 className="mt-5 font-display text-[21px] font-semibold">{t(`how.${item.step}`)}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{t(`how.${item.step}.b`)}</p>
             </motion.li>
           ))}
         </ol>
@@ -55,17 +59,17 @@ export default function HowItWorks() {
             href="/collection"
             className="flex min-h-[3.5rem] items-center justify-center bg-[var(--accent)] px-9 text-[15px] font-semibold uppercase tracking-[0.05em] text-obsidian transition-opacity hover:opacity-90"
           >
-            Start shopping
+            {t('how.start')}
           </Link>
           <p className="text-[15px] text-ink-3">
-            Questions? WhatsApp us on{' '}
+            {t('how.q')}{' '}
             <a
               href={CONTACT.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-accent hover:underline"
             >
-              {CONTACT.phone}
+              <bdi dir="ltr">{CONTACT.phone}</bdi>
             </a>
           </p>
         </div>

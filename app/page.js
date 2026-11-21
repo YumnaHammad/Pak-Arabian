@@ -10,8 +10,6 @@ import PosterCarousel from '@/components/home/PosterCarousel';
 import ShopCategories from '@/components/home/ShopCategories';
 import SignatureCollection from '@/components/home/SignatureCollection';
 import HowItWorks from '@/components/home/HowItWorks';
-import Testimonials from '@/components/home/Testimonials';
-import HouseStory from '@/components/home/HouseStory';
 import OurRange from '@/components/home/OurRange';
 import QuickAnswers from '@/components/home/QuickAnswers';
 
@@ -120,11 +118,7 @@ export default async function HomePage({ searchParams }) {
       {/* ── 5. Ordering explained end to end ── */}
       <HowItWorks />
 
-      {/* ── 6. Proof from other customers ── */}
-      <Testimonials />
 
-      {/* ── 7. Who we are — story comes after the sale is understood ── */}
-      <HouseStory image={products.find((p) => p.images?.[0])?.images?.[0] || null} />
 
       {/* ── 9. Last objections handled ── */}
       <QuickAnswers />

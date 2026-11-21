@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useT } from '@/lib/i18n';
 import ProductCard from '@/components/product/ProductCard';
 
 /**
@@ -13,22 +14,23 @@ import ProductCard from '@/components/product/ProductCard';
  * language: this is the section that has to convert, and "The pieces the house
  * is measured against" told a first-time visitor nothing about what to do next.
  */
-export default function SignatureCollection({ products = [], title = 'Best sellers', eyebrow = 'Shop now' }) {
+export default function SignatureCollection({ products = [], title, eyebrow }) {
+  const t = useT();
   if (!products.length) return null;
 
   return (
     <section id="shop" className="shell-wide py-16 md:py-24" aria-labelledby="shop-row-heading">
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-          <p className="eyebrow">{eyebrow}</p>
+          <p className="eyebrow">{eyebrow || t('best.kicker')}</p>
           <h2
             id="shop-row-heading"
             className="mt-4 font-display text-[clamp(1.9rem,4vw,2.8rem)] font-semibold"
           >
-            {title}
+            {title || t('best.title')}
           </h2>
           <p className="mt-3 text-[16px] text-ink-2">
-            Every price includes delivery quotes at checkout. Pay when it arrives.
+            {t('best.sub')}
           </p>
         </div>
 
@@ -36,7 +38,7 @@ export default function SignatureCollection({ products = [], title = 'Best selle
           href="/collection"
           className="shrink-0 text-[15px] font-semibold text-accent hover:underline"
         >
-          View all fragrances →
+          {t('cat.all')}
         </Link>
       </div>
 
@@ -51,7 +53,7 @@ export default function SignatureCollection({ products = [], title = 'Best selle
           href="/collection"
           className="flex min-h-[3.5rem] items-center justify-center border border-hairline px-10 text-[15px] font-semibold uppercase tracking-[0.05em] transition-colors hover:border-accent hover:text-accent"
         >
-          See the full collection
+          {t('best.all')}
         </Link>
       </div>
     </section>

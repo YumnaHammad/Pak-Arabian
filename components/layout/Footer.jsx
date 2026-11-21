@@ -1,172 +1,147 @@
 'use client';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import Logo from '@/components/ui/Logo';
-import { BRAND, CONTACT, COLLECTION_DOORS } from '@/lib/content/site';
-import { EASE, VIEWPORT } from '@/lib/motion';
-import Newsletter from './Newsletter';
-import Cursorable from '@/components/ui/Cursorable';
-import { usePrefersReducedMotion } from '@/lib/hooks';
+import { BRAND, CONTACT } from '@/lib/content/site';
+import { useT } from '@/lib/i18n';
 
-const COLUMNS = [
-  {
-    heading: 'The Library',
-    links: [
-      ...COLLECTION_DOORS.map((d) => ({ label: d.label, href: `/collection?category=${d.value}` })),
-      { label: 'Woody', href: '/collection?category=woody' },
-      { label: 'Floral', href: '/collection?category=floral' },
-      { label: 'View everything', href: '/collection' },
-    ],
-  },
-  {
-    heading: 'The House',
-    links: [
-      { label: 'Our story', href: '/about' },
-      { label: 'Craftsmanship', href: '/about#craft' },
-      { label: 'Ingredients', href: '/#ingredients' },
-      { label: 'Journal', href: '/about#chronology' },
-    ],
-  },
-  {
-    heading: 'Client Care',
-    links: [
-      { label: 'Contact', href: '/contact' },
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Your account', href: '/account' },
-      { label: 'Order status', href: '/account' },
-      { label: 'Shipping & returns', href: '/faq#returns' },
-    ],
-  },
+const SHOP = [
+  { k: 'r.perfumes', href: '/collection?q=perfume' },
+  { k: 'r.attars', href: '/collection?q=attar' },
+  { k: 'r.honey', href: '/collection?q=honey' },
+  { k: 'r.dates', href: '/collection?q=dates' },
+  { k: 'r.gift', href: '/collection?q=gift' },
+  { k: 'r.caps', href: '/collection?q=cap' },
+  { k: 'f.all', href: '/collection' },
 ];
 
+const HELP = [
+  { k: 'nav.about', href: '/about' },
+  { k: 'nav.contact', href: '/contact' },
+  { k: 'nav.faq', href: '/faq' },
+  { k: 'f.returns', href: '/faq#returns' },
+  { k: 'f.account', href: '/account' },
+];
+
+const SOCIAL = {
+  Facebook: 'M14 8h3V4h-3c-2.8 0-4 1.8-4 4.2V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.2-.6.6-.6z',
+  Instagram: 'M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm5.5-2.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z',
+  TikTok: 'M16 3c.4 2.4 1.9 4 4.5 4.2v3.3c-1.7 0-3.2-.5-4.5-1.4V15a6 6 0 1 1-6-6v3.4a2.6 2.6 0 1 0 2.6 2.6V3z',
+  WhatsApp: 'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.7 1c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.6-.1 1.2z',
+};
+
+/**
+ * Footer: always on the brand teal, with the mark large and centred — the
+ * same composition as the back of the business card.
+ */
 export default function Footer() {
-  const reduced = usePrefersReducedMotion();
+  const t = useT();
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`;
 
   return (
-    <footer className="relative overflow-hidden border-t border-hairline/50 bg-surface">
-      {/* Newsletter sits above the footer proper */}
-      <Newsletter />
+    <footer className="relative isolate mt-10 overflow-hidden bg-[#083234] text-[#fbf3e2]">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,#0f6266_0%,transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(#fbf3e2_1px,transparent_1px)] [background-size:20px_20px]" />
+      </div>
 
-      <div className="shell-wide grid grid-cols-2 gap-x-8 gap-y-14 py-20 md:grid-cols-12 md:py-24">
-        {/* ── Brand block ── */}
-        <div className="col-span-2 md:col-span-4">
-          <Logo className="h-28 w-[90px] text-ink" />
-          <p className="eyebrow-muted mt-5">Perfume &amp; Attar · Honey · Dates · Nature&rsquo;s Best</p>
-          <p className="mt-6 max-w-[38ch] text-sm leading-relaxed text-ink-2">
-            {BRAND.description}
-          </p>
+      {/* ── Mark ── */}
+      <div className="shell-wide flex flex-col items-center pb-14 pt-20 text-center md:pt-24">
+        <Link href="/" aria-label={BRAND.legal} className="transition-transform duration-500 hover:scale-[1.03]">
+          <Logo className="h-52 w-[168px] text-[#fbf3e2] md:h-64 md:w-[206px]" />
+        </Link>
+        <div className="mt-8 flex w-full max-w-xl items-center gap-4">
+          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#d9b45a]" />
+          <span className="h-2 w-2 rotate-45 bg-[#d9b45a]" />
+          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#d9b45a]" />
+        </div>
+        <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[#fbf3e2]/80">{t('f.tag')}</p>
 
-          <ul className="mt-8 flex flex-wrap gap-3">
-            {CONTACT.socials.map((s) => (
-              <li key={s.label}>
-                <Cursorable variant="link">
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex h-10 items-center border border-hairline px-4 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-3 transition-colors hover:border-accent hover:text-accent"
-                  >
-                    {s.label}
-                    <span className="ml-2 opacity-0 transition-opacity group-hover:opacity-100">↗</span>
-                  </a>
-                </Cursorable>
+        <ul className="mt-8 flex gap-3">
+          {CONTACT.socials.map((s) => (
+            <li key={s.label}>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#fbf3e2]/20 text-[#fbf3e2]/85 transition-all hover:-translate-y-0.5 hover:border-[#d9b45a] hover:bg-[#d9b45a] hover:text-[#083234]"
+              >
+                <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
+                  <path d={SOCIAL[s.label]} fillRule="evenodd" />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* ── Columns ── */}
+      <div className="shell-wide grid grid-cols-2 gap-x-8 gap-y-12 border-t border-[#fbf3e2]/10 py-14 lg:grid-cols-4">
+        <FooterList title={t('f.shop')} items={SHOP} t={t} />
+        <FooterList title={t('f.help')} items={HELP} t={t} />
+
+        <div className="col-span-2 sm:col-span-1">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-[#d9b45a]">{t('f.visit')}</p>
+          <address className="mt-5 text-[15px] not-italic leading-relaxed text-[#fbf3e2]/80">
+            {t('f.addr1')}
+            <br />
+            {t('f.addr2')}
+          </address>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#fbf3e2]/20 px-4 py-2 text-[14px] font-semibold transition-colors hover:border-[#d9b45a] hover:text-[#d9b45a]"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" /></svg>
+            {t('f.dir')}
+          </a>
+        </div>
+
+        <div className="col-span-2 sm:col-span-1">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-[#d9b45a]">{t('f.call')}</p>
+          <ul className="mt-5 space-y-4">
+            {CONTACT.people.map((p) => (
+              <li key={p.phone}>
+                <p className="text-[14px] text-[#fbf3e2]/65">{p.name}</p>
+                <a href={p.href} target="_blank" rel="noopener noreferrer" className="mt-0.5 inline-flex items-center gap-2 text-[17px] font-semibold tabular-nums transition-colors hover:text-[#d9b45a]" dir="ltr">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#25d366]" fill="currentColor" aria-hidden><path d={SOCIAL.WhatsApp} /></svg>
+                  {p.phone}
+                </a>
               </li>
             ))}
           </ul>
         </div>
-
-        {/* ── Link columns ── */}
-        {COLUMNS.map((col) => (
-          <nav key={col.heading} className="md:col-span-2" aria-label={col.heading}>
-            <p className="eyebrow-muted">{col.heading}</p>
-            <ul className="mt-6 space-y-3">
-              {col.links.map((link) => (
-                <li key={link.href + link.label}>
-                  <Cursorable variant="link">
-                    <Link
-                      href={link.href}
-                      className="link-draw text-sm text-ink-2 transition-colors hover:text-accent"
-                    >
-                      {link.label}
-                    </Link>
-                  </Cursorable>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
-
-        {/* ── Boutique ── */}
-        <div className="col-span-2 md:col-span-2">
-          <p className="eyebrow-muted">The Boutique</p>
-          <address className="mt-6 space-y-5 text-sm not-italic text-ink-2">
-            <div>
-              <p className="leading-relaxed">
-                {CONTACT.address.line1}
-                <br />
-                {CONTACT.address.line2}
-                <br />
-                <span className="text-ink-3">{CONTACT.address.country}</span>
-              </p>
-            </div>
-            <div>
-              <p className="mb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
-                Telephone
-              </p>
-              <a href={CONTACT.phoneHref} className="link-draw hover:text-accent">
-                {CONTACT.phone}
-              </a>
-            </div>
-            <div>
-              <p className="mb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-4">
-                Email
-              </p>
-              <a href={`mailto:${CONTACT.email}`} className="link-draw break-all hover:text-accent">
-                {CONTACT.email}
-              </a>
-            </div>
-          </address>
-        </div>
       </div>
 
-      {/* ── Oversized wordmark ── */}
-      <div className="shell-wide pb-8">
-        <motion.p
-          initial={reduced ? false : { opacity: 0, y: 40 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={VIEWPORT}
-          transition={{ duration: 1.4, ease: EASE.luxe }}
-          aria-hidden
-          /* Sized off the wordmark's length rather than a fixed vw, so a
-             two-word house name fills the measure instead of overflowing it. */
-          className="select-none whitespace-nowrap text-center font-display font-normal leading-[0.78] tracking-tighter text-ink opacity-[0.055]"
-          style={{ fontSize: `min(19vw, ${Math.floor(170 / Math.max(BRAND.name.length, 4))}vw)` }}
-        >
-          {/* Hyphenated here only — as one locked-up mark it holds together
-              better at this size than two words separated by a wide gap. */}
-          {BRAND.name.toUpperCase().replace(/\s+/g, '-')}
-        </motion.p>
-      </div>
-
-      {/* ── Legal bar ── */}
-      <div className="border-t border-hairline/50">
-        <div className="shell-wide flex flex-col gap-4 py-7 font-mono text-[13px] uppercase tracking-[0.07em] text-ink-4 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {new Date().getFullYear()} {BRAND.legal}
-          </p>
-          <div className="flex flex-wrap items-center gap-x-7 gap-y-2">
-            <Link href="/terms" className="transition-colors hover:text-accent">
-              Terms
-            </Link>
-            <Link href="/privacy" className="transition-colors hover:text-accent">
-              Privacy
-            </Link>
-            <span>
-              {BRAND.owner} — {BRAND.ownerTitle}
-            </span>
+      {/* ── Legal ── */}
+      <div className="border-t border-[#fbf3e2]/10">
+        <div className="shell-wide flex flex-col items-center justify-between gap-3 py-6 text-[13px] text-[#fbf3e2]/55 md:flex-row">
+          <p>© {new Date().getFullYear()} {BRAND.legal}. {t('f.rights')}</p>
+          <div className="flex gap-6">
+            <Link href="/terms" className="hover:text-[#d9b45a]">{t('f.terms')}</Link>
+            <Link href="/privacy" className="hover:text-[#d9b45a]">{t('f.privacy')}</Link>
+            <a href="https://www.pakarabian.pk" className="hover:text-[#d9b45a]" dir="ltr">www.pakarabian.pk</a>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterList({ title, items, t }) {
+  return (
+    <nav aria-label={title}>
+      <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-[#d9b45a]">{title}</p>
+      <ul className="mt-5 space-y-3">
+        {items.map((l) => (
+          <li key={l.href + l.k}>
+            <Link href={l.href} className="text-[15px] text-[#fbf3e2]/80 transition-colors hover:text-[#d9b45a]">
+              {t(l.k)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }

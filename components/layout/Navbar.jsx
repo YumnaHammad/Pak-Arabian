@@ -180,7 +180,7 @@ export default function Navbar() {
                 className="group relative flex h-9 items-center gap-2.5 pl-3 pr-1"
               >
                 <span className="font-mono text-[13px] uppercase tracking-[0.09em] text-ink-2 transition-colors group-hover:text-accent">
-                  Bag
+                  {t('nav.bag')}
                 </span>
                 <span className="relative flex h-6 min-w-6 items-center justify-center rounded-full border border-hairline px-1.5 font-mono text-[13px] tabular-nums transition-colors group-hover:border-accent group-hover:text-accent">
                   <AnimatePresence mode="popLayout" initial={false}>
