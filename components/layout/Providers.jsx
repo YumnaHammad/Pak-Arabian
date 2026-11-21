@@ -9,6 +9,7 @@ import Loader from './Loader';
 import PageTransition from './PageTransition';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import WhatsAppFloat from './WhatsAppFloat';
 import CartDrawer from '@/components/cart/CartDrawer';
 import SearchOverlay from './SearchOverlay';
 import { ScrollProgress } from '@/components/ui/Primitives';
@@ -44,6 +45,7 @@ export default function Providers({ children }) {
           </main>
 
           <Footer />
+          <WhatsAppFloat />
           <CartDrawer />
           <SearchOverlay />
         </CartProvider>
