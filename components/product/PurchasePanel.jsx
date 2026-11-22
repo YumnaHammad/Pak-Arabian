@@ -19,7 +19,6 @@ export default function PurchasePanel({ product }) {
   const [added, setAdded] = useState(false);
 
   const soldOut = product.stock === 0;
-  const lowStock = product.stock > 0 && product.stock <= 5;
   const max = Math.max(1, Math.min(product.stock, 10));
 
   function onAdd(openBag = false) {
@@ -52,21 +51,17 @@ export default function PurchasePanel({ product }) {
       <p
         className={cn(
           'mt-6 flex items-center gap-2.5 text-[16px] font-semibold',
-          soldOut ? 'text-ink-4' : lowStock ? 'text-accent' : 'text-emerald-light'
+          soldOut ? 'text-ink-4' : 'text-[#1f7a55]'
         )}
       >
         <span
           aria-hidden
           className={cn(
             'h-2.5 w-2.5 rounded-full',
-            soldOut ? 'bg-ink-4' : lowStock ? 'bg-[var(--accent)]' : 'bg-emerald-light'
+            soldOut ? 'bg-ink-4' : 'bg-[#22a06b]'
           )}
         />
-        {soldOut
-          ? 'Out of stock'
-          : lowStock
-          ? `Hurry — only ${product.stock} left`
-          : `In stock (${product.stock} available)`}
+        {soldOut ? 'Out of stock' : 'In stock'}
       </p>
 
       {!soldOut && (

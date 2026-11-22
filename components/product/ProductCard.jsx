@@ -25,7 +25,6 @@ export default function ProductCard({ product, index = 0, priority = false, comp
   const [added, setAdded] = useState(false);
 
   const soldOut = product.stock === 0;
-  const lowStock = product.stock > 0 && product.stock <= 5;
 
   function addToBag() {
     if (soldOut) return;
@@ -63,14 +62,14 @@ export default function ProductCard({ product, index = 0, priority = false, comp
         </div>
 
         {/* Stock badge — always visible, plain words */}
-        {(soldOut || lowStock) && (
+        {soldOut && (
           <span
             className={cn(
               'pointer-events-none absolute left-3 top-3 z-20 px-3 py-1.5 text-[13px] font-semibold',
               soldOut ? 'bg-ink text-base' : 'bg-[var(--accent)] text-obsidian'
             )}
           >
-            {soldOut ? 'Sold out' : `Only ${product.stock} left`}
+            Sold out
           </span>
         )}
 
@@ -111,17 +110,17 @@ export default function ProductCard({ product, index = 0, priority = false, comp
         <p
           className={cn(
             'mt-1.5 flex items-center gap-2 text-[14px]',
-            soldOut ? 'text-ink-4' : lowStock ? 'text-accent' : 'text-emerald-light'
+            soldOut ? 'text-ink-4' : 'text-[#1f7a55]'
           )}
         >
           <span
             aria-hidden
             className={cn(
               'h-2 w-2 rounded-full',
-              soldOut ? 'bg-ink-4' : lowStock ? 'bg-[var(--accent)]' : 'bg-emerald-light'
+              soldOut ? 'bg-ink-4' : 'bg-[#22a06b]'
             )}
           />
-          {soldOut ? 'Out of stock' : lowStock ? `Only ${product.stock} left` : 'In stock'}
+          {soldOut ? 'Out of stock' : 'In stock'}
         </p>
 
         {/* Buy — always visible, full width, real tap target */}
