@@ -44,7 +44,7 @@ export default function Hero() {
           <Logo className="absolute -bottom-16 start-[-3rem] h-[24rem] w-[19rem] text-[#fbf3e2] opacity-[0.045]" title="" />
         </div>
 
-        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-[66px]">
+        <div className="grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-10 md:px-14 md:py-10 lg:grid-cols-[1.4fr_1fr] lg:gap-6 lg:px-20 lg:py-[69.5px]">
           {/* Copy */}
           <div className="order-2 lg:order-1">
             <p className="inline-flex items-center gap-2 rounded-full border border-[#d9b45a]/40 bg-[#d9b45a]/10 px-4 py-1.5 text-[12px] font-semibold tracking-[0.12em] text-[#e7c877]">
