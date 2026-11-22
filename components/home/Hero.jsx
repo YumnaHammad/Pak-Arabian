@@ -36,7 +36,7 @@ export default function Hero() {
 
   return (
     <section className="px-3 pb-6 pt-[88px] md:px-6 md:pt-[104px]" aria-roledescription="carousel">
-      <div className="relative isolate overflow-hidden rounded-[28px] bg-[#083234] text-[#fbf3e2] md:rounded-[36px]">
+      <div className="relative isolate mx-auto max-w-[98rem] overflow-hidden rounded-[28px] bg-[#083234] text-[#fbf3e2] md:rounded-[36px]">
         {/* Ground */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(70%_90%_at_75%_50%,#0f6266_0%,#0a4446_50%,#062627_100%)]" />
